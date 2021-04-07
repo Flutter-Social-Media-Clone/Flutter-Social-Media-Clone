@@ -12,6 +12,7 @@ class SignupScreen extends StatelessWidget {
     return ViewModelBuilder<SignupViewModel>.reactive(
       viewModelBuilder: () => SignupViewModel(),
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('Flutter Demo Home Page'),
         ),
