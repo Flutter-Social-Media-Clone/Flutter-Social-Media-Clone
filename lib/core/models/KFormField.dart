@@ -32,7 +32,6 @@ class KFormFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      autofocus: true,
       cursorColor: Colors.pinkAccent,
       keyboardType: this.kFormField.keyboardType,
       obscureText: this.kFormField.obscureText,
