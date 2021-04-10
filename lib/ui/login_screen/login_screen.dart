@@ -1,4 +1,5 @@
 import 'package:cs310insta/core/models/KFormField.dart';
+import 'package:cs310insta/utils/color.dart';
 import 'package:cs310insta/utils/validators.dart' as validator;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -13,12 +14,13 @@ class LoginScreen extends StatelessWidget {
     return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         // appBar: AppBar(
         //   title: Text('Flutter Demo Home Page'),
         // ),
         body: Container(
           decoration: BoxDecoration(
-            color: Color.fromRGBO(0, 6, 146, 0.8),
+            color: appBackgroundColor,
           ),
           child: Container(
             margin: EdgeInsets.fromLTRB(0, 45, 0, 25),

@@ -5,7 +5,10 @@ ButtonStyle login_signupButtonStyle = OutlinedButton.styleFrom(
   shadowColor: Color.fromRGBO(220, 220, 220, 0.7),
   backgroundColor: Color.fromRGBO(250, 250, 250, 0.8),
   shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(45))),
+    borderRadius: BorderRadius.all(
+      Radius.circular(45),
+    ),
+  ),
 );
 TextStyle login_signupButtonTextStyle = TextStyle(
   color: Colors.black,
@@ -29,3 +32,19 @@ BoxDecoration backgroundDecoration = BoxDecoration(
   image: AssetImage("assets/images/login_background.png"),
   fit: BoxFit.fitHeight,
 ));
+
+TextStyle walkthroughScreenHeader = TextStyle(
+  fontSize: 28,
+  fontWeight: FontWeight.w600,
+  color: Colors.white,
+);
+
+TextStyle walkthroughScreenSubHeader = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.w300,
+  color: Colors.white,
+);
+
+EdgeInsets loginSignupMargin = EdgeInsets.fromLTRB(0, 45, 0, 25);
+EdgeInsets loginSignupPadding = EdgeInsets.fromLTRB(25, 105, 25, 45);
+EdgeInsets walkthroughPadding = EdgeInsets.fromLTRB(0, 20, 0, 0);

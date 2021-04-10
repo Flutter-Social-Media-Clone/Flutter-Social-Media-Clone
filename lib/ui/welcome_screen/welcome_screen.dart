@@ -1,3 +1,4 @@
+import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'welcome_viewmodel.dart';
@@ -13,11 +14,11 @@ class WelcomeScreen extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: Container(
           decoration: BoxDecoration(
-            color: Color.fromRGBO(0, 6, 146, 0.8),
+            color: appBackgroundColor,
           ),
           child: Container(
-            margin: EdgeInsets.fromLTRB(0, 45, 0, 25),
-            padding: EdgeInsets.fromLTRB(25, 105, 25, 45),
+            margin: loginSignupMargin,
+            padding: loginSignupPadding,
             decoration: backgroundDecoration,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,9 +32,9 @@ class WelcomeScreen extends StatelessWidget {
                   backgroundImage: AssetImage("assets/images/Couple2.png"),
                   radius: 140,
                 ),
-                Text(
-                  "My Welcome sub text",
-                ),
+                // Text(
+                //   "My Welcome sub text",
+                // ),
                 Row(
                   children: [
                     SizedBox(width: 16),

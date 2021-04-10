@@ -10,6 +10,7 @@ class SignupViewModel extends ChangeNotifier {
   String gender;
   String pass;
   String pass2;
+  List<String> genderList = ['Male', 'Female', 'Other'];
 
   void handleSignup() async {
     if (formKey.currentState.validate()) {
@@ -46,6 +47,11 @@ class SignupViewModel extends ChangeNotifier {
 
   void handleSaveGender(String value) {
     gender = value;
+  }
+
+  void setGender(String value) {
+    gender = value;
+    notifyListeners();
   }
 
   KFormField emailField = new KFormField(
