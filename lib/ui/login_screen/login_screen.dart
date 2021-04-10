@@ -23,8 +23,8 @@ class LoginScreen extends StatelessWidget {
             color: appBackgroundColor,
           ),
           child: Container(
-            margin: EdgeInsets.fromLTRB(0, 45, 0, 25),
-            padding: EdgeInsets.fromLTRB(25, 105, 25, 45),
+            margin: loginSignupMargin,
+            padding: loginSignupPadding,
             decoration: backgroundDecoration,
             child: Column(
               children: [
