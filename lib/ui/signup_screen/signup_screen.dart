@@ -1,4 +1,5 @@
 import 'package:cs310insta/core/models/KFormField.dart';
+import 'package:cs310insta/utils/style.dart';
 import 'package:cs310insta/utils/validators.dart' as validator;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -13,65 +14,93 @@ class SignupScreen extends StatelessWidget {
       viewModelBuilder: () => SignupViewModel(),
       builder: (context, model, child) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text('Flutter Demo Home Page'),
-        ),
+        // appBar: AppBar(
+        //   title: Text('Flutter Demo Home Page'),
+        // ),
         body: Container(
-          padding: EdgeInsets.all(25),
-          child: Column(
-            children: [
-              Form(
-                key: model.formKey,
-                child: Column(
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(0, 6, 146, 0.8),
+          ),
+          child: Container(
+            margin: EdgeInsets.fromLTRB(0, 45, 0, 25),
+            padding: EdgeInsets.fromLTRB(25, 105, 25, 45),
+            decoration: backgroundDecoration,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    KFormFieldWidget(
-                      kFormField: model.usernameField,
-                      validator: validator.usernameValidator,
-                      save: model.handleSaveUsername,
+                    Text(
+                      "Sign Up",
+                      style: headerGradient,
                     ),
-                    SizedBox(height: 10),
-                    KFormFieldWidget(
-                      kFormField: model.passwordField,
-                      validator: validator.passwordValidator,
-                      save: model.handleSavePass,
-                    ),
-                    SizedBox(height: 10),
-                    KFormFieldWidget(
-                      kFormField: model.password2Field,
-                      validator: validator.passwordValidator,
-                      save: model.handleSavePass2,
-                    ),
-                    SizedBox(height: 10),
-                    KFormFieldWidget(
-                      kFormField: model.emailField,
-                      validator: validator.emailValidator,
-                      save: model.handleSaveEmail,
-                    ),
-                    SizedBox(height: 10),
-                    KFormFieldWidget(
-                      kFormField: model.genderField,
-                      validator: validator.genderValidator,
-                      save: model.handleSaveGender,
-                    ),
-                    SizedBox(height: 10),
-                    KFormFieldWidget(
-                      kFormField: model.ageField,
-                      validator: validator.ageValidator,
-                      save: model.handleSaveAge,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        OutlinedButton(
-                          onPressed: model.handleSignup,
-                          child: Text("Signup"),
-                        ),
-                      ],
-                    )
                   ],
                 ),
-              ),
-            ],
+                SizedBox(height: 15),
+                Form(
+                  key: model.formKey,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.white38,
+                            backgroundImage:
+                                AssetImage("assets/images/Couple2.png"),
+                            radius: 40,
+                          ),
+                        ],
+                      ),
+                      KFormFieldWidget(
+                        kFormField: model.usernameField,
+                        validator: validator.usernameValidator,
+                        save: model.handleSaveUsername,
+                      ),
+                      SizedBox(height: 10),
+                      KFormFieldWidget(
+                        kFormField: model.passwordField,
+                        validator: validator.passwordValidator,
+                        save: model.handleSavePass,
+                      ),
+                      SizedBox(height: 10),
+                      KFormFieldWidget(
+                        kFormField: model.password2Field,
+                        validator: validator.passwordValidator,
+                        save: model.handleSavePass2,
+                      ),
+                      SizedBox(height: 10),
+                      KFormFieldWidget(
+                        kFormField: model.emailField,
+                        validator: validator.emailValidator,
+                        save: model.handleSaveEmail,
+                      ),
+                      SizedBox(height: 10),
+                      KFormFieldWidget(
+                        kFormField: model.genderField,
+                        validator: validator.genderValidator,
+                        save: model.handleSaveGender,
+                      ),
+                      SizedBox(height: 10),
+                      KFormFieldWidget(
+                        kFormField: model.ageField,
+                        validator: validator.ageValidator,
+                        save: model.handleSaveAge,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          OutlinedButton(
+                            onPressed: model.handleSignup,
+                            child: Text("Signup"),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
