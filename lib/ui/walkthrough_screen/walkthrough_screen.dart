@@ -22,108 +22,131 @@ class WalkthroughScreen extends StatelessWidget {
         // ),
         body: Builder(
           builder: (context) {
-            final double height = MediaQuery.of(context).size.height - 180;
+            final double height = model.getHeight(context) - 28;
+
             return Container(
               decoration: BoxDecoration(
                 color: appBackgroundColor,
+                image: DecorationImage(
+                  image: AssetImage("assets/images/login_background.png"),
+                  fit: BoxFit.fitHeight,
+                ),
               ),
-              child: Container(
-                margin: loginSignupMargin,
-                padding: walkthroughPadding,
-                decoration: backgroundDecoration,
-                child: Column(
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                          height: height,
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: false,
-                          enableInfiniteScroll: false,
-                          onPageChanged: (index, reason) {
-                            model.setCurrent(index);
-                          }
-                          // autoPlay: false,
-                          ),
-                      items: model.imgList
-                          .map(
-                            (item) => Container(
-                              margin: EdgeInsets.fromLTRB(0, 40, 0, 80),
-                              child: Center(
-                                // child: Text(item)
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                      child: Container(
-                                        height: 150,
-                                        width: 150,
-                                        child: Image.asset(
-                                          item,
-                                          fit: BoxFit.cover,
-                                          height: height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CarouselSlider(
+                    options: CarouselOptions(
+                        height: height,
+                        viewportFraction: 1.0,
+                        enlargeCenterPage: false,
+                        enableInfiniteScroll: false,
+                        onPageChanged: (index, reason) {
+                          model.setCurrent(index);
+                        }
+                        // autoPlay: false,
+                        ),
+                    items: model.imgList
+                        .map(
+                          (item) => Container(
+                            //margin: EdgeInsets.fromLTRB(0, 40, 0, 80),
+                            child: Column(
+                              //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(height: 1),
+                                ),
+                                Expanded(
+                                  flex: 5,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            child: Container(
+                                              height: 200,
+                                              width: 200,
+                                              child: Image.asset(
+                                                item,
+                                                fit: BoxFit.cover,
+                                                height: height,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        model.headerList[model.current],
+                                        style: walkthroughScreenHeader,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 50,
+                                        ),
+                                        child: Text(
+                                          model.subheaderList[model.current],
+                                          textAlign: TextAlign.center,
+                                          style: walkthroughScreenSubHeader,
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      model.headerList[model.current],
-                                      style: walkthroughScreenHeader,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(50, 0, 50, 0),
-                                      child: Text(
-                                        model.subheaderList[model.current],
-                                        style: walkthroughScreenSubHeader,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          model.current == model.page_count - 1
+                                              ? OutlinedButton(
+                                                  onPressed: () {
+                                                    model.setSeenTrue();
+                                                    Navigator
+                                                        .restorablePopAndPushNamed(
+                                                            context,
+                                                            "/welcome");
+                                                  },
+                                                  child: Text(
+                                                    "Get Started",
+                                                    style:
+                                                        login_signupButtonTextStyle,
+                                                  ),
+                                                  style:
+                                                      login_signupButtonStyle,
+                                                )
+                                              : SizedBox(height: 48)
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                          )
-                          .toList(),
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      model.current == model.page_count - 1
-                          ? OutlinedButton(
-                              onPressed: () {
-                                model.setSeenTrue();
-                                // Navigator.restorablePopAndPushNamed(
-                                //     context, "/");
-                                Navigator.popUntil(
-                                    context, ModalRoute.withName('/'));
-                              },
-                              child: Text(
-                                "Get Started",
-                                style: login_signupButtonTextStyle,
-                              ),
-                              style: login_signupButtonStyle,
-                            )
-                          : SizedBox(height: 48)
-                    ]),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: model.imgList.map((url) {
-                        int index = model.imgList.indexOf(url);
-                        return Container(
-                          width: 8.0,
-                          height: 8.0,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 2.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: model.current == index
-                                ? Color.fromRGBO(255, 255, 255, 1)
-                                : Color.fromRGBO(255, 255, 255, 0.5),
                           ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
+                        )
+                        .toList(),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: model.imgList.map((url) {
+                      int index = model.imgList.indexOf(url);
+                      return Container(
+                        width: 8.0,
+                        height: 8.0,
+                        margin: EdgeInsets.fromLTRB(2, 0, 2, 20),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: model.current == index
+                              ? Color.fromRGBO(255, 255, 255, 1)
+                              : Color.fromRGBO(255, 255, 255, 0.5),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
             );
           },

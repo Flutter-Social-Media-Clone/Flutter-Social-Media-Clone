@@ -23,24 +23,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: checkFirstSeen(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            print("SNAP ${snapshot.data}");
-            return MaterialApp(
-              initialRoute: snapshot.data ? "/" : "/walkthrough",
-              routes: {
-                "/": (context) => WelcomeScreen(),
-                "/walkthrough": (context) => WalkthroughScreen(),
-                "/login": (context) => LoginScreen(),
-                "/signup": (context) => SignupScreen(),
-              },
-            );
-          }
-        });
+      future: checkFirstSeen(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          print("SNAP ${snapshot.data}");
+          return MaterialApp(
+            initialRoute: snapshot.data ? "/welcome" : "/walkthrough",
+            routes: {
+              "/walkthrough": (context) => WalkthroughScreen(),
+              "/welcome": (context) => WelcomeScreen(),
+              "/login": (context) => LoginScreen(),
+              "/signup": (context) => SignupScreen(),
+            },
+          );
+        }
+      },
+    );
   }
 }

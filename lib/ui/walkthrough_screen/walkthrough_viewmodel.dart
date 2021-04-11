@@ -48,9 +48,13 @@ class WalkthroughViewModel extends ChangeNotifier {
     notifyListeners(); // <-- notify listeners
   }
 
+  double getHeight(context) {
+    return MediaQuery.of(context).size.height;
+  }
+
   void setSeenTrue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('seen', true);
+    await prefs.setBool('seen', false);
     notifyListeners();
   }
 }
