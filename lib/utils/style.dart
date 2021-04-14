@@ -48,3 +48,15 @@ TextStyle walkthroughScreenSubHeader = TextStyle(
 EdgeInsets loginSignupMargin = EdgeInsets.fromLTRB(0, 45, 0, 25);
 EdgeInsets loginSignupPadding = EdgeInsets.fromLTRB(25, 105, 25, 45);
 EdgeInsets walkthroughPadding = EdgeInsets.fromLTRB(0, 20, 0, 0);
+
+TextStyle notificationDateText = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w400,
+  color: Color.fromRGBO(165, 165, 165, 1.0),
+);
+
+TextStyle notificationMessageText = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w600,
+  color: Color.fromRGBO(40, 40, 40, 1.0),
+);

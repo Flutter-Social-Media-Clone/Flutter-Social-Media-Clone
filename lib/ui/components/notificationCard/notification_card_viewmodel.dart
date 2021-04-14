@@ -2,19 +2,14 @@ import 'package:cs310insta/core/models/KFormField.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class NotificationViewModel extends ChangeNotifier {
-  int selectedIndex = 0;
-
-  void onItemTapped(int index) {
-    selectedIndex = index;
-    notifyListeners(); // <-- notify listeners
-  }
-
-  var refreshkey = GlobalKey<RefreshIndicatorState>();
-  var list;
-  var random;
-
+class NotificationCardViewModel extends ChangeNotifier {
   int _counter = 0;
+  // int selectedIndex = 0;
+
+  // void onItemTapped(int index) {
+  //   selectedIndex = index;
+  //   notifyListeners(); // <-- notify listeners
+  // }
 
   int get counter => _counter;
 
