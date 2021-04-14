@@ -1,5 +1,6 @@
 import 'package:cs310insta/ui/counter_screen/counter_screen.dart';
 import 'package:cs310insta/ui/login_screen/login_screen.dart';
+import 'package:cs310insta/ui/main_app_screen/main_app_screen.dart';
 import 'package:cs310insta/ui/signup_screen/signup_screen.dart';
 import 'package:cs310insta/ui/walkthrough_screen/walkthrough_screen.dart';
 import 'package:cs310insta/ui/welcome_screen/welcome_screen.dart';
@@ -32,12 +33,14 @@ class MyApp extends StatelessWidget {
         } else {
           print("SNAP ${snapshot.data}");
           return MaterialApp(
-            initialRoute: snapshot.data ? "/welcome" : "/walkthrough",
+            initialRoute:
+                "/notification", //snapshot.data ? "/welcome" : "/walkthrough",
             routes: {
               "/walkthrough": (context) => WalkthroughScreen(),
               "/welcome": (context) => WelcomeScreen(),
               "/login": (context) => LoginScreen(),
               "/signup": (context) => SignupScreen(),
+              "/notification": (context) => MainAppScreen(),
             },
           );
         }

@@ -9,12 +9,13 @@ class LoginViewModel extends ChangeNotifier {
   String email;
   String pass;
 
-  void handleLogin() async {
+  void handleLogin(context) async {
     if (formKey.currentState.validate()) {
       print("Handle login tapped!");
       formKey.currentState.save();
       print(email);
       print(pass);
+      Navigator.pushNamed(context, "/notification");
     }
   }
 

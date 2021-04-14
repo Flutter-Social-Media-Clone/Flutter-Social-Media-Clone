@@ -58,7 +58,9 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           OutlinedButton(
-                            onPressed: model.handleLogin,
+                            onPressed: () {
+                              model.handleLogin(context);
+                            },
                             child: Text(
                               "Login",
                               style: login_signupButtonTextStyle,
