@@ -15,6 +15,12 @@ TextStyle login_signupButtonTextStyle = TextStyle(
   fontSize: 18,
 );
 
+TextStyle searchResultTextStyle = TextStyle(
+  fontSize: 18,
+  color: Colors.black,
+  fontWeight: FontWeight.w600,
+);
+
 TextStyle headerGradient = TextStyle(
   fontSize: 64,
   fontWeight: FontWeight.w400,

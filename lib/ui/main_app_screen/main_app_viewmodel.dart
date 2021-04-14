@@ -1,36 +1,77 @@
-import 'package:cs310insta/core/models/KFormField.dart';
+import 'package:cs310insta/core/models/searchResultBase.dart';
+import 'package:cs310insta/ui/search_screen/search_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MainAppViewModel extends ChangeNotifier {
-  int selectedIndex = 0;
+  List<SearchResultBase> peoples = [];
+  List<SearchResultBase> locations = [];
+  List<SearchResultBase> topics = [];
+  MainAppViewModel() {
+    peoples = [
+      PeopleSearchResult(
+        text: "deneme",
+        image: NetworkImage(
+          "https://randomuser.me/api/portraits/women/3.jpg",
+        ),
+      ),
+      PeopleSearchResult(
+        text: "deneme",
+        image: NetworkImage(
+          "https://randomuser.me/api/portraits/women/3.jpg",
+        ),
+      ),
+      PeopleSearchResult(
+        text: "deneme",
+        image: NetworkImage(
+          "https://randomuser.me/api/portraits/women/3.jpg",
+        ),
+      ),
+    ];
 
-  int getSelectedIndex() {
-    return selectedIndex;
+    topics = [
+      TopicSearchResult(
+        text: "deneme",
+      ),
+      TopicSearchResult(
+        text: "deneme",
+      ),
+      TopicSearchResult(
+        text: "deneme",
+      )
+    ];
+    locations = [
+      LocationSearchResult(
+        text: "deneme",
+      ),
+      LocationSearchResult(
+        text: "deneme",
+      ),
+      LocationSearchResult(
+        text: "deneme",
+      ),
+    ];
+
+    notifyListeners();
   }
 
+  int _selectedIndex = 0;
+
+  int get selectedIndex => _selectedIndex;
+
+  // int getSelectedIndex2() {
+  //   print("called 2 ==> $selectedIndex");
+  //   return selectedIndex;
+  // }
+
   void onItemTapped(int index) {
-    selectedIndex = index;
+    _selectedIndex = index;
     notifyListeners(); // <-- notify listeners
   }
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  List<Widget> widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
+  //Widget get pageWidget => _widgetOptions.elementAt(_selectedIndex);
 
   int _counter = 0;
 
