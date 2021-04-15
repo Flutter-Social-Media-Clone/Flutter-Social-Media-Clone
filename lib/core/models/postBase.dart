@@ -109,9 +109,10 @@ class Posts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: this.items,
-      shrinkWrap: true,
+    return Expanded(
+      child: ListView(
+        children: this.items,
+      ),
     );
     //  return ListView(
     //   // padding: const EdgeInsets.all(8),
