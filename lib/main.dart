@@ -6,6 +6,7 @@ import 'package:cs310insta/ui/walkthrough_screen/walkthrough_screen.dart';
 import 'package:cs310insta/ui/welcome_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cs310insta/core/models/search_bar.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,13 +35,14 @@ class MyApp extends StatelessWidget {
           print("SNAP ${snapshot.data}");
           return MaterialApp(
             initialRoute:
-                "/notification", //snapshot.data ? "/welcome" : "/walkthrough",
+                "/search", //snapshot.data ? "/welcome" : "/walkthrough",
             routes: {
               "/walkthrough": (context) => WalkthroughScreen(),
               "/welcome": (context) => WelcomeScreen(),
               "/login": (context) => LoginScreen(),
               "/signup": (context) => SignupScreen(),
               "/notification": (context) => MainAppScreen(),
+              "/search": (context) => SearchBar(),
             },
           );
         }
