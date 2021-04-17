@@ -23,6 +23,30 @@ class MainAppScreen extends StatelessWidget {
         backgroundColor: feedBackgroundColor,
         resizeToAvoidBottomInset: false,
         appBar: [
+          // AppBar(
+          //   // leading: Icon(Icons.arrow_back_outlined),
+          //   toolbarHeight: 76, // default is 56
+          //   //toolbarOpacity: 1,
+          //   shape:
+          //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          //   title: Text('Search'),
+          //   bottom: PreferredSize(
+          //     preferredSize: Size(100, 100),
+          //     child: TextField(
+          //       decoration: InputDecoration(
+          //         hintText: 'Search ',
+          //         hintStyle: TextStyle(
+          //           fontSize: 14,
+          //         ),
+          //       ),
+          //       onChanged: (text) {
+          //         text = text.toLowerCase();
+          //       },
+          //     ),
+          //   ),
+          // ),
+          //
+          //
           AppBar(
             // leading: Icon(Icons.arrow_back_outlined),
             toolbarHeight: 76, // default is 56

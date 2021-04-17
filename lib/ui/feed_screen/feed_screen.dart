@@ -24,6 +24,18 @@ class ImagePostList extends StatelessWidget {
             "https://randomuser.me/api/portraits/women/3.jpg",
           ),
         ),
+        TextPost(
+            username: "Gokberk",
+            profileImage: NetworkImage(
+              "https://randomuser.me/api/portraits/women/4.jpg",
+            ),
+            text: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
+        TextPost(
+            username: "Gokberk",
+            profileImage: NetworkImage(
+              "https://randomuser.me/api/portraits/women/4.jpg",
+            ),
+            text: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
         ImagePost(
           username: "Gokberk",
           image: NetworkImage(
