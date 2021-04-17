@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cs310insta/core/models/search_bar.dart';
 import 'package:cs310insta/core/models/profile_bar.dart';
+import 'package:cs310insta/core/models/thirdpartyprofile_bar.dart';
+import 'package:cs310insta/core/models/hiddenprofile.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
           print("SNAP ${snapshot.data}");
           return MaterialApp(
             initialRoute:
-                "/profile", //snapshot.data ? "/welcome" : "/walkthrough",
+                "/hiddenprofile", //snapshot.data ? "/welcome" : "/walkthrough",
             routes: {
               "/walkthrough": (context) => WalkthroughScreen(),
               "/welcome": (context) => WelcomeScreen(),
@@ -45,6 +47,8 @@ class MyApp extends StatelessWidget {
               "/notification": (context) => MainAppScreen(),
               "/search": (context) => SearchBar(),
               "/profile": (context) => ProfileApp(),
+              "/thirdpartyprofile": (context) => ThirdPartyProfileApp(),
+              "/hiddenprofile": (context) => HiddenProfileApp(),
             },
           );
         }

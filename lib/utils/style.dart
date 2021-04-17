@@ -30,6 +30,21 @@ TextStyle profile_ButtonTextStyle = TextStyle(
   fontSize: 14,
 );
 
+ButtonStyle hiddenprofile_ButtonStyle = OutlinedButton.styleFrom(
+  elevation: 10,
+  shadowColor: Color.fromRGBO(220, 220, 220, 0.7),
+  backgroundColor: Color.fromRGBO(250, 250, 250, 0.8),
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(20),
+    ),
+  ),
+);
+TextStyle hiddenprofile_ButtonTextStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 20,
+);
+
 
 
 
