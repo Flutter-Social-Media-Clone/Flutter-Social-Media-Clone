@@ -183,9 +183,12 @@ class MainAppScreen extends StatelessWidget {
                               InkWell(
                                 onTap: () =>
                                     {_scaffoldKey.currentState.openEndDrawer()},
-                                child: Icon(Icons.dehaze),
+                                child: Icon(
+                                  Icons.dehaze,
+                                  size: 40,
+                                ),
                               ),
-                              SizedBox(height: 80)
+                              SizedBox(height: 60)
                             ],
                           ),
                         )

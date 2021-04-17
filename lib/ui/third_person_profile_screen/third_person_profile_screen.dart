@@ -31,7 +31,11 @@ class ThirdPersonProfileScreen extends StatelessWidget {
           child: ThirdPersonAppBar(),
         ),
         body: Center(
-          child: ThirdPersonBody(),
+          child: Column(
+            children: [
+              ThirdPersonBody(),
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:cs310insta/ui/counter_screen/counter_screen.dart';
+import 'package:cs310insta/ui/edit_profile_screen/edit_profile_screen.dart';
 import 'package:cs310insta/ui/hidden_screen/hidden_screen.dart';
 import 'package:cs310insta/ui/login_screen/login_screen.dart';
 import 'package:cs310insta/ui/main_app_screen/main_app_screen.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
               "/mainapp": (context) => MainAppScreen(),
               "/thirdPersonProfile": (context) => ThirdPersonProfileScreen(),
               "/hiddenProfile": (context) => HiddenProfile(),
+              "/editProfile": (context) => EditProfilePage(),
             },
           );
         }

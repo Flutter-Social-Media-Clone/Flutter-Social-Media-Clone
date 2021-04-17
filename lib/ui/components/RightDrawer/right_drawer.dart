@@ -8,12 +8,14 @@ import 'right_drawer_viewmodel.dart';
 class ProfileDrawerItem extends StatelessWidget {
   final IconData icon;
   final String text;
-  ProfileDrawerItem({this.icon, this.text});
+  final String toUrl;
+  ProfileDrawerItem({this.icon, this.text, this.toUrl});
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         print("tapped ${this.text}");
+        Navigator.pushNamed(context, "${this.toUrl}");
       },
       child: Row(
         children: [
@@ -35,13 +37,17 @@ class ProfileDrawerItem extends StatelessWidget {
 }
 
 List<DrawerItemModel> elementsList = [
-  DrawerItemModel(icon: Icons.camera_alt, text: "Change profile photo"),
-  DrawerItemModel(icon: Icons.visibility_off, text: "Profile visibility"),
-  DrawerItemModel(icon: Icons.verified_user, text: "Change password"),
-  DrawerItemModel(icon: Icons.pause, text: "Deactivate account"),
-  DrawerItemModel(icon: Icons.delete_sweep, text: "Delete account"),
-  DrawerItemModel(icon: Icons.exit_to_app, text: "Logout"),
-  DrawerItemModel(icon: Icons.edit, text: "Edit profile"),
+  DrawerItemModel(
+      icon: Icons.camera_alt, text: "Change profile photo", toURL: ""),
+  DrawerItemModel(
+      icon: Icons.visibility_off, text: "Profile visibility", toURL: ""),
+  DrawerItemModel(
+      icon: Icons.verified_user, text: "Change password", toURL: ""),
+  DrawerItemModel(icon: Icons.pause, text: "Deactivate account", toURL: ""),
+  DrawerItemModel(icon: Icons.delete_sweep, text: "Delete account", toURL: ""),
+  DrawerItemModel(icon: Icons.exit_to_app, text: "Logout", toURL: ""),
+  DrawerItemModel(
+      icon: Icons.edit, text: "Edit profile", toURL: "/editProfile"),
 ];
 
 class RightDrawer extends StatelessWidget {
@@ -55,8 +61,13 @@ class RightDrawer extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: elementsList
-                .map((elementsSingle) => ProfileDrawerItem(
-                    icon: elementsSingle.icon, text: elementsSingle.text))
+                .map(
+                  (elementsSingle) => ProfileDrawerItem(
+                    icon: elementsSingle.icon,
+                    text: elementsSingle.text,
+                    toUrl: elementsSingle.toURL,
+                  ),
+                )
                 .toList(),
           ),
         ),

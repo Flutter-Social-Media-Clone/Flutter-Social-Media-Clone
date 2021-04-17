@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class DrawerItemModel {
   IconData icon;
   String text;
+  String toURL;
 
-  DrawerItemModel({this.icon, this.text});
+  DrawerItemModel({this.icon, this.text, this.toURL});
 }
 
 class RightDrawerViewModel extends ChangeNotifier {
