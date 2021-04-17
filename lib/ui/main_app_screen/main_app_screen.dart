@@ -1,6 +1,7 @@
 import 'package:cs310insta/core/models/bottom_bar.dart';
 import 'package:cs310insta/core/models/searchResultBase.dart';
 import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
+import 'package:cs310insta/ui/my_profile_screen/my_profile_screen.dart';
 import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
 import 'package:cs310insta/ui/search_screen/search_screen.dart';
 import 'package:cs310insta/utils/color.dart';
@@ -23,6 +24,34 @@ class MainAppScreen extends StatelessWidget {
         backgroundColor: feedBackgroundColor,
         resizeToAvoidBottomInset: false,
         appBar: [
+          AppBar(
+            // leading: Icon(Icons.arrow_back_outlined),
+            toolbarHeight: 120, // default is 56
+            //toolbarOpacity: 1,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            title: Text('Search'),
+            bottom: PreferredSize(
+              preferredSize: Size(100, 140),
+              child: Container(
+                margin: EdgeInsets.all(20),
+                child: TextField(
+                  cursorColor: Colors.pinkAccent,
+                  decoration: InputDecoration(
+                    hintText: 'Search ',
+                    hintStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                  onChanged: (text) {
+                    text = text.toLowerCase();
+                  },
+                ),
+              ),
+            ),
+          ),
+
           // AppBar(
           //   // leading: Icon(Icons.arrow_back_outlined),
           //   toolbarHeight: 76, // default is 56
@@ -30,31 +59,7 @@ class MainAppScreen extends StatelessWidget {
           //   shape:
           //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           //   title: Text('Search'),
-          //   bottom: PreferredSize(
-          //     preferredSize: Size(100, 100),
-          //     child: TextField(
-          //       decoration: InputDecoration(
-          //         hintText: 'Search ',
-          //         hintStyle: TextStyle(
-          //           fontSize: 14,
-          //         ),
-          //       ),
-          //       onChanged: (text) {
-          //         text = text.toLowerCase();
-          //       },
-          //     ),
-          //   ),
           // ),
-          //
-          //
-          AppBar(
-            // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 76, // default is 56
-            //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Search'),
-          ),
           AppBar(
             // leading: Icon(Icons.arrow_back_outlined),
             toolbarHeight: 76, // default is 56
@@ -81,11 +86,15 @@ class MainAppScreen extends StatelessWidget {
           ),
           AppBar(
             // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 76, // default is 56
+            toolbarHeight: 310, // default is 56
             //toolbarOpacity: 1,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             title: Text('Profile'),
+            bottom: PreferredSize(
+              preferredSize: Size(100, 100),
+              child: MyProfileAppBar(),
+            ),
           ),
         ].elementAt(model.selectedIndex),
         body: Center(
@@ -99,10 +108,7 @@ class MainAppScreen extends StatelessWidget {
                 ImagePostList(),
                 SearchResult(model.locations),
                 NotificationScreen(),
-                Text(
-                  'Index 3: message',
-                  style: model.optionStyle,
-                ),
+                MyProfileBody(),
               ].elementAt(model.selectedIndex),
             ],
           ),

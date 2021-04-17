@@ -13,17 +13,6 @@ class WrapSearch extends StatelessWidget {
       builder: (context, model, child) => Expanded(
         child: Column(
           children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search ',
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-              onChanged: (text) {
-                text = text.toLowerCase();
-              },
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -59,7 +48,9 @@ class WrapSearch extends StatelessWidget {
                 ),
               ],
             ),
-            SearchResult(model.getContent()),
+            SearchResult(
+              model.getContent(),
+            ),
           ],
         ),
       ),
