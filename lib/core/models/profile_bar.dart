@@ -9,9 +9,14 @@ class ProfileApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
+              //shape: BoxShape.circle,
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.bottomCenter,
@@ -19,6 +24,7 @@ class ProfileApp extends StatelessWidget {
               )
             ),           
             child: Container(
+
               width: double.infinity,
               height: 310.0,
               child: Center(

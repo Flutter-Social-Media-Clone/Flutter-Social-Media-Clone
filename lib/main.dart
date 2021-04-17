@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           print("SNAP ${snapshot.data}");
           return MaterialApp(
             initialRoute:
-                "/search", //snapshot.data ? "/welcome" : "/walkthrough",
+                "/profile", //snapshot.data ? "/welcome" : "/walkthrough",
             routes: {
               "/walkthrough": (context) => WalkthroughScreen(),
               "/welcome": (context) => WelcomeScreen(),
