@@ -36,6 +36,7 @@ class _SearchBar extends State<SearchBar> {
             leading: Icon(Icons.arrow_back_outlined ),
             toolbarHeight: 66, // default is 56
               //toolbarOpacity: 1,
+            backgroundColor: bottomNavBackgroundColor,
             shape:
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             title: Text('Search'),       

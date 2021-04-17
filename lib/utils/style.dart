@@ -15,6 +15,26 @@ TextStyle login_signupButtonTextStyle = TextStyle(
   fontSize: 18,
 );
 
+ButtonStyle profile_ButtonStyle = OutlinedButton.styleFrom(
+  elevation: 10,
+  shadowColor: Color.fromRGBO(220, 220, 220, 0.7),
+  backgroundColor: Color.fromRGBO(250, 250, 250, 0.8),
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(10),
+    ),
+  ),
+);
+TextStyle profile_ButtonTextStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 14,
+);
+
+
+
+
+
+
 TextStyle searchResultTextStyle = TextStyle(
   fontSize: 18,
   color: Colors.black,
