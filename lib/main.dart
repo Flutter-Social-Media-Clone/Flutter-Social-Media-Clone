@@ -2,6 +2,7 @@ import 'package:cs310insta/ui/counter_screen/counter_screen.dart';
 import 'package:cs310insta/ui/login_screen/login_screen.dart';
 import 'package:cs310insta/ui/main_app_screen/main_app_screen.dart';
 import 'package:cs310insta/ui/signup_screen/signup_screen.dart';
+import 'package:cs310insta/ui/third_person_profile_screen/third_person_profile_screen.dart';
 import 'package:cs310insta/ui/walkthrough_screen/walkthrough_screen.dart';
 import 'package:cs310insta/ui/welcome_screen/welcome_screen.dart';
 import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
               "/signup": (context) => SignupScreen(),
               "/notification": (context) => NotificationScreen(),
               "/mainapp": (context) => MainAppScreen(),
+              "/thirdPersonProfile": (context) => ThirdPersonProfileScreen(),
             },
           );
         }

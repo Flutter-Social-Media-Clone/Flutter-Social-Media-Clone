@@ -67,7 +67,7 @@ TextStyle notificationMessageText = TextStyle(
   color: Color.fromRGBO(40, 40, 40, 1.0),
 );
 
-ButtonStyle profile_ButtonStyle = OutlinedButton.styleFrom(
+ButtonStyle profileButtonStyle = OutlinedButton.styleFrom(
   elevation: 10,
   shadowColor: Color.fromRGBO(220, 220, 220, 0.7),
   backgroundColor: Color.fromRGBO(250, 250, 250, 0.8),
@@ -77,7 +77,7 @@ ButtonStyle profile_ButtonStyle = OutlinedButton.styleFrom(
     ),
   ),
 );
-TextStyle profile_ButtonTextStyle = TextStyle(
+TextStyle profileButtonTextStyle = TextStyle(
   color: Colors.black,
   fontSize: 14,
 );

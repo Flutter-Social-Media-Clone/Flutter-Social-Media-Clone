@@ -84,17 +84,10 @@ class MainAppScreen extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             title: Text('Notifications'),
           ),
-          AppBar(
-            // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 310, // default is 56
-            //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Profile'),
-            bottom: PreferredSize(
-              preferredSize: Size(100, 100),
-              child: MyProfileAppBar(),
-            ),
+
+          PreferredSize(
+            preferredSize: Size(100, 280),
+            child: MyProfileAppBar(),
           ),
         ].elementAt(model.selectedIndex),
         body: Center(

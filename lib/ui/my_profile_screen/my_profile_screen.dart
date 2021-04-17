@@ -14,13 +14,17 @@ class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
+                //shape: BoxShape.circle,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30)),
                 gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                  Color.fromRGBO(18, 52, 86, 1.0),
-                  Color.fromRGBO(18, 52, 86, 1.0),
-                ])),
+                      Color.fromRGBO(18, 52, 86, 1.0),
+                      Color.fromRGBO(18, 52, 86, 1.0),
+                    ])),
             child: Container(
               width: double.infinity,
               height: 310.0,
@@ -31,20 +35,21 @@ class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
                       height: 34.0,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
                           children: [
                             OutlinedButton(
                                 child: Text(
                                   "Subscription",
-                                  style: profile_ButtonTextStyle,
+                                  style: profileButtonTextStyle,
                                 ),
-                                style: profile_ButtonStyle,
+                                style: profileButtonStyle,
                                 onPressed: () {}),
                           ],
                         ),
                         SizedBox(
-                          width: 30,
+                          width: 10,
                         ),
                         Column(
                           children: [

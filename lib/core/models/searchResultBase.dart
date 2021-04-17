@@ -12,7 +12,13 @@ class PeopleSearchResult extends SearchResultBase {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          "/thirdPersonProfile",
+        );
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
