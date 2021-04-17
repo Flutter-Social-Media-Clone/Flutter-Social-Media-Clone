@@ -31,7 +31,7 @@ class _SearchBar extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(      
       appBar: AppBar(
             leading: Icon(Icons.arrow_back_outlined ),
             toolbarHeight: 66, // default is 56
@@ -87,7 +87,7 @@ class _SearchBar extends State<SearchBar> {
                   style: login_signupButtonStyle,  
                   onPressed: () {},
                 ),
-              ]),         
+              ]),        
           Expanded(
             child: ListView.builder(
               itemCount: filteredList.length,
