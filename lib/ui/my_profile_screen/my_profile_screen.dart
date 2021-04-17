@@ -27,57 +27,10 @@ class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
                     ])),
             child: Container(
               width: double.infinity,
-              height: 310.0,
+              //height: 10.0,
               child: Center(
                 child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 34.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            OutlinedButton(
-                                child: Text(
-                                  "Subscription",
-                                  style: profileButtonTextStyle,
-                                ),
-                                style: profileButtonStyle,
-                                onPressed: () {}),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                "https://img-s1.onedio.com/id-5d2ef7db3810d17123d5122c/rev-0/w-635/listing/f-jpg-webp/s-28249b47a72289a187b15a1dfc011ddedc8e0ab0.webp",
-                              ),
-                              radius: 70.0,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 70,
-                        ),
-                        Column(
-                          children: [
-                            IconButton(
-                                icon: Icon(Icons.menu),
-                                iconSize: 35,
-                                color: Colors.white,
-                                onPressed: () {}),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
+                  children: [
                     Text(
                       "Jane Doe",
                       style: TextStyle(
@@ -92,7 +45,7 @@ class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
                       margin:
                           EdgeInsets.symmetric(horizontal: 40.0, vertical: 5.0),
                       clipBehavior: Clip.antiAlias,
-                      color: Color.fromRGBO(18, 52, 86, 1.0),
+                      color: Color.fromRGBO(0, 0, 86, 0.0),
                       elevation: 0.0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
