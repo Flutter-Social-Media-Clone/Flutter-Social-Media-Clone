@@ -15,7 +15,7 @@ class LoginViewModel extends ChangeNotifier {
       formKey.currentState.save();
       print(email);
       print(pass);
-      Navigator.pushNamed(context, "/notification");
+      Navigator.pushNamed(context, "/mainapp");
     }
   }
 

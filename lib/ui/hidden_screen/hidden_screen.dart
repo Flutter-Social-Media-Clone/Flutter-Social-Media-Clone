@@ -8,6 +8,7 @@ class HiddenProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: feedBackgroundColor,
       body: Column(
         children: <Widget>[
           Container(
@@ -111,6 +112,11 @@ class HiddenProfile extends StatelessWidget {
               ),
             ),
           ),
+          ClipRRect(
+            child: Container(
+                margin: EdgeInsets.all(20),
+                child: Image.asset("assets/images/hiddenProfile.png")),
+          )
         ],
       ),
     );
