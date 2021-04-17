@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           print("SNAP ${snapshot.data}");
           return MaterialApp(
             initialRoute:
-                "/hiddenprofile", //snapshot.data ? "/welcome" : "/walkthrough",
+                "/thirdpartyprofile", //snapshot.data ? "/welcome" : "/walkthrough",
             routes: {
               "/walkthrough": (context) => WalkthroughScreen(),
               "/welcome": (context) => WelcomeScreen(),

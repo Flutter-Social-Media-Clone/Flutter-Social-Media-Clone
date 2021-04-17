@@ -3,6 +3,7 @@ import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:cs310insta/utils/style.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ThirdPartyProfileApp extends StatelessWidget {
   @override
@@ -49,7 +50,7 @@ class ThirdPartyProfileApp extends StatelessWidget {
                                     }),
                           ],
                          ), 
-                         SizedBox(width: 80,),                   
+                         SizedBox(width: 80,height: 30),                   
                         Column(
                           children: [
                             CircleAvatar(
@@ -92,15 +93,43 @@ class ThirdPartyProfileApp extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 15.0,
-                    ),
+                      height:10.0
+                      ),
+                      RatingBar(
+                        initialRating: 3,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        ratingWidget: RatingWidget(
+                          full: Image(image: AssetImage('assets/images/heart.png')),
+                          half: Image(image: AssetImage('assets/images/heart_half.png')),
+                          empty: Image(image: AssetImage('assets/images/heart_border.png'))
+                        ),
+                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        onRatingUpdate: (rating) {
+                          print(rating);
+                        },
+                      ),
+                          Column(
+                          children: [
+                            OutlinedButton(
+                              child: Text(
+                                  "Send Message",
+                                    style: profile_ButtonTextStyle, 
+                                    ),
+                                    style: hiddenprofile_ButtonStyle,             
+                                    onPressed: () {
+                                    }),
+                          ],
+                         ),
+                    
                     Card(
-                      margin: EdgeInsets.symmetric(horizontal: 40.0,vertical: 5.0),
+                      margin: EdgeInsets.symmetric(horizontal: 40.0,vertical: 10.0),
                       clipBehavior: Clip.antiAlias,
                       color: Color.fromRGBO(18, 52, 86, 1.0),
                       elevation: 0.0,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 5.0),
                         child: Row(
                           children: <Widget>[
                             Expanded(
