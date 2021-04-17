@@ -4,6 +4,7 @@ import 'package:cs310insta/ui/main_app_screen/main_app_screen.dart';
 import 'package:cs310insta/ui/signup_screen/signup_screen.dart';
 import 'package:cs310insta/ui/walkthrough_screen/walkthrough_screen.dart';
 import 'package:cs310insta/ui/welcome_screen/welcome_screen.dart';
+import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,13 +35,14 @@ class MyApp extends StatelessWidget {
           print("SNAP ${snapshot.data}");
           return MaterialApp(
             initialRoute:
-                "/notification", //snapshot.data ? "/welcome" : "/walkthrough",
+                "/mainapp", //snapshot.data ? "/welcome" : "/walkthrough",
             routes: {
               "/walkthrough": (context) => WalkthroughScreen(),
               "/welcome": (context) => WelcomeScreen(),
               "/login": (context) => LoginScreen(),
               "/signup": (context) => SignupScreen(),
-              "/notification": (context) => MainAppScreen(),
+              "/notification": (context) => NotificationScreen(),
+              "/mainapp": (context) => MainAppScreen(),
             },
           );
         }

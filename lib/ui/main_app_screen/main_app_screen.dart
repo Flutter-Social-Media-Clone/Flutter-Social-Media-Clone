@@ -1,6 +1,7 @@
 import 'package:cs310insta/core/models/bottom_bar.dart';
 import 'package:cs310insta/core/models/searchResultBase.dart';
 import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
+import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
 import 'package:cs310insta/ui/search_screen/search_screen.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,7 @@ class MainAppScreen extends StatelessWidget {
                 //SearchResult(model.peoples),
                 ImagePostList(),
                 SearchResult(model.locations),
-                SearchResult(model.topics),
+                NotificationScreen(),
                 Text(
                   'Index 3: message',
                   style: model.optionStyle,
