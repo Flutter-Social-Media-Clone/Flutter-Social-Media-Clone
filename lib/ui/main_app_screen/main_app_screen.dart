@@ -26,27 +26,68 @@ class MainAppScreen extends StatelessWidget {
         appBar: [
           AppBar(
             // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 120, // default is 56
+            toolbarHeight: 125, // default is 56
             //toolbarOpacity: 1,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Search'),
             bottom: PreferredSize(
-              preferredSize: Size(100, 140),
+              preferredSize: Size(100, 100),
               child: Container(
-                margin: EdgeInsets.all(20),
-                child: TextField(
-                  cursorColor: Colors.pinkAccent,
-                  decoration: InputDecoration(
-                    hintText: 'Search ',
-                    hintStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
+                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Column(
+                  children: [
+                    TextField(
+                      cursorColor: Colors.pinkAccent,
+                      decoration: InputDecoration(
+                        hintText: 'Search ',
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                        ),
+                      ),
+                      onChanged: (text) {
+                        text = text.toLowerCase();
+                      },
                     ),
-                  ),
-                  onChanged: (text) {
-                    text = text.toLowerCase();
-                  },
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          OutlinedButton(
+                            child: Text(
+                              "People",
+                              style: login_signupButtonTextStyle,
+                            ),
+                            style: login_signupButtonStyle,
+                            onPressed: () {
+                              model.setMode("peoples");
+                            },
+                          ),
+                          OutlinedButton(
+                            child: Text(
+                              "Topic",
+                              style: login_signupButtonTextStyle,
+                            ),
+                            style: login_signupButtonStyle,
+                            onPressed: () {
+                              model.setMode("topics");
+                            },
+                          ),
+                          OutlinedButton(
+                            child: Text(
+                              "Location",
+                              style: login_signupButtonTextStyle,
+                            ),
+                            style: login_signupButtonStyle,
+                            onPressed: () {
+                              model.setMode("locations");
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

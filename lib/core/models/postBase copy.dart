@@ -1,8 +1,7 @@
 import 'package:cs310insta/utils/style.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-abstract class PostBase extends StatelessWidget {
+abstract class LocationBase extends StatelessWidget {
   final NetworkImage profileImage;
   final String username;
   PostBase({this.profileImage, this.username});
@@ -149,11 +148,8 @@ class Posts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-        child: ListView(
-          children: this.items,
-        ),
+      child: ListView(
+        children: this.items,
       ),
     );
     //  return ListView(

@@ -5,51 +5,16 @@ import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class WrapSearch extends StatelessWidget {
+class WrapSearch extends ViewModelWidget<MainAppViewModel> {
   @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<SearchViewModel>.reactive(
-      viewModelBuilder: () => SearchViewModel(),
-      builder: (context, model, child) => Expanded(
+  Widget build(BuildContext context, MainAppViewModel model) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                OutlinedButton(
-                  child: Text(
-                    "Location",
-                    style: login_signupButtonTextStyle,
-                  ),
-                  style: login_signupButtonStyle,
-                  onPressed: () {
-                    model.setMode("locations");
-                  },
-                ),
-                OutlinedButton(
-                  child: Text(
-                    "Topic",
-                    style: login_signupButtonTextStyle,
-                  ),
-                  style: login_signupButtonStyle,
-                  onPressed: () {
-                    model.setMode("topics");
-                  },
-                ),
-                OutlinedButton(
-                  child: Text(
-                    "People",
-                    style: login_signupButtonTextStyle,
-                  ),
-                  style: login_signupButtonStyle,
-                  onPressed: () {
-                    model.setMode("peoples");
-                  },
-                ),
-              ],
-            ),
             SearchResult(
-              model.getContent(),
+              model.getSearchResult(),
             ),
           ],
         ),

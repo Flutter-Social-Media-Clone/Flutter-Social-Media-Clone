@@ -11,18 +11,21 @@ class MyProfileAppBarViewModel extends ChangeNotifier {
   MyProfileAppBarViewModel() {
     peoples = [
       PeopleSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
         image: NetworkImage(
           "https://randomuser.me/api/portraits/women/3.jpg",
         ),
       ),
       PeopleSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
         image: NetworkImage(
           "https://randomuser.me/api/portraits/women/3.jpg",
         ),
       ),
       PeopleSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
         image: NetworkImage(
           "https://randomuser.me/api/portraits/women/3.jpg",
@@ -32,23 +35,29 @@ class MyProfileAppBarViewModel extends ChangeNotifier {
 
     topics = [
       TopicSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
       ),
       TopicSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
       ),
       TopicSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
       )
     ];
     locations = [
       LocationSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
       ),
       LocationSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
       ),
       LocationSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
       ),
     ];

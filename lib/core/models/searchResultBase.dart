@@ -2,13 +2,14 @@ import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
 
 abstract class SearchResultBase extends StatelessWidget {
+  final String id;
   final String text;
-  SearchResultBase({this.text});
+  SearchResultBase({this.text, this.id});
 }
 
 class PeopleSearchResult extends SearchResultBase {
   final NetworkImage image;
-  PeopleSearchResult({text, this.image}) : super(text: text);
+  PeopleSearchResult({text, this.image, id}) : super(text: text, id: id);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class PeopleSearchResult extends SearchResultBase {
       onTap: () {
         Navigator.pushNamed(
           context,
-          "/thirdPersonProfile",
+          "/$id",
         );
       },
       child: Card(
@@ -48,7 +49,7 @@ class PeopleSearchResult extends SearchResultBase {
 }
 
 class TopicSearchResult extends SearchResultBase {
-  TopicSearchResult({text}) : super(text: text);
+  TopicSearchResult({text, id}) : super(text: text, id: id);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +77,7 @@ class TopicSearchResult extends SearchResultBase {
 }
 
 class LocationSearchResult extends SearchResultBase {
-  LocationSearchResult({text}) : super(text: text);
+  LocationSearchResult({text, id}) : super(text: text, id: id);
 
   @override
   Widget build(BuildContext context) {

@@ -16,18 +16,21 @@ class MainAppViewModel extends ChangeNotifier {
   MainAppViewModel() {
     peoples = [
       PeopleSearchResult(
+        id: "thirdPersonProfile",
         text: "deneme",
         image: NetworkImage(
           "https://randomuser.me/api/portraits/women/3.jpg",
         ),
       ),
       PeopleSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
         image: NetworkImage(
           "https://randomuser.me/api/portraits/women/3.jpg",
         ),
       ),
       PeopleSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
         image: NetworkImage(
           "https://randomuser.me/api/portraits/women/3.jpg",
@@ -37,23 +40,29 @@ class MainAppViewModel extends ChangeNotifier {
 
     topics = [
       TopicSearchResult(
+        id: "thirdPersonProfile",
         text: "deneme",
       ),
       TopicSearchResult(
+        id: "thirdPersonProfile",
         text: "deneme",
       ),
       TopicSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
       )
     ];
     locations = [
       LocationSearchResult(
+        id: "thirdPersonProfile",
         text: "deneme",
       ),
       LocationSearchResult(
+        id: "thirdPersonProfile",
         text: "deneme",
       ),
       LocationSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
       ),
     ];
@@ -130,6 +139,9 @@ class MainAppViewModel extends ChangeNotifier {
   String _myselectedIndex = "posts";
   String get myselectedIndex => _myselectedIndex;
 
+  String _selectedMode = "peoples";
+  String get selectedMode => _selectedMode;
+
   // int getSelectedIndex2() {
   //   print("called 2 ==> $selectedIndex");
   //   return selectedIndex;
@@ -140,9 +152,24 @@ class MainAppViewModel extends ChangeNotifier {
     notifyListeners(); // <-- notify listeners
   }
 
+  void setMode(String index) {
+    _selectedMode = index;
+    notifyListeners();
+  }
+
   void setmyIndex(String index) {
     _myselectedIndex = index;
     notifyListeners(); // <-- notify listeners
+  }
+
+  List<SearchResultBase> getSearchResult() {
+    if (_selectedMode == "peoples") {
+      return peoples;
+    } else if (_selectedMode == "locations") {
+      return locations;
+    } else if (_selectedMode == "topics") {
+      return topics;
+    }
   }
 
   List<PostBase> getMyResults() {

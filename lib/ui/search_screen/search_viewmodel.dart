@@ -10,18 +10,21 @@ class SearchViewModel extends ChangeNotifier {
   SearchViewModel() {
     peoples = [
       PeopleSearchResult(
+        id: "thirdPersonProfile",
         text: "deneme",
         image: NetworkImage(
           "https://randomuser.me/api/portraits/women/3.jpg",
         ),
       ),
       PeopleSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
         image: NetworkImage(
           "https://randomuser.me/api/portraits/women/3.jpg",
         ),
       ),
       PeopleSearchResult(
+        id: "hiddenProfile",
         text: "deneme",
         image: NetworkImage(
           "https://randomuser.me/api/portraits/women/3.jpg",
