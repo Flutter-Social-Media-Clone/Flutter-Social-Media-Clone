@@ -28,6 +28,7 @@ class ProfileApp extends StatelessWidget {
                       height: 34.0,
                     ), 
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                          Column(
                           children: [
@@ -41,7 +42,7 @@ class ProfileApp extends StatelessWidget {
                                     }),
                           ],
                          ), 
-                         SizedBox(width: 30,),                   
+                         SizedBox(width: 10,),                   
                         Column(
                           children: [
                             CircleAvatar(
