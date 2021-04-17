@@ -31,27 +31,6 @@ class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
               child: Center(
                 child: Column(
                   children: [
-                    // SizedBox(
-                    //   height: 34.0,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     Column(
-                    //       children: [
-                    //         CircleAvatar(
-                    //           backgroundImage: NetworkImage(
-                    //             "https://img-s1.onedio.com/id-5d2ef7db3810d17123d5122c/rev-0/w-635/listing/f-jpg-webp/s-28249b47a72289a187b15a1dfc011ddedc8e0ab0.webp",
-                    //           ),
-                    //           radius: 70.0,
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: 15.0,
-                    // ),
                     Text(
                       "Jane Doe",
                       style: TextStyle(
