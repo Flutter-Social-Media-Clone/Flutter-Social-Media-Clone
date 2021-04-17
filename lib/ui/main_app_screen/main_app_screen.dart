@@ -1,6 +1,7 @@
 import 'package:cs310insta/core/models/bottom_bar.dart';
 import 'package:cs310insta/core/models/searchResultBase.dart';
 import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
+import 'package:cs310insta/ui/search_screen/search_screen.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -20,17 +21,56 @@ class MainAppScreen extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: feedBackgroundColor,
         resizeToAvoidBottomInset: false,
-
-        // appBar: AppBar(
-        //   title: Text('Flutter Demo Home Page'),
-        // ),
+        appBar: [
+          AppBar(
+            // leading: Icon(Icons.arrow_back_outlined),
+            toolbarHeight: 76, // default is 56
+            //toolbarOpacity: 1,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            title: Text('Search'),
+          ),
+          AppBar(
+            // leading: Icon(Icons.arrow_back_outlined),
+            toolbarHeight: 76, // default is 56
+            //toolbarOpacity: 1,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            title: Text('Feed'),
+          ),
+          AppBar(
+            // leading: Icon(Icons.arrow_back_outlined),
+            toolbarHeight: 76, // default is 56
+            //toolbarOpacity: 1,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            title: Text('Share'),
+          ),
+          AppBar(
+            // leading: Icon(Icons.arrow_back_outlined),
+            toolbarHeight: 76, // default is 56
+            //toolbarOpacity: 1,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            title: Text('Notifications'),
+          ),
+          AppBar(
+            // leading: Icon(Icons.arrow_back_outlined),
+            toolbarHeight: 76, // default is 56
+            //toolbarOpacity: 1,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            title: Text('Profile'),
+          ),
+        ].elementAt(model.selectedIndex),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //model.pageWidget,
               [
-                SearchResult(model.peoples),
+                WrapSearch(),
+                //SearchResult(model.peoples),
                 ImagePostList(),
                 SearchResult(model.locations),
                 SearchResult(model.topics),

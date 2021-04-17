@@ -23,8 +23,8 @@ class BottomBar extends ViewModelWidget<MainAppViewModel> {
           label: 'Share',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.message),
-          label: 'Message',
+          icon: Icon(Icons.notifications_sharp),
+          label: 'Updates',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),

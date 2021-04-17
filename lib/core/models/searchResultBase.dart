@@ -87,7 +87,7 @@ class LocationSearchResult extends SearchResultBase {
             children: [
               Icon(Icons.location_pin),
               Text(
-                "#$text",
+                "$text",
                 style: searchResultTextStyle,
               ),
             ],
@@ -104,10 +104,12 @@ class SearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      // padding: const EdgeInsets.all(8),
-      children: this.items,
-      shrinkWrap: true,
+    return Expanded(
+      child: ListView(
+        // padding: const EdgeInsets.all(8),
+        children: this.items,
+        //shrinkWrap: true,
+      ),
     );
   }
 }
