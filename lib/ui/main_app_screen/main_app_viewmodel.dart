@@ -1,8 +1,12 @@
 import 'package:cs310insta/core/models/postBase.dart';
 import 'package:cs310insta/core/models/searchResultBase.dart';
+import 'package:cs310insta/core/models/shareBase.dart';
 import 'package:cs310insta/ui/search_screen/search_screen.dart';
+import 'package:cs310insta/ui/share_screen/share_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import "dart:io";
+import 'package:image_picker/image_picker.dart';
 
 class MainAppViewModel extends ChangeNotifier {
   List<SearchResultBase> peoples = [];
@@ -12,6 +16,10 @@ class MainAppViewModel extends ChangeNotifier {
   List<PostBase> myMedias = [];
   List<PostBase> myLocations = [];
   List<PostBase> myPosts = [];
+
+  PickedFile _image;
+
+  Widget placeholder = Text("A");
 
   MainAppViewModel() {
     peoples = [
@@ -136,18 +144,52 @@ class MainAppViewModel extends ChangeNotifier {
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
 
+  String _myShareIndex = "media";
+  String get myShareIndex => _myShareIndex;
+
   String _myselectedIndex = "posts";
   String get myselectedIndex => _myselectedIndex;
 
   String _selectedMode = "peoples";
   String get selectedMode => _selectedMode;
 
+  File get image => _image != null ? File(_image.path) : null;
+
   // int getSelectedIndex2() {
   //   print("called 2 ==> $selectedIndex");
   //   return selectedIndex;
   // }
+  //
+  //
+  //
+
+  final _picker = ImagePicker();
+
+  void imgFromCamera() async {
+    PickedFile image = await _picker.getImage(
+      source: ImageSource.camera,
+      imageQuality: 50,
+    );
+
+    _image = image;
+    notifyListeners();
+  }
+
+  void imgFromGallery() async {
+    PickedFile image = await _picker.getImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+    );
+    _image = image;
+    notifyListeners();
+  }
 
   void onItemTapped(int index) {
+    _selectedIndex = index;
+    notifyListeners(); // <-- notify listeners
+  }
+
+  void onItemNavigatorTapped(int index) {
     _selectedIndex = index;
     notifyListeners(); // <-- notify listeners
   }
@@ -160,6 +202,16 @@ class MainAppViewModel extends ChangeNotifier {
   void setmyIndex(String index) {
     _myselectedIndex = index;
     notifyListeners(); // <-- notify listeners
+  }
+
+  void setShareIndex(String index) {
+    _myShareIndex = index;
+    notifyListeners(); // <-- notify listeners
+  }
+
+  void removeImage() {
+    _image = null;
+    notifyListeners();
   }
 
   List<SearchResultBase> getSearchResult() {
@@ -179,6 +231,16 @@ class MainAppViewModel extends ChangeNotifier {
       return myMedias;
     } else if (_myselectedIndex == "locations") {
       return myLocations;
+    }
+  }
+
+  Widget getShareResults() {
+    if (_myShareIndex == "media") {
+      return PostImage();
+    } else if (_myShareIndex == "post") {
+      return PostPost();
+    } else if (_myShareIndex == "location") {
+      return MediaShare();
     }
   }
 

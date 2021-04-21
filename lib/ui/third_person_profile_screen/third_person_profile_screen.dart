@@ -1,4 +1,7 @@
+import 'package:cs310insta/core/models/bottom_bar.dart';
+import 'package:cs310insta/core/models/bottom_bar_navigate.dart';
 import 'package:cs310insta/core/models/postBase.dart';
+import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
 import 'package:cs310insta/ui/third_person_profile_screen/third_person_profile_viewmodel.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:cs310insta/utils/style.dart';

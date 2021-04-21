@@ -3,6 +3,7 @@ import 'package:cs310insta/ui/edit_profile_screen/edit_profile_screen.dart';
 import 'package:cs310insta/ui/hidden_screen/hidden_screen.dart';
 import 'package:cs310insta/ui/login_screen/login_screen.dart';
 import 'package:cs310insta/ui/main_app_screen/main_app_screen.dart';
+import 'package:cs310insta/ui/selectTopics_screen/selectTopics_screen.dart';
 import 'package:cs310insta/ui/signup_screen/signup_screen.dart';
 import 'package:cs310insta/ui/third_person_profile_screen/third_person_profile_screen.dart';
 import 'package:cs310insta/ui/walkthrough_screen/walkthrough_screen.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         } else {
           print("SNAP ${snapshot.data}");
           return MaterialApp(
-            initialRoute: snapshot.data ? "/welcome" : "/walkthrough",
+            initialRoute: snapshot.data ? "/mainapp" : "/walkthrough",
             routes: {
               "/walkthrough": (context) => WalkthroughScreen(),
               "/welcome": (context) => WelcomeScreen(),
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
               "/thirdPersonProfile": (context) => ThirdPersonProfileScreen(),
               "/hiddenProfile": (context) => HiddenProfile(),
               "/editProfile": (context) => EditProfilePage(),
+              "/selectTopics": (context) => SelectTopics(),
             },
           );
         }

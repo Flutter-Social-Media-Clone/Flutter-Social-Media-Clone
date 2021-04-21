@@ -5,6 +5,7 @@ import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
 import 'package:cs310insta/ui/my_profile_screen/my_profile_screen.dart';
 import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
 import 'package:cs310insta/ui/search_screen/search_screen.dart';
+import 'package:cs310insta/ui/share_screen/share_screen.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -119,11 +120,79 @@ class MainAppScreen extends StatelessWidget {
           ),
           AppBar(
             // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 76, // default is 56
+            toolbarHeight: 125, // default is 56
             //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             title: Text('Share'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                30,
+              ),
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () => {
+                    Navigator.pushNamed(
+                      context,
+                      "/selectTopics",
+                    ),
+                  },
+                  child: Icon(
+                    Icons.navigate_next,
+                    size: 40,
+                  ),
+                ),
+              ),
+            ],
+            bottom: PreferredSize(
+              preferredSize: Size(100, 100),
+              child: Container(
+                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          OutlinedButton(
+                            child: Text(
+                              "Media",
+                              style: login_signupButtonTextStyle,
+                            ),
+                            style: login_signupButtonStyle,
+                            onPressed: () {
+                              model.setShareIndex("media");
+                            },
+                          ),
+                          OutlinedButton(
+                            child: Text(
+                              "Post",
+                              style: login_signupButtonTextStyle,
+                            ),
+                            style: login_signupButtonStyle,
+                            onPressed: () {
+                              model.setShareIndex("post");
+                            },
+                          ),
+                          OutlinedButton(
+                            child: Text(
+                              "Location",
+                              style: login_signupButtonTextStyle,
+                            ),
+                            style: login_signupButtonStyle,
+                            onPressed: () {
+                              model.setShareIndex("location");
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           AppBar(
             // leading: Icon(Icons.arrow_back_outlined),
@@ -199,21 +268,19 @@ class MainAppScreen extends StatelessWidget {
                 ),
               )),
         ].elementAt(model.selectedIndex),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //model.pageWidget,
-              [
-                WrapSearch(),
-                //SearchResult(model.peoples),
-                ImagePostList(),
-                SearchResult(model.locations),
-                NotificationScreen(),
-                MyProfileBody(),
-              ].elementAt(model.selectedIndex),
-            ],
-          ),
+        body: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //model.pageWidget,
+            [
+              WrapSearch(),
+              //SearchResult(model.peoples),
+              ImagePostList(),
+              ShareScreen(),
+              NotificationScreen(),
+              MyProfileBody(),
+            ].elementAt(model.selectedIndex),
+          ],
         ),
         bottomNavigationBar: BottomBar(),
         endDrawer: [null, null, null, null, RightDrawer()]
