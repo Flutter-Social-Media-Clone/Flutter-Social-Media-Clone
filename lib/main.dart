@@ -10,6 +10,8 @@ import 'package:cs310insta/ui/welcome_screen/welcome_screen.dart';
 import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cs310insta/ui/components/messageDetail/message_detail.dart';
+import 'package:cs310insta/ui/message_screen/message_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -37,7 +39,9 @@ class MyApp extends StatelessWidget {
         } else {
           print("SNAP ${snapshot.data}");
           return MaterialApp(
-            initialRoute: snapshot.data ? "/welcome" : "/walkthrough",
+            initialRoute: snapshot.data
+                ? "/mainapp"
+                : "/mainapp", //"/welcome" : "/walkthrough",
             routes: {
               "/walkthrough": (context) => WalkthroughScreen(),
               "/welcome": (context) => WelcomeScreen(),
@@ -48,6 +52,8 @@ class MyApp extends StatelessWidget {
               "/thirdPersonProfile": (context) => ThirdPersonProfileScreen(),
               "/hiddenProfile": (context) => HiddenProfile(),
               "/editProfile": (context) => EditProfilePage(),
+              "/messageSingle": (context) => MessageDetail(),
+              "/message": (context) => MessagePage(),
             },
           );
         }

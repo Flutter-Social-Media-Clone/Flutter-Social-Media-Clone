@@ -36,8 +36,11 @@ class MainAppScreen extends StatelessWidget {
             // leading: Icon(Icons.arrow_back_outlined),
             toolbarHeight: 125, // default is 56
             //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
+            ),
             bottom: PreferredSize(
               preferredSize: Size(100, 100),
               child: Container(
@@ -113,24 +116,42 @@ class MainAppScreen extends StatelessWidget {
             // leading: Icon(Icons.arrow_back_outlined),
             toolbarHeight: 76, // default is 56
             //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
+            ),
             title: Text('Feed'),
+            actions: [
+              InkWell(
+                onTap: () => {Navigator.pushNamed(context, "/message")},
+                child: Icon(
+                  Icons.send,
+                  size: 40,
+                ),
+              ),
+            ],
           ),
           AppBar(
             // leading: Icon(Icons.arrow_back_outlined),
             toolbarHeight: 76, // default is 56
             //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
+            ),
             title: Text('Share'),
           ),
           AppBar(
             // leading: Icon(Icons.arrow_back_outlined),
             toolbarHeight: 76, // default is 56
             //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
+            ),
             title: Text('Notifications'),
           ),
 
