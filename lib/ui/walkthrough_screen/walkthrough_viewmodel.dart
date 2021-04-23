@@ -54,7 +54,7 @@ class WalkthroughViewModel extends ChangeNotifier {
 
   void setSeenTrue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('seen', false);
+    await prefs.setBool('seen', true);
     notifyListeners();
   }
 }

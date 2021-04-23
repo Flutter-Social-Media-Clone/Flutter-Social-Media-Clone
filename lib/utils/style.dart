@@ -89,3 +89,44 @@ TextStyle walkthroughScreenSubHeader = TextStyle(
 EdgeInsets loginSignupMargin = EdgeInsets.fromLTRB(0, 45, 0, 25);
 EdgeInsets loginSignupPadding = EdgeInsets.fromLTRB(25, 105, 25, 45);
 EdgeInsets walkthroughPadding = EdgeInsets.fromLTRB(0, 20, 0, 0);
+
+TextStyle notificationDateText = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w400,
+  color: Color.fromRGBO(165, 165, 165, 1.0),
+);
+
+TextStyle notificationMessageText = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w600,
+  color: Color.fromRGBO(40, 40, 40, 1.0),
+);
+
+ButtonStyle profileButtonStyle = OutlinedButton.styleFrom(
+  elevation: 10,
+  shadowColor: Color.fromRGBO(220, 220, 220, 0.7),
+  backgroundColor: Color.fromRGBO(250, 250, 250, 0.8),
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(10),
+    ),
+  ),
+);
+TextStyle profileButtonTextStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 14,
+);
+ButtonStyle hiddenprofileButtonStyle = OutlinedButton.styleFrom(
+  elevation: 10,
+  shadowColor: Color.fromRGBO(220, 220, 220, 0.7),
+  backgroundColor: Color.fromRGBO(250, 250, 250, 0.8),
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(20),
+    ),
+  ),
+);
+TextStyle hiddenprofileButtonTextStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 20,
+);

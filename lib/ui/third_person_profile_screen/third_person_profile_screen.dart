@@ -1,31 +1,78 @@
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
+import 'package:cs310insta/core/models/postBase.dart';
+import 'package:cs310insta/ui/third_person_profile_screen/third_person_profile_viewmodel.dart';
 import 'package:cs310insta/utils/color.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import 'package:cs310insta/utils/style.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:stacked/stacked.dart';
 
-class ThirdPartyProfileAppBar extends StatelessWidget {
+// class ThirdPersonProfileScreen extends ViewModelWidget<ThirdPersonViewModel> {
+//   @override
+//   Widget build(BuildContext context, ThirdPersonViewModel model) {
+//     return Container(
+//
+//
+//
+// class WrapSearch extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ViewModelBuilder<SearchViewModel>.reactive(
+//       viewModelBuilder: () => SearchViewModel(),
+
+class ThirdPersonProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return ViewModelBuilder<ThirdPersonViewModel>.reactive(
+      viewModelBuilder: () => ThirdPersonViewModel(),
+      builder: (context, model, child) => Scaffold(
+        backgroundColor: feedBackgroundColor,
+        appBar: PreferredSize(
+          preferredSize: Size(100, 330),
+          child: ThirdPersonAppBar(),
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              ThirdPersonBody(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// class MyProfileBody extends ViewModelWidget<MainAppViewModel> {
+//   @override
+//   Widget build(BuildContext context, MainAppViewModel model) {
+
+class ThirdPersonAppBar extends ViewModelWidget<ThirdPersonViewModel> {
+  const ThirdPersonAppBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, ThirdPersonViewModel model) {
     return Column(
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
-              //shape: BoxShape.circle,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30)),
-              gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromRGBO(18, 52, 86, 1.0),
-                    Color.fromRGBO(18, 52, 86, 1.0),
-                  ])),
+            //shape: BoxShape.circle,
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30)),
+            gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromRGBO(18, 52, 86, 1.0),
+                Color.fromRGBO(18, 52, 86, 1.0),
+              ],
+            ),
+          ),
           child: Container(
             width: double.infinity,
-            height: 350.0,
+            height: 360.0,
             child: Center(
               child: Column(
                 children: <Widget>[
@@ -47,7 +94,9 @@ class ThirdPartyProfileAppBar extends StatelessWidget {
                               onPressed: () {}),
                         ],
                       ),
-                      SizedBox(width: 80, height: 30),
+                      SizedBox(
+                        width: 80,
+                      ),
                       Column(
                         children: [
                           CircleAvatar(
@@ -91,7 +140,9 @@ class ThirdPartyProfileAppBar extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 10.0),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   RatingBar(
                     initialRating: 3,
                     direction: Axis.horizontal,
@@ -138,35 +189,41 @@ class ThirdPartyProfileAppBar extends StatelessWidget {
                               child: Column(
                                 children: <Widget>[
                                   Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        OutlinedButton(
-                                            child: Text(
-                                              "Location",
-                                              style:
-                                                  login_signupButtonTextStyle,
-                                            ),
-                                            style: login_signupButtonStyle,
-                                            onPressed: () {}),
-                                        OutlinedButton(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      OutlinedButton(
                                           child: Text(
-                                            "Topic",
+                                            "Posts",
                                             style: login_signupButtonTextStyle,
                                           ),
                                           style: login_signupButtonStyle,
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            model.setmyIndex("posts");
+                                          }),
+                                      OutlinedButton(
+                                        child: Text(
+                                          "Photos",
+                                          style: login_signupButtonTextStyle,
                                         ),
-                                        OutlinedButton(
-                                          child: Text(
-                                            "People",
-                                            style: login_signupButtonTextStyle,
-                                          ),
-                                          style: login_signupButtonStyle,
-                                          onPressed: () {},
+                                        style: login_signupButtonStyle,
+                                        onPressed: () {
+                                          model.setmyIndex("medias");
+                                        },
+                                      ),
+                                      OutlinedButton(
+                                        child: Text(
+                                          "Location",
+                                          style: login_signupButtonTextStyle,
                                         ),
-                                      ]),
+                                        style: login_signupButtonStyle,
+                                        onPressed: () {
+                                          model.setmyIndex("locations");
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
@@ -181,6 +238,15 @@ class ThirdPartyProfileAppBar extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class ThirdPersonBody extends ViewModelWidget<ThirdPersonViewModel> {
+  @override
+  Widget build(BuildContext context, ThirdPersonViewModel model) {
+    return Posts(
+      model.getMyResults(),
     );
   }
 }

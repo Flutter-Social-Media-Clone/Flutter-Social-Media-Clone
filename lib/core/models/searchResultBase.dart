@@ -2,17 +2,24 @@ import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
 
 abstract class SearchResultBase extends StatelessWidget {
+  final String id;
   final String text;
-  SearchResultBase({this.text});
+  SearchResultBase({this.text, this.id});
 }
 
 class PeopleSearchResult extends SearchResultBase {
   final NetworkImage image;
-  PeopleSearchResult({text, this.image}) : super(text: text);
+  PeopleSearchResult({text, this.image, id}) : super(text: text, id: id);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          "/$id",
+        );
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
@@ -42,7 +49,7 @@ class PeopleSearchResult extends SearchResultBase {
 }
 
 class TopicSearchResult extends SearchResultBase {
-  TopicSearchResult({text}) : super(text: text);
+  TopicSearchResult({text, id}) : super(text: text, id: id);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +77,7 @@ class TopicSearchResult extends SearchResultBase {
 }
 
 class LocationSearchResult extends SearchResultBase {
-  LocationSearchResult({text}) : super(text: text);
+  LocationSearchResult({text, id}) : super(text: text, id: id);
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +94,7 @@ class LocationSearchResult extends SearchResultBase {
             children: [
               Icon(Icons.location_pin),
               Text(
-                "#$text",
+                "$text",
                 style: searchResultTextStyle,
               ),
             ],
@@ -104,10 +111,12 @@ class SearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      // padding: const EdgeInsets.all(8),
-      children: this.items,
-      shrinkWrap: true,
+    return Expanded(
+      child: ListView(
+        // padding: const EdgeInsets.all(8),
+        children: this.items,
+        //shrinkWrap: true,
+      ),
     );
   }
 }

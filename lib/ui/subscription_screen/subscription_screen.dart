@@ -2,6 +2,7 @@ import 'package:cs310insta/core/models/bottom_bar.dart';
 import 'package:cs310insta/core/models/searchResultBase.dart';
 import 'package:cs310insta/ui/components/RightDrawer/right_drawer.dart';
 import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
+import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
 import 'package:cs310insta/ui/my_profile_screen/my_profile_screen.dart';
 import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
 import 'package:cs310insta/ui/search_screen/search_screen.dart';
@@ -9,16 +10,14 @@ import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:cs310insta/utils/style.dart';
-import 'main_app_viewmodel.dart';
 
-class MainAppScreen extends StatelessWidget {
+class SubscriptionScreen extends StatelessWidget {
   //const NotificationScreen({Key key}) : super(key: key);
   //
   //
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     // void _openEndDrawer() {
     //   _scaffoldKey.currentState!.openEndDrawer();
@@ -28,13 +27,12 @@ class MainAppScreen extends StatelessWidget {
     return ViewModelBuilder<MainAppViewModel>.reactive(
       viewModelBuilder: () => MainAppViewModel(),
       builder: (context, model, child) => Scaffold(
-        key: _scaffoldKey,
         backgroundColor: feedBackgroundColor,
         resizeToAvoidBottomInset: false,
         appBar: [
           AppBar(
-            // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 125, // default is 56
+            leading: Icon(Icons.arrow_back_outlined),
+            toolbarHeight: 90, // default is 56
             //toolbarOpacity: 1,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -44,19 +42,6 @@ class MainAppScreen extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: Column(
                   children: [
-                    TextField(
-                      cursorColor: Colors.pinkAccent,
-                      decoration: InputDecoration(
-                        hintText: 'Search ',
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      ),
-                      onChanged: (text) {
-                        text = text.toLowerCase();
-                      },
-                    ),
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
                       child: Row(
@@ -101,14 +86,6 @@ class MainAppScreen extends StatelessWidget {
             ),
           ),
 
-          // AppBar(
-          //   // leading: Icon(Icons.arrow_back_outlined),
-          //   toolbarHeight: 76, // default is 56
-          //   //toolbarOpacity: 1,
-          //   shape:
-          //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          //   title: Text('Search'),
-          // ),
           AppBar(
             // leading: Icon(Icons.arrow_back_outlined),
             toolbarHeight: 76, // default is 56
@@ -182,7 +159,7 @@ class MainAppScreen extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: () =>
-                                    {_scaffoldKey.currentState.openEndDrawer()},
+                                    {},
                                 child: Icon(
                                   Icons.dehaze,
                                   size: 40,
@@ -205,8 +182,8 @@ class MainAppScreen extends StatelessWidget {
             children: [
               //model.pageWidget,
               [
-                WrapSearch(),
                 //SearchResult(model.peoples),
+                WrapSearch(),
                 ImagePostList(),
                 SearchResult(model.locations),
                 NotificationScreen(),
