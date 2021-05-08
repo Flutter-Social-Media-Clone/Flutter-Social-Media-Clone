@@ -1,51 +1,23 @@
 import 'package:cs310insta/core/models/postBase.dart';
+import 'package:cs310insta/core/state/states.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ImagePostList extends StatelessWidget {
+  final FeedState feedState = Get.put(FeedState());
   @override
   Widget build(BuildContext context) {
-    return Posts(
-      [
-        ImagePost(
-          username: "Gokberk",
-          image: NetworkImage(
-            "https://randomuser.me/api/portraits/women/4.jpg",
-          ),
-          profileImage: NetworkImage(
-            "https://randomuser.me/api/portraits/women/3.jpg",
-          ),
-        ),
-        ImagePost(
-          username: "Gokberk",
-          image: NetworkImage(
-            "https://randomuser.me/api/portraits/women/4.jpg",
-          ),
-          profileImage: NetworkImage(
-            "https://randomuser.me/api/portraits/women/3.jpg",
-          ),
-        ),
-        TextPost(
-            username: "Gokberk",
-            profileImage: NetworkImage(
-              "https://randomuser.me/api/portraits/women/4.jpg",
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+        child: Column(
+          children: [
+            Posts(
+              feedState.posts,
             ),
-            text: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
-        TextPost(
-            username: "Gokberk",
-            profileImage: NetworkImage(
-              "https://randomuser.me/api/portraits/women/4.jpg",
-            ),
-            text: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
-        ImagePost(
-          username: "Gokberk",
-          image: NetworkImage(
-            "https://randomuser.me/api/portraits/women/4.jpg",
-          ),
-          profileImage: NetworkImage(
-            "https://randomuser.me/api/portraits/women/3.jpg",
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

@@ -1,9 +1,4 @@
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
-import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:cs310insta/utils/style.dart';
-import 'right_drawer_viewmodel.dart';
 
 class ProfileDrawerItem extends StatelessWidget {
   final IconData icon;
@@ -34,6 +29,14 @@ class ProfileDrawerItem extends StatelessWidget {
       ),
     );
   }
+}
+
+class DrawerItemModel {
+  IconData icon;
+  String text;
+  String toURL;
+
+  DrawerItemModel({this.icon, this.text, this.toURL});
 }
 
 List<DrawerItemModel> elementsList = [

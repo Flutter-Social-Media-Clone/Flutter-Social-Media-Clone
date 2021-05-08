@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cs310insta/utils/color.dart';
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import 'package:cs310insta/utils/style.dart';
 
 class HiddenProfile extends StatelessWidget {
