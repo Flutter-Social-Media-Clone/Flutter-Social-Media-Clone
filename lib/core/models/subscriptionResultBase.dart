@@ -18,7 +18,7 @@ class FollowersSubscription extends SubscriptionResultBase {
   Widget build(BuildContext context) {
     String tobeShowed;
     if (this.text.length > 15) {
-      tobeShowed = this.text.substring(0, 10) + "...";
+      tobeShowed = this.text.substring(0, 12) + "...";
     } else {
       tobeShowed = this.text;
     }   
@@ -86,7 +86,7 @@ class FollowingSubscription extends SubscriptionResultBase {
   Widget build(BuildContext context) {
     String tobeShowed;
     if (this.text.length > 15) {
-      tobeShowed = this.text.substring(0, 10) + "...";
+      tobeShowed = this.text.substring(0, 12) + "...";
     } else {
       tobeShowed = this.text;
     }   
@@ -155,7 +155,7 @@ class TopicSubscription extends SubscriptionResultBase {
   Widget build(BuildContext context) {
     String tobeShowed;
     if (this.text.length > 15) {
-      tobeShowed = this.text.substring(0, 10) + "...";
+      tobeShowed = this.text.substring(0, 12) + "...";
     } else {
       tobeShowed = this.text;
     }
@@ -208,7 +208,7 @@ class LocationSubscription extends SubscriptionResultBase {
   Widget build(BuildContext context) {
     String tobeShowed;
     if (this.text.length > 15) {
-      tobeShowed = this.text.substring(0, 10) + "...";
+      tobeShowed = this.text.substring(0, 12) + "...";
     } else {
       tobeShowed = this.text;
     }
