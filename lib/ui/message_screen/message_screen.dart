@@ -2,7 +2,6 @@ import 'package:cs310insta/core/models/bottom_bar.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import 'package:cs310insta/utils/style.dart';
 import '../components/messageCardNotification/message_card.dart';
 import '../components/messageCardNotification/message_card_viewmodel.dart';
