@@ -1,7 +1,4 @@
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
-import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import 'package:cs310insta/utils/style.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 

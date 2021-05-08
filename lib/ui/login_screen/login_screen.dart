@@ -1,79 +1,76 @@
 import 'package:cs310insta/core/models/KFormField.dart';
+import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:cs310insta/utils/validators.dart' as validator;
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'login_viewmodel.dart';
+import 'package:get/get.dart';
 import '../../utils/style.dart';
 
 // Since the state was moved to the view model, this is now a StatelessWidget.
 class LoginScreen extends StatelessWidget {
+  final LoginState loginState = Get.put(LoginState());
+
   @override
   Widget build(BuildContext context) {
     // ViewModelBuilder is what provides the view model to the widget tree.
-    return ViewModelBuilder<LoginViewModel>.reactive(
-      viewModelBuilder: () => LoginViewModel(),
-      builder: (context, model, child) => Scaffold(
-        resizeToAvoidBottomInset: false,
-        // appBar: AppBar(
-        //   title: Text('Flutter Demo Home Page'),
-        // ),
-        body: Container(
-          decoration: BoxDecoration(
-            color: appBackgroundColor,
-          ),
-          child: Container(
-            margin: loginSignupMargin,
-            padding: loginSignupPadding,
-            decoration: backgroundDecoration,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      // appBar: AppBar(
+      //   title: Text('Flutter Demo Home Page'),
+      // ),
+      body: Container(
+        decoration: BoxDecoration(
+          color: appBackgroundColor,
+        ),
+        child: Container(
+          margin: loginSignupMargin,
+          padding: loginSignupPadding,
+          decoration: backgroundDecoration,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Login",
+                    style: headerGradient,
+                  ),
+                ],
+              ),
+              SizedBox(height: 15),
+              Form(
+                key: loginState.formKey,
+                child: Column(
                   children: [
-                    Text(
-                      "Login",
-                      style: headerGradient,
+                    KFormFieldWidget(
+                      kFormField: loginState.emailField,
+                      validator: validator.emailValidator,
+                      save: loginState.handleSaveEmail,
                     ),
+                    SizedBox(height: 12),
+                    KFormFieldWidget(
+                      kFormField: loginState.passwordField,
+                      validator: validator.passwordValidator,
+                      save: loginState.handleSavePass,
+                    ),
+                    SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        OutlinedButton(
+                          onPressed: loginState.handleLogin,
+                          child: Text(
+                            "Login",
+                            style: login_signupButtonTextStyle,
+                          ),
+                          style: login_signupButtonStyle,
+                        ),
+                      ],
+                    )
                   ],
                 ),
-                SizedBox(height: 15),
-                Form(
-                  key: model.formKey,
-                  child: Column(
-                    children: [
-                      KFormFieldWidget(
-                        kFormField: model.emailField,
-                        validator: validator.emailValidator,
-                        save: model.handleSaveEmail,
-                      ),
-                      SizedBox(height: 12),
-                      KFormFieldWidget(
-                        kFormField: model.passwordField,
-                        validator: validator.passwordValidator,
-                        save: model.handleSavePass,
-                      ),
-                      SizedBox(height: 12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          OutlinedButton(
-                            onPressed: () {
-                              model.handleLogin(context);
-                            },
-                            child: Text(
-                              "Login",
-                              style: login_signupButtonTextStyle,
-                            ),
-                            style: login_signupButtonStyle,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

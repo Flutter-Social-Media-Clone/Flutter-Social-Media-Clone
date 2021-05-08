@@ -1,16 +1,23 @@
 import 'dart:ui';
 
-import 'package:cs310insta/core/models/searchResultBase.dart';
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
-import 'package:cs310insta/ui/search_screen/search_viewmodel.dart';
+import 'package:cs310insta/core/models/shareBase.dart';
+import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:get/get.dart';
 
-class ShareScreen extends ViewModelWidget<MainAppViewModel> {
+class ShareScreen extends StatelessWidget {
+  final ShareState shareState = Get.put(ShareState());
+
   @override
-  Widget build(BuildContext context, MainAppViewModel model) {
-    return model.getShareResults();
+  Widget build(BuildContext context) {
+    return (Obx(
+      () => shareState.myShareIndex.value == "media"
+          ? PostImage()
+          : shareState.myShareIndex.value == "post"
+              ? PostPost()
+              : MediaShare(),
+    ));
 
     // Container(
     //   child: SearchResult(model.peoples),
@@ -18,80 +25,84 @@ class ShareScreen extends ViewModelWidget<MainAppViewModel> {
   }
 }
 
-class PostImage extends ViewModelWidget<MainAppViewModel> {
+class PostImage extends StatelessWidget {
+  final ShareState shareState = Get.put(ShareState());
+
   @override
-  Widget build(BuildContext context, MainAppViewModel model) {
+  Widget build(BuildContext context) {
     return Expanded(
-      child: model.image != null
-          ? Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 30, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        child: Icon(
-                          Icons.close,
-                          size: 44,
-                        ),
-                        onTap: model.removeImage,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                  child: ClipRRect(
-                    child: Image.file(
-                      model.image,
-                      height: 600,
-                      width: 400,
-                    ),
-                  ),
-                ),
-              ],
-            )
-          : Container(
-              margin: EdgeInsets.all(30.0),
-              decoration: BoxDecoration(color: Colors.grey[500]),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+      child: Obx(
+        () => shareState.getImage() != null
+            ? Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Select image or take one!",
-                      style: walkthroughScreenSubHeader,
+                    padding: const EdgeInsets.fromLTRB(0, 10, 30, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          child: Icon(
+                            Icons.close,
+                            size: 44,
+                          ),
+                          onTap: shareState.removeImage,
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: OutlinedButton(
-                      child: Text(
-                        "Load Camera",
-                        style: hiddenprofile_ButtonTextStyle,
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    child: ClipRRect(
+                      child: Image.file(
+                        shareState.getImage(),
+                        height: 600,
+                        width: 400,
                       ),
-                      onPressed: model.imgFromCamera,
-                      style: hiddenprofile_ButtonStyle,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: OutlinedButton(
-                      child: Text(
-                        "Load Galery",
-                        style: hiddenprofile_ButtonTextStyle,
-                      ),
-                      onPressed: model.imgFromGallery,
-                      style: hiddenprofile_ButtonStyle,
                     ),
                   ),
                 ],
+              )
+            : Container(
+                margin: EdgeInsets.all(30.0),
+                decoration: BoxDecoration(color: Colors.grey[500]),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Select image or take one!",
+                        style: walkthroughScreenSubHeader,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedButton(
+                        child: Text(
+                          "Load Camera",
+                          style: hiddenprofile_ButtonTextStyle,
+                        ),
+                        onPressed: shareState.imgFromCamera,
+                        style: hiddenprofile_ButtonStyle,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedButton(
+                        child: Text(
+                          "Load Galery",
+                          style: hiddenprofile_ButtonTextStyle,
+                        ),
+                        onPressed: shareState.imgFromGallery,
+                        style: hiddenprofile_ButtonStyle,
+                      ),
+                    ),
+                  ],
+                ),
+                height: 600,
+                width: 400,
               ),
-              height: 600,
-              width: 400,
-            ),
+      ),
     );
 
     // Container(
@@ -100,9 +111,9 @@ class PostImage extends ViewModelWidget<MainAppViewModel> {
   }
 }
 
-class PostPost extends ViewModelWidget<MainAppViewModel> {
+class PostPost extends StatelessWidget {
   @override
-  Widget build(BuildContext context, MainAppViewModel model) {
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(30.0),
       child: TextField(

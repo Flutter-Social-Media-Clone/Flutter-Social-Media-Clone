@@ -1,14 +1,14 @@
 import 'package:cs310insta/core/models/postBase.dart';
-import 'package:cs310insta/core/models/searchResultBase.dart';
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
-import 'package:cs310insta/ui/my_profile_screen/my_profile_viewmodel.dart';
+import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:get/get.dart';
 
-class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
+class MyProfileAppBar extends StatelessWidget {
+  final MyProfileState myProfileState = Get.put(MyProfileState());
+
   @override
-  Widget build(BuildContext context, MainAppViewModel model) {
+  Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: <Widget>[
@@ -70,7 +70,8 @@ class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
                                             ),
                                             style: login_signupButtonStyle,
                                             onPressed: () {
-                                              model.setmyIndex("posts");
+                                              myProfileState
+                                                  .setmyIndex("posts");
                                             }),
                                         OutlinedButton(
                                           child: Text(
@@ -79,7 +80,7 @@ class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
                                           ),
                                           style: login_signupButtonStyle,
                                           onPressed: () {
-                                            model.setmyIndex("medias");
+                                            myProfileState.setmyIndex("medias");
                                           },
                                         ),
                                         OutlinedButton(
@@ -89,7 +90,8 @@ class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
                                           ),
                                           style: login_signupButtonStyle,
                                           onPressed: () {
-                                            model.setmyIndex("locations");
+                                            myProfileState
+                                                .setmyIndex("locations");
                                           },
                                         ),
                                       ],
@@ -113,11 +115,15 @@ class MyProfileAppBar extends ViewModelWidget<MainAppViewModel> {
   }
 }
 
-class MyProfileBody extends ViewModelWidget<MainAppViewModel> {
+class MyProfileBody extends StatelessWidget {
+  final MyProfileState myProfileState = Get.put(MyProfileState());
+
   @override
-  Widget build(BuildContext context, MainAppViewModel model) {
-    return Posts(
-      model.getMyResults(),
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Posts(
+        myProfileState.getMyResults(),
+      ),
     );
   }
 }

@@ -1,65 +1,63 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cs310insta/core/models/KFormField.dart';
+import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:cs310insta/utils/style.dart';
-import 'package:cs310insta/utils/validators.dart' as validator;
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stacked/stacked.dart';
-import 'walkthrough_viewmodel.dart';
+import 'package:get/get.dart';
 
 // Since the state was moved to the view model, this is now a StatelessWidget.
 class WalkthroughScreen extends StatelessWidget {
+  final WalkthroughState walkthroughState = Get.put(WalkthroughState());
+
   @override
   Widget build(BuildContext context) {
     // ViewModelBuilder is what provides the view model to the widget tree.
-    return ViewModelBuilder<WalkthroughViewModel>.reactive(
-      viewModelBuilder: () => WalkthroughViewModel(),
-      builder: (context, model, child) => Scaffold(
-        resizeToAvoidBottomInset: false,
-        // appBar: AppBar(
-        //   title: Text('Flutter Demo Home Page'),
-        // ),
-        body: Builder(
-          builder: (context) {
-            final double height = model.getHeight(context) - 28;
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      // appBar: AppBar(
+      //   title: Text('Flutter Demo Home Page'),
+      // ),
+      body: Builder(
+        builder: (context) {
+          final double height = walkthroughState.getHeight() - 28;
 
-            return Container(
-              decoration: BoxDecoration(
-                color: appBackgroundColor,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/login_background.png"),
-                  fit: BoxFit.fitHeight,
-                ),
+          return Container(
+            decoration: BoxDecoration(
+              color: appBackgroundColor,
+              image: DecorationImage(
+                image: AssetImage("assets/images/login_background.png"),
+                fit: BoxFit.fitHeight,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CarouselSlider(
-                    options: CarouselOptions(
-                        height: height,
-                        viewportFraction: 1.0,
-                        enlargeCenterPage: false,
-                        enableInfiniteScroll: false,
-                        onPageChanged: (index, reason) {
-                          model.setCurrent(index);
-                        }
-                        // autoPlay: false,
-                        ),
-                    items: model.imgList
-                        .map(
-                          (item) => Container(
-                            //margin: EdgeInsets.fromLTRB(0, 40, 0, 80),
-                            child: Column(
-                              //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: SizedBox(height: 1),
-                                ),
-                                Expanded(
-                                  flex: 5,
-                                  child: Column(
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CarouselSlider(
+                  options: CarouselOptions(
+                      height: height,
+                      viewportFraction: 1.0,
+                      enlargeCenterPage: false,
+                      enableInfiniteScroll: false,
+                      onPageChanged: (index, reason) {
+                        walkthroughState.setCurrent(index);
+                      }
+                      // autoPlay: false,
+                      ),
+                  items: walkthroughState.imgList
+                      .map(
+                        (item) => Container(
+                          //margin: EdgeInsets.fromLTRB(0, 40, 0, 80),
+                          child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: SizedBox(height: 1),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Obx(
+                                  () => Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -83,7 +81,8 @@ class WalkthroughScreen extends StatelessWidget {
                                         ],
                                       ),
                                       Text(
-                                        model.headerList[model.current],
+                                        walkthroughState.headerList[
+                                            walkthroughState.current.value],
                                         style: walkthroughScreenHeader,
                                       ),
                                       Padding(
@@ -91,7 +90,8 @@ class WalkthroughScreen extends StatelessWidget {
                                           horizontal: 50,
                                         ),
                                         child: Text(
-                                          model.subheaderList[model.current],
+                                          walkthroughState.subheaderList[
+                                              walkthroughState.current.value],
                                           textAlign: TextAlign.center,
                                           style: walkthroughScreenSubHeader,
                                         ),
@@ -100,14 +100,13 @@ class WalkthroughScreen extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          model.current == model.page_count - 1
+                                          walkthroughState.current.value ==
+                                                  walkthroughState.pageCount - 1
                                               ? OutlinedButton(
                                                   onPressed: () {
-                                                    model.setSeenTrue();
-                                                    Navigator
-                                                        .restorablePopAndPushNamed(
-                                                            context,
-                                                            "/welcome");
+                                                    walkthroughState
+                                                        .setSeenTrue();
+                                                    Get.offAllNamed("/welcome");
                                                   },
                                                   child: Text(
                                                     "Get Started",
@@ -123,34 +122,36 @@ class WalkthroughScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        )
-                        .toList(),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: model.imgList.map((url) {
-                      int index = model.imgList.indexOf(url);
-                      return Container(
+                        ),
+                      )
+                      .toList(),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: walkthroughState.imgList.map((url) {
+                    int index = walkthroughState.imgList.indexOf(url);
+                    return Obx(
+                      () => Container(
                         width: 8.0,
                         height: 8.0,
                         margin: EdgeInsets.fromLTRB(2, 0, 2, 20),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: model.current == index
+                          color: walkthroughState.current.value == index
                               ? Color.fromRGBO(255, 255, 255, 1)
                               : Color.fromRGBO(255, 255, 255, 0.5),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

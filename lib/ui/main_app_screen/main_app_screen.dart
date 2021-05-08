@@ -1,5 +1,5 @@
 import 'package:cs310insta/core/models/bottom_bar.dart';
-import 'package:cs310insta/core/models/searchResultBase.dart';
+import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/ui/components/RightDrawer/right_drawer.dart';
 import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
 import 'package:cs310insta/ui/my_profile_screen/my_profile_screen.dart';
@@ -8,9 +8,8 @@ import 'package:cs310insta/ui/search_screen/search_screen.dart';
 import 'package:cs310insta/ui/share_screen/share_screen.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:get/get.dart';
 import 'package:cs310insta/utils/style.dart';
-import 'main_app_viewmodel.dart';
 
 class MainAppScreen extends StatelessWidget {
   //const NotificationScreen({Key key}) : super(key: key);
@@ -25,10 +24,14 @@ class MainAppScreen extends StatelessWidget {
     //   _scaffoldKey.currentState!.openEndDrawer();
     // }
 
+    final SearchState searchState = Get.put(SearchState());
+    final ShareState shareState = Get.put(ShareState());
+    final BottomNavigationState bottomNavigationState =
+        Get.put(BottomNavigationState());
+
     // ViewModelBuilder is what provides the view model to the widget tree.
-    return ViewModelBuilder<MainAppViewModel>.reactive(
-      viewModelBuilder: () => MainAppViewModel(),
-      builder: (context, model, child) => Scaffold(
+    return Obx(
+      () => Scaffold(
         key: _scaffoldKey,
         backgroundColor: feedBackgroundColor,
         resizeToAvoidBottomInset: false,
@@ -70,7 +73,7 @@ class MainAppScreen extends StatelessWidget {
                             ),
                             style: login_signupButtonStyle,
                             onPressed: () {
-                              model.setMode("peoples");
+                              searchState.setMode("peoples");
                             },
                           ),
                           OutlinedButton(
@@ -80,7 +83,7 @@ class MainAppScreen extends StatelessWidget {
                             ),
                             style: login_signupButtonStyle,
                             onPressed: () {
-                              model.setMode("topics");
+                              searchState.setMode("topics");
                             },
                           ),
                           OutlinedButton(
@@ -90,7 +93,7 @@ class MainAppScreen extends StatelessWidget {
                             ),
                             style: login_signupButtonStyle,
                             onPressed: () {
-                              model.setMode("locations");
+                              searchState.setMode("locations");
                             },
                           ),
                         ],
@@ -163,7 +166,7 @@ class MainAppScreen extends StatelessWidget {
                             ),
                             style: login_signupButtonStyle,
                             onPressed: () {
-                              model.setShareIndex("media");
+                              shareState.setShareIndex("media");
                             },
                           ),
                           OutlinedButton(
@@ -173,7 +176,7 @@ class MainAppScreen extends StatelessWidget {
                             ),
                             style: login_signupButtonStyle,
                             onPressed: () {
-                              model.setShareIndex("post");
+                              shareState.setShareIndex("post");
                             },
                           ),
                           OutlinedButton(
@@ -183,7 +186,7 @@ class MainAppScreen extends StatelessWidget {
                             ),
                             style: login_signupButtonStyle,
                             onPressed: () {
-                              model.setShareIndex("location");
+                              shareState.setShareIndex("location");
                             },
                           ),
                         ],
@@ -267,7 +270,7 @@ class MainAppScreen extends StatelessWidget {
                   ],
                 ),
               )),
-        ].elementAt(model.selectedIndex),
+        ].elementAt(bottomNavigationState.selectedIndex.value),
         body: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -279,12 +282,12 @@ class MainAppScreen extends StatelessWidget {
               ShareScreen(),
               NotificationScreen(),
               MyProfileBody(),
-            ].elementAt(model.selectedIndex),
+            ].elementAt(bottomNavigationState.selectedIndex.value),
           ],
         ),
         bottomNavigationBar: BottomBar(),
         endDrawer: [null, null, null, null, RightDrawer()]
-            .elementAt(model.selectedIndex),
+            .elementAt(bottomNavigationState.selectedIndex.value),
       ),
     );
   }
