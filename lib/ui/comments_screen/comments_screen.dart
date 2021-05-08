@@ -2,7 +2,6 @@ import 'package:cs310insta/core/models/bottom_bar.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 import 'package:cs310insta/utils/style.dart';
 import '../components/commentsCard/comments_card.dart';
 import '../components/commentsCard/comments_card_viewmodel.dart';
@@ -186,19 +185,16 @@ class CommentsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ViewModelBuilder is what provides the view model to the widget tree.
-    return ViewModelBuilder<CommentsViewModel>.reactive(
-      viewModelBuilder: () => CommentsViewModel(),
-      builder: (context, model, child) => Expanded(
-        child: ListView(
-          padding: EdgeInsets.fromLTRB(12, 12, 12, 5),
-          dragStartBehavior: DragStartBehavior.start,
-          addSemanticIndexes: true,
-          children: commentsList
-              .map((commentSingle) => CommentsCard(
-                    commentBody: commentSingle,
-                  ))
-              .toList(),
-        ),
+    return Expanded(
+      child: ListView(
+        padding: EdgeInsets.fromLTRB(12, 12, 12, 5),
+        dragStartBehavior: DragStartBehavior.start,
+        addSemanticIndexes: true,
+        children: commentsList
+            .map((commentSingle) => CommentsCard(
+                  commentBody: commentSingle,
+                ))
+            .toList(),
       ),
     );
   }
