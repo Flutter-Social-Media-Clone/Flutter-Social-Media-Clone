@@ -1,5 +1,7 @@
+import 'package:cs310insta/ui/c_password_screen/change_password_screen.dart';
 import 'package:cs310insta/ui/counter_screen/counter_screen.dart';
 import 'package:cs310insta/ui/edit_profile_screen/edit_profile_screen.dart';
+import 'package:cs310insta/ui/f_password_screen/password_screen.dart';
 import 'package:cs310insta/ui/hidden_screen/hidden_screen.dart';
 import 'package:cs310insta/ui/login_screen/login_screen.dart';
 import 'package:cs310insta/ui/main_app_screen/main_app_screen.dart';
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
         } else {
           print("SNAP ${snapshot.data}");
           return MaterialApp(
-            initialRoute: "/subscription",
+            initialRoute: "/password",
             routes: {
               "/walkthrough": (context) => WalkthroughScreen(),
               "/welcome": (context) => WelcomeScreen(),
@@ -56,6 +58,8 @@ class MyApp extends StatelessWidget {
               "/hiddenProfile": (context) => HiddenProfile(),
               "/editProfile": (context) => EditProfilePage(),
               "/subscription": (context) => SubscriptionBar(),
+              "/password": (context) => ForgotPassword(),
+              "/changepassword": (context) => ChangePassword(),
             },
 
           );

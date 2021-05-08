@@ -101,6 +101,30 @@ TextStyle headerGradient = TextStyle(
       ],
     ).createShader(Rect.fromLTWH(0.0, 0.0, 300.0, 20.0)),
 );
+TextStyle headerG = TextStyle(
+  fontSize: 45,
+  fontWeight: FontWeight.w400,
+  foreground: Paint()
+    ..shader = LinearGradient(
+      colors: <Color>[
+        Color.fromRGBO(48, 207, 208, 1.0),
+        Color.fromRGBO(51, 8, 103, 1.0)
+      ],
+    ).createShader(Rect.fromLTWH(0.0, 0.0, 300.0, 20.0)),
+);
+TextStyle ChangeP = TextStyle(
+  fontSize: 44,
+  fontWeight: FontWeight.w400,
+  foreground: Paint()
+    ..shader = LinearGradient(
+      colors: <Color>[
+        Color.fromRGBO(48, 207, 208, 1.0),
+        Color.fromRGBO(51, 8, 103, 1.0)
+      ],
+    ).createShader(Rect.fromLTWH(0.0, 0.0, 300.0, 20.0)),
+);
+
+
 
 BoxDecoration backgroundDecoration = BoxDecoration(
     image: DecorationImage(
