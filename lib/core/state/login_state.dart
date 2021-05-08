@@ -1,30 +1,28 @@
 import 'package:cs310insta/core/models/KFormField.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class LoginViewModel extends ChangeNotifier {
-  // <-- extends ChangeNotifier
-
+class LoginState extends GetxController {
   final formKey = GlobalKey<FormState>();
-  String email;
-  String pass;
+  var email = "".obs;
+  var pass = "".obs;
 
-  void handleLogin(context) async {
+  void handleLogin() async {
     if (formKey.currentState.validate()) {
       print("Handle login tapped!");
       formKey.currentState.save();
       print(email);
       print(pass);
-      Navigator.pushNamed(context, "/mainapp");
+      Get.offAllNamed("/mainapp");
     }
   }
 
-  void handleSaveEmail(value) {
-    email = value;
+  void handleSaveEmail(var value) {
+    email.value = value;
   }
 
-  void handleSavePass(value) {
-    pass = value;
+  void handleSavePass(var value) {
+    pass.value = value;
   }
 
   KFormField emailField = new KFormField(
@@ -39,13 +37,4 @@ class LoginViewModel extends ChangeNotifier {
     autocorrect: false,
     enableSuggestions: false,
   );
-
-  int _counter = 0;
-
-  int get counter => _counter;
-
-  void increment() {
-    _counter++;
-    notifyListeners(); // <-- notify listeners
-  }
 }

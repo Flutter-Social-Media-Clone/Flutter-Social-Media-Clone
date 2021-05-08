@@ -1,10 +1,10 @@
 import 'package:cs310insta/core/models/postBase.dart';
-import 'package:cs310insta/ui/third_person_profile_screen/third_person_profile_viewmodel.dart';
+import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:stacked/stacked.dart';
+import 'package:get/get.dart';
 
 // class ThirdPersonProfileScreen extends ViewModelWidget<ThirdPersonViewModel> {
 //   @override
@@ -22,20 +22,17 @@ import 'package:stacked/stacked.dart';
 class ThirdPersonProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ThirdPersonViewModel>.reactive(
-      viewModelBuilder: () => ThirdPersonViewModel(),
-      builder: (context, model, child) => Scaffold(
-        backgroundColor: feedBackgroundColor,
-        appBar: PreferredSize(
-          preferredSize: Size(100, 330),
-          child: ThirdPersonAppBar(),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              ThirdPersonBody(),
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: feedBackgroundColor,
+      appBar: PreferredSize(
+        preferredSize: Size(100, 330),
+        child: ThirdPersonAppBar(),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            ThirdPersonBody(),
+          ],
         ),
       ),
     );
@@ -46,13 +43,12 @@ class ThirdPersonProfileScreen extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context, MainAppViewModel model) {
 
-class ThirdPersonAppBar extends ViewModelWidget<ThirdPersonViewModel> {
-  const ThirdPersonAppBar({
-    Key key,
-  }) : super(key: key);
+class ThirdPersonAppBar extends StatelessWidget {
+  final ThirdPersonProfileState thirdPersonProfileState =
+      Get.put(ThirdPersonProfileState());
 
   @override
-  Widget build(BuildContext context, ThirdPersonViewModel model) {
+  Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
@@ -213,7 +209,8 @@ class ThirdPersonAppBar extends ViewModelWidget<ThirdPersonViewModel> {
                                           ),
                                           style: login_signupButtonStyle,
                                           onPressed: () {
-                                            model.setmyIndex("posts");
+                                            thirdPersonProfileState
+                                                .setmyIndex("posts");
                                           }),
                                       OutlinedButton(
                                         child: Text(
@@ -222,7 +219,8 @@ class ThirdPersonAppBar extends ViewModelWidget<ThirdPersonViewModel> {
                                         ),
                                         style: login_signupButtonStyle,
                                         onPressed: () {
-                                          model.setmyIndex("medias");
+                                          thirdPersonProfileState
+                                              .setmyIndex("medias");
                                         },
                                       ),
                                       OutlinedButton(
@@ -232,7 +230,8 @@ class ThirdPersonAppBar extends ViewModelWidget<ThirdPersonViewModel> {
                                         ),
                                         style: login_signupButtonStyle,
                                         onPressed: () {
-                                          model.setmyIndex("locations");
+                                          thirdPersonProfileState
+                                              .setmyIndex("locations");
                                         },
                                       ),
                                     ],
@@ -255,11 +254,16 @@ class ThirdPersonAppBar extends ViewModelWidget<ThirdPersonViewModel> {
   }
 }
 
-class ThirdPersonBody extends ViewModelWidget<ThirdPersonViewModel> {
+class ThirdPersonBody extends StatelessWidget {
+  final ThirdPersonProfileState thirdPersonProfileState =
+      Get.put(ThirdPersonProfileState());
+
   @override
-  Widget build(BuildContext context, ThirdPersonViewModel model) {
-    return Posts(
-      model.getMyResults(),
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Posts(
+        thirdPersonProfileState.getMyResults(),
+      ),
     );
   }
 }

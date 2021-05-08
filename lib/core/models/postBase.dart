@@ -149,11 +149,8 @@ class Posts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-        child: ListView(
-          children: this.items,
-        ),
+      child: ListView(
+        children: this.items,
       ),
     );
     //  return ListView(

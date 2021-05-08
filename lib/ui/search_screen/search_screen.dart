@@ -1,21 +1,23 @@
 import 'package:cs310insta/core/models/searchResultBase.dart';
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
-import 'package:cs310insta/ui/search_screen/search_viewmodel.dart';
-import 'package:cs310insta/utils/style.dart';
+import 'package:cs310insta/core/state/states.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:get/get.dart';
 
-class WrapSearch extends ViewModelWidget<MainAppViewModel> {
+class WrapSearch extends StatelessWidget {
+  final SearchState searchState = Get.put(SearchState());
+
   @override
-  Widget build(BuildContext context, MainAppViewModel model) {
+  Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Column(
           children: [
-            SearchResult(
-              model.getSearchResult(),
-            ),
+            Obx(
+              () => SearchResult(
+                searchState.getSearchResult(),
+              ),
+            )
           ],
         ),
       ),

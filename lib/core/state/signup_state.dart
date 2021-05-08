@@ -1,15 +1,17 @@
 import 'package:cs310insta/core/models/KFormField.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class SignupViewModel extends ChangeNotifier {
+class SignupState extends GetxController {
   final formKey = GlobalKey<FormState>();
-  String email;
-  String username;
-  int age;
-  String gender;
-  String pass;
-  String pass2;
+
+  var email = "".obs;
+  var username = "".obs;
+  var age = 0.obs;
+  var gender = "".obs;
+  var pass = "".obs;
+  var pass2 = "".obs;
+
   List<String> genderList = ['Male', 'Female', 'Other'];
 
   void handleSignup() async {
@@ -25,33 +27,34 @@ class SignupViewModel extends ChangeNotifier {
     }
   }
 
-  void handleSaveEmail(String value) {
-    email = value;
+  void handleSaveEmail(var value) {
+    email.value = value;
   }
 
-  void handleSavePass(String value) {
-    pass = value;
+  void handleSavePass(var value) {
+    pass.value = value;
   }
 
-  void handleSavePass2(String value) {
-    pass2 = value;
+  void handleSavePass2(var value) {
+    pass2.value = value;
   }
 
-  void handleSaveUsername(String value) {
-    username = value;
+  void handleSaveUsername(var value) {
+    username.value = value;
   }
 
-  void handleSaveAge(String value) {
-    age = int.parse(value);
+  void handleSaveAge(var value) {
+    age.value = int.parse(value);
   }
 
-  void handleSaveGender(String value) {
-    gender = value;
+  void handleSaveGender(var value) {
+    gender.value = value;
   }
 
-  void setGender(String value) {
-    gender = value;
-    notifyListeners();
+  void setGender(var value) {
+    print("MY VALUE  ${value}");
+    gender.value = value;
+    print("MY VALUE 2 ${gender.value}");
   }
 
   KFormField emailField = new KFormField(
@@ -89,13 +92,4 @@ class SignupViewModel extends ChangeNotifier {
     autocorrect: false,
     enableSuggestions: false,
   );
-
-  int _counter = 0;
-
-  int get counter => _counter;
-
-  void increment() {
-    _counter++;
-    notifyListeners(); // <-- notify listeners
-  }
 }

@@ -3,10 +3,9 @@ import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BottomBar extends StatelessWidget {
+class BottomBarNavigate extends StatelessWidget {
   final BottomNavigationState bottomNavigationState =
       Get.put(BottomNavigationState());
-
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -40,7 +39,10 @@ class BottomBar extends StatelessWidget {
         backgroundColor: bottomNavBackgroundColor,
         selectedItemColor: Colors.amber[800],
         unselectedItemColor: Colors.white,
-        onTap: bottomNavigationState.onItemTapped,
+        onTap: (index) {
+          Navigator.pushNamed(context, "/mainapp");
+          bottomNavigationState.onItemNavigatorTapped(index);
+        },
         type: BottomNavigationBarType.fixed,
       ),
     );
