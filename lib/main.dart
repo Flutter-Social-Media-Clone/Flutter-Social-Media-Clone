@@ -1,3 +1,5 @@
+import 'package:cs310insta/ui/comments_screen/comments_screen.dart';
+
 import 'package:cs310insta/ui/edit_profile_screen/edit_profile_screen.dart';
 import 'package:cs310insta/ui/hidden_screen/hidden_screen.dart';
 import 'package:cs310insta/ui/login_screen/login_screen.dart';
@@ -11,6 +13,8 @@ import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cs310insta/ui/components/messageDetail/message_detail.dart';
+import 'package:cs310insta/ui/message_screen/message_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -64,6 +68,9 @@ class MyApp extends StatelessWidget {
               GetPage(name: "/hiddenProfile", page: () => HiddenProfile()),
               GetPage(name: "/editProfile", page: () => EditProfilePage()),
               GetPage(name: "/selectTopics", page: () => SelectTopics()),
+              GetPage(name: "/messageSingle", page: () => MessageDetail()),
+              GetPage(name: "/message", page: () => MessagePage()),
+              GetPage(name: "/comments", page: () => CommentsScreen()),
             ],
           );
         }
