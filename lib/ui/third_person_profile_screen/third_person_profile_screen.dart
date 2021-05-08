@@ -163,13 +163,26 @@ class ThirdPersonAppBar extends ViewModelWidget<ThirdPersonViewModel> {
                   ),
                   Column(
                     children: [
-                      OutlinedButton(
-                          child: Text(
-                            "Send Message",
-                            style: profileButtonTextStyle,
-                          ),
-                          style: hiddenprofile_ButtonStyle,
-                          onPressed: () {}),
+                      Row(
+                        children: [
+                          OutlinedButton(
+                              child: Text(
+                                "comments",
+                                style: profileButtonTextStyle,
+                              ),
+                              style: profileButtonStyle,
+                              onPressed: () {
+                                Navigator.pushNamed(context, "/comments");
+                              }),
+                          OutlinedButton(
+                              child: Text(
+                                "Send Message",
+                                style: profileButtonTextStyle,
+                              ),
+                              style: hiddenprofile_ButtonStyle,
+                              onPressed: () {}),
+                        ],
+                      ),
                     ],
                   ),
                   Card(

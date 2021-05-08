@@ -1,3 +1,4 @@
+import 'package:cs310insta/ui/comments_screen/comments_screen.dart';
 import 'package:cs310insta/ui/counter_screen/counter_screen.dart';
 import 'package:cs310insta/ui/edit_profile_screen/edit_profile_screen.dart';
 import 'package:cs310insta/ui/hidden_screen/hidden_screen.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
               "/editProfile": (context) => EditProfilePage(),
               "/messageSingle": (context) => MessageDetail(),
               "/message": (context) => MessagePage(),
+              "/comments": (context) => CommentsScreen(),
             },
           );
         }

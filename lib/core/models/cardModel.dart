@@ -15,3 +15,13 @@ class MessageModel {
   bool is_read;
   MessageModel({this.from, this.message, this.img, this.is_read});
 }
+
+class CommentsModel {
+  int commentId;
+  String pp_url;
+  String name;
+  String commentText;
+  String date;
+  CommentsModel(
+      {this.commentId, this.pp_url, this.name, this.commentText, this.date});
+}
