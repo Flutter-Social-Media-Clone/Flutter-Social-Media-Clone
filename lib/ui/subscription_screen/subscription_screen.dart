@@ -1,201 +1,29 @@
-import 'package:cs310insta/core/models/bottom_bar.dart';
-import 'package:cs310insta/core/models/searchResultBase.dart';
-import 'package:cs310insta/ui/components/RightDrawer/right_drawer.dart';
-import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
-import 'package:cs310insta/ui/my_profile_screen/my_profile_screen.dart';
-import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
-import 'package:cs310insta/ui/search_screen/search_screen.dart';
-import 'package:cs310insta/utils/color.dart';
+import 'package:cs310insta/core/models/subscriptionResultBase.dart';
+import 'package:cs310insta/ui/subscription_screen/subscription_viewmodel.dart';
+import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:cs310insta/utils/style.dart';
 
-class SubscriptionScreen extends StatelessWidget {
-  //const NotificationScreen({Key key}) : super(key: key);
-  //
-  //
-
+class SubscriptionScreen extends ViewModelWidget<SubscriptionViewModel> {
   @override
-  Widget build(BuildContext context) {
-
-    // void _openEndDrawer() {
-    //   _scaffoldKey.currentState!.openEndDrawer();
-    // }
-
-    // ViewModelBuilder is what provides the view model to the widget tree.
-    return ViewModelBuilder<MainAppViewModel>.reactive(
-      viewModelBuilder: () => MainAppViewModel(),
-      builder: (context, model, child) => Scaffold(
-        backgroundColor: feedBackgroundColor,
-        resizeToAvoidBottomInset: false,
-        appBar: [
-          AppBar(
-            leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 90, // default is 56
-            //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            bottom: PreferredSize(
-              preferredSize: Size(100, 100),
-              child: Container(
-                margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          OutlinedButton(
-                            child: Text(
-                              "People",
-                              style: login_signupButtonTextStyle,
-                            ),
-                            style: login_signupButtonStyle,
-                            onPressed: () {
-                              model.setMode("peoples");
-                            },
-                          ),
-                          OutlinedButton(
-                            child: Text(
-                              "Topic",
-                              style: login_signupButtonTextStyle,
-                            ),
-                            style: login_signupButtonStyle,
-                            onPressed: () {
-                              model.setMode("topics");
-                            },
-                          ),
-                          OutlinedButton(
-                            child: Text(
-                              "Location",
-                              style: login_signupButtonTextStyle,
-                            ),
-                            style: login_signupButtonStyle,
-                            onPressed: () {
-                              model.setMode("locations");
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          AppBar(
-            // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 76, // default is 56
-            //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Feed'),
-          ),
-          AppBar(
-            // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 76, // default is 56
-            //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Share'),
-          ),
-          AppBar(
-            // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 76, // default is 56
-            //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Notifications'),
-          ),
-
-          PreferredSize(
-              preferredSize: Size(340, 320),
-              child: Container(
-                child: Column(
-                  children: [
-                    AppBar(
-                      toolbarHeight: 180,
-                      automaticallyImplyLeading: false,
-                      backgroundColor: bottomNavBackgroundColor,
-                      leadingWidth: 110,
-                      leading: Container(
-                        height: 180,
-                        margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 40,
-                              child: OutlinedButton(
-                                  child: Text(
-                                    "Subscript",
-                                    style: profileButtonTextStyle,
-                                  ),
-                                  style: profileButtonStyle,
-                                  onPressed: () {}),
-                            ),
-                            SizedBox(
-                              height: 80,
-                            )
-                          ],
-                        ),
-                      ),
-                      title: Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              "https://img-s1.onedio.com/id-5d2ef7db3810d17123d5122c/rev-0/w-635/listing/f-jpg-webp/s-28249b47a72289a187b15a1dfc011ddedc8e0ab0.webp",
-                            ),
-                            radius: 70.0,
-                          ),
-                        ],
-                      ),
-                      actions: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 70),
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () =>
-                                    {},
-                                child: Icon(
-                                  Icons.dehaze,
-                                  size: 40,
-                                ),
-                              ),
-                              SizedBox(height: 60)
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    MyProfileAppBar(),
-                  ],
-                ),
-              )),
-        ].elementAt(model.selectedIndex),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //model.pageWidget,
-              [
-                //SearchResult(model.peoples),
-                WrapSearch(),
-                ImagePostList(),
-                SearchResult(model.locations),
-                NotificationScreen(),
-                MyProfileBody(),
-              ].elementAt(model.selectedIndex),
-            ],
-          ),
+  Widget build(BuildContext context, SubscriptionViewModel model) {
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+        child: Column(
+          children: [
+            SubscriptionResult(
+              model.getSubscriptionResult(),
+          
         ),
-        bottomNavigationBar: BottomBar(),
-        endDrawer: [null, null, null, null, RightDrawer()]
-            .elementAt(model.selectedIndex),
+        ],
       ),
+    ),
+
+    // Container(
+    //   child: SearchResult(model.peoples),
+    // );
     );
+    
   }
 }

@@ -16,6 +16,8 @@ import 'package:cs310insta/core/models/profile_bar.dart';
 import 'package:cs310insta/core/models/thirdpartyprofile_bar.dart';
 import 'package:cs310insta/core/models/hiddenprofile.dart';
 
+import 'core/models/subscription_bar.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -53,7 +55,7 @@ class MyApp extends StatelessWidget {
               "/thirdPersonProfile": (context) => ThirdPersonProfileScreen(),
               "/hiddenProfile": (context) => HiddenProfile(),
               "/editProfile": (context) => EditProfilePage(),
-              "/subscription": (context) => SubscriptionScreen(),
+              "/subscription": (context) => SubscriptionBar(),
             },
 
           );
