@@ -1,4 +1,3 @@
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -9,22 +8,21 @@ class ProfileApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              //shape: BoxShape.circle,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30)),
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color.fromRGBO(18, 52, 86, 1.0),Color.fromRGBO(18, 52, 86, 1.0),]
-              )
-            ),           
+                //shape: BoxShape.circle,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30)),
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromRGBO(18, 52, 86, 1.0),
+                      Color.fromRGBO(18, 52, 86, 1.0),
+                    ])),
             child: Container(
-
               width: double.infinity,
               height: 310.0,
               child: Center(
@@ -32,23 +30,24 @@ class ProfileApp extends StatelessWidget {
                   children: <Widget>[
                     SizedBox(
                       height: 34.0,
-                    ), 
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                         Column(
+                        Column(
                           children: [
                             OutlinedButton(
-                              child: Text(
+                                child: Text(
                                   "Subscription",
-                                    style: profile_ButtonTextStyle,
-                                    ),
-                                    style: profile_ButtonStyle,             
-                                    onPressed: () {
-                                    }),
+                                  style: profile_ButtonTextStyle,
+                                ),
+                                style: profile_ButtonStyle,
+                                onPressed: () {}),
                           ],
-                         ), 
-                         SizedBox(width: 10,),                   
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Column(
                           children: [
                             CircleAvatar(
@@ -59,16 +58,18 @@ class ProfileApp extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(width: 70,),
+                        SizedBox(
+                          width: 70,
+                        ),
                         Column(
                           children: [
-                            IconButton(icon: Icon(Icons.menu), 
-                            iconSize: 35,
-                            color: Colors.white,
-                            onPressed: () {}),
-                        
+                            IconButton(
+                                icon: Icon(Icons.menu),
+                                iconSize: 35,
+                                color: Colors.white,
+                                onPressed: () {}),
                           ],
-                        ),                        
+                        ),
                       ],
                     ),
                     SizedBox(
@@ -85,65 +86,68 @@ class ProfileApp extends StatelessWidget {
                       height: 15.0,
                     ),
                     Card(
-                      margin: EdgeInsets.symmetric(horizontal: 40.0,vertical: 5.0),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 40.0, vertical: 5.0),
                       clipBehavior: Clip.antiAlias,
                       color: Color.fromRGBO(18, 52, 86, 1.0),
                       elevation: 0.0,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5.0, vertical: 10.0),
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                            child: Container(
-                              height: 50,
-                              child: Column(
-                            children: <Widget>[
-                        Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              OutlinedButton(
-                              child: Text(
-                              "Location",
-                                style: login_signupButtonTextStyle,
+                              child: Container(
+                                height: 50,
+                                child: Column(
+                                  children: <Widget>[
+                                    Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          OutlinedButton(
+                                              child: Text(
+                                                "Location",
+                                                style:
+                                                    login_signupButtonTextStyle,
+                                              ),
+                                              style: login_signupButtonStyle,
+                                              onPressed: () {}),
+                                          OutlinedButton(
+                                            child: Text(
+                                              "Topic",
+                                              style:
+                                                  login_signupButtonTextStyle,
+                                            ),
+                                            style: login_signupButtonStyle,
+                                            onPressed: () {},
+                                          ),
+                                          OutlinedButton(
+                                            child: Text(
+                                              "People",
+                                              style:
+                                                  login_signupButtonTextStyle,
+                                            ),
+                                            style: login_signupButtonStyle,
+                                            onPressed: () {},
+                                          ),
+                                        ]),
+                                  ],
                                 ),
-                                style: login_signupButtonStyle,                  
-                                onPressed: () {}),
-                              OutlinedButton(
-                              child: Text(
-                              "Topic",
-                                style: login_signupButtonTextStyle,
-                                ),
-                                style: login_signupButtonStyle,  
-                                onPressed: () {},
                               ),
-                              OutlinedButton(
-                              child: Text(
-                              "People",
-                                style: login_signupButtonTextStyle,
-                                ),
-                                style: login_signupButtonStyle,  
-                                onPressed: () {},
-                              ),
-                            ]),         
-                             ],    
-  
+                            )
+                          ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
-
+          ),
         ],
       ),
-      ),
-            ),
-            ),
-    ],
-    ),
-  );
- }
-
+    );
+  }
 }

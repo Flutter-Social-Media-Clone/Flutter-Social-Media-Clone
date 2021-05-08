@@ -1,5 +1,4 @@
 import 'package:cs310insta/core/models/search_bar.dart';
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -31,15 +30,14 @@ class _SearchBar extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(      
+    return Scaffold(
       appBar: AppBar(
-            leading: Icon(Icons.arrow_back_outlined ),
-            toolbarHeight: 66, // default is 56
-              //toolbarOpacity: 1,
-            backgroundColor: bottomNavBackgroundColor,
-            shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Search'),       
+        leading: Icon(Icons.arrow_back_outlined),
+        toolbarHeight: 66, // default is 56
+        //toolbarOpacity: 1,
+        backgroundColor: bottomNavBackgroundColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        title: Text('Search'),
       ),
       body: Column(
         children: [
@@ -56,65 +54,58 @@ class _SearchBar extends State<SearchBar> {
             },
           ),
           Expanded(
-    child: Container(
-      height: 150,
-      child: Column(
-        children: <Widget>[
-          Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                OutlinedButton(
-                 child: Text(
-                 "Location",
-                  style: login_signupButtonTextStyle,
-                  ),
-                  style: login_signupButtonStyle,                  
-                  onPressed: () {}),
-                OutlinedButton(
-                 child: Text(
-                 "Topic",
-                  style: login_signupButtonTextStyle,
-                  ),
-                  style: login_signupButtonStyle,  
-                  onPressed: () {},
-                ),
-                OutlinedButton(
-                 child: Text(
-                 "People",
-                  style: login_signupButtonTextStyle,
-                  ),
-                  style: login_signupButtonStyle,  
-                  onPressed: () {},
-                ),
-              ]),        
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredList.length,
-              itemBuilder: (BuildContext context, int index) => ListTile(
-                title: Text(filteredList[index]),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Display(
-                        text: filteredList[index],
+            child: Container(
+              height: 150,
+              child: Column(children: <Widget>[
+                Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      OutlinedButton(
+                          child: Text(
+                            "Location",
+                            style: login_signupButtonTextStyle,
+                          ),
+                          style: login_signupButtonStyle,
+                          onPressed: () {}),
+                      OutlinedButton(
+                        child: Text(
+                          "Topic",
+                          style: login_signupButtonTextStyle,
+                        ),
+                        style: login_signupButtonStyle,
+                        onPressed: () {},
                       ),
+                      OutlinedButton(
+                        child: Text(
+                          "People",
+                          style: login_signupButtonTextStyle,
+                        ),
+                        style: login_signupButtonStyle,
+                        onPressed: () {},
+                      ),
+                    ]),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: filteredList.length,
+                    itemBuilder: (BuildContext context, int index) => ListTile(
+                      title: Text(filteredList[index]),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Display(
+                              text: filteredList[index],
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
+                  ),
+                )
+              ]),
             ),
-          )
-
-        ]
-    ),
-    ),
-
-
           ),
-
-          
         ],
       ),
     );

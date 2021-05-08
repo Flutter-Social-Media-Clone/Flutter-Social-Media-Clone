@@ -1,13 +1,11 @@
 import 'package:cs310insta/core/models/searchResultBase.dart';
 import 'package:cs310insta/core/models/subscriptionResultBase.dart';
-import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
 import 'package:cs310insta/ui/subscription_screen/subscription_screen.dart';
 import 'package:cs310insta/ui/subscription_screen/subscription_viewmodel.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:cs310insta/utils/style.dart';
-
 
 class SubscriptionBar extends StatelessWidget {
   //const NotificationScreen({Key key}) : super(key: key);
@@ -42,19 +40,17 @@ class SubscriptionBar extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 5),       
-                        child: Row(
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                           Icon(Icons.arrow_back_outlined,
-                          size: 35,
-                          color: Colors.white),
+                          Icon(Icons.arrow_back_outlined,
+                              size: 35, color: Colors.white),
                           OutlinedButton(
                             child: Text(
                               "Location",
                               style: subs_ButtonTextStyle,
-                              
                             ),
                             style: subs_ButtonStyle,
                             onPressed: () {
@@ -70,11 +66,11 @@ class SubscriptionBar extends StatelessWidget {
                             onPressed: () {
                               model.setmyIndex("topicsubs");
                             },
-                          ),                          
+                          ),
                           OutlinedButton(
                             child: Text(
                               "Followers",
-                             style: subs_ButtonTextStyle,
+                              style: subs_ButtonTextStyle,
                             ),
                             style: subs_ButtonStyle,
                             onPressed: () {
@@ -99,7 +95,7 @@ class SubscriptionBar extends StatelessWidget {
               ),
             ),
           ),
-        ].elementAt(model.selectedIndex),          
+        ].elementAt(model.selectedIndex),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -112,14 +108,11 @@ class SubscriptionBar extends StatelessWidget {
                 SubscriptionResult(model.topicsubs),
                 SubscriptionResult(model.followers),
                 SubscriptionResult(model.following),
-                
-                
               ].elementAt(model.selectedIndex),
             ],
           ),
         ),
-
-    ),
+      ),
     );
   }
 }
