@@ -1,11 +1,14 @@
 import 'package:cs310insta/ui/comments_screen/comments_screen.dart';
 
+import 'package:cs310insta/ui/c_password_screen/change_password_screen.dart';
 import 'package:cs310insta/ui/edit_profile_screen/edit_profile_screen.dart';
+import 'package:cs310insta/ui/f_password_screen/password_screen.dart';
 import 'package:cs310insta/ui/hidden_screen/hidden_screen.dart';
 import 'package:cs310insta/ui/login_screen/login_screen.dart';
 import 'package:cs310insta/ui/main_app_screen/main_app_screen.dart';
 import 'package:cs310insta/ui/selectTopics_screen/selectTopics_screen.dart';
 import 'package:cs310insta/ui/signup_screen/signup_screen.dart';
+import 'package:cs310insta/ui/subscription_screen/subscription_screen.dart';
 import 'package:cs310insta/ui/third_person_profile_screen/third_person_profile_screen.dart';
 import 'package:cs310insta/ui/walkthrough_screen/walkthrough_screen.dart';
 import 'package:cs310insta/ui/welcome_screen/welcome_screen.dart';
@@ -15,6 +18,8 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cs310insta/ui/components/messageDetail/message_detail.dart';
 import 'package:cs310insta/ui/message_screen/message_screen.dart';
+
+import 'core/models/subscription_bar.dart';
 
 void main() => runApp(MyApp());
 
@@ -42,7 +47,7 @@ class MyApp extends StatelessWidget {
         } else {
           print("SNAP ${snapshot.data}");
           return GetMaterialApp(
-            initialRoute: snapshot.data ? "/walkthrough" : "/walkthrough",
+            initialRoute: snapshot.data ? "/mainapp" : "/walkthrough",
             // routes: {
             //   "/walkthrough": (context) => WalkthroughScreen(),
             //   "/welcome": (context) => WelcomeScreen(),
@@ -71,6 +76,9 @@ class MyApp extends StatelessWidget {
               GetPage(name: "/messageSingle", page: () => MessageDetail()),
               GetPage(name: "/message", page: () => MessagePage()),
               GetPage(name: "/comments", page: () => CommentsScreen()),
+              GetPage(name: "/subscription", page: () => SubscriptionBar()),
+              GetPage(name: "/password", page: () => ForgotPassword()),
+              GetPage(name: "/changepassword", page: () => ChangePassword()),
             ],
           );
         }
