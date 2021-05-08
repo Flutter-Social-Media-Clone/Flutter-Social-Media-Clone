@@ -56,11 +56,6 @@ class ForgotPassword extends StatelessWidget {
                             ),
                             SizedBox(height: 60),
 
-                            // KFormFieldWidget(
-                            //   kFormField: model.genderField,
-                            //   validator: validator.genderValidator,
-                            //   save: model.handleSaveGender,
-                            // ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [

@@ -20,11 +20,8 @@ class PasswordViewModel extends ChangeNotifier {
   }
   
   KFormField emailField = new KFormField(
-    keyboardType: TextInputType.text,
-    hint: "E-mail",
-    obscureText: true,
-    autocorrect: false,
-    enableSuggestions: false,
+    keyboardType: TextInputType.emailAddress,
+    hint: "email",
   );
 
 
