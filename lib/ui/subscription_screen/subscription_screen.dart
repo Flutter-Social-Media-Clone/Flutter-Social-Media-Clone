@@ -14,7 +14,6 @@ class SubscriptionScreen extends ViewModelWidget<SubscriptionViewModel> {
           children: [
             SubscriptionResult(
               model.getSubscriptionResult(),
-          
         ),
         ],
       ),

@@ -16,6 +16,12 @@ class FollowersSubscription extends SubscriptionResultBase {
 
   @override
   Widget build(BuildContext context) {
+    String tobeShowed;
+    if (this.text.length > 15) {
+      tobeShowed = this.text.substring(0, 10) + "...";
+    } else {
+      tobeShowed = this.text;
+    }   
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
@@ -31,18 +37,39 @@ class FollowersSubscription extends SubscriptionResultBase {
         child: Padding(
           padding: EdgeInsets.all(4.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
-                backgroundImage: this.image,
-                backgroundColor: Colors.grey[400],
-                radius: 30,
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: this.image,
+                        backgroundColor: Colors.grey[400],
+                        radius: 30,
+                      ),
+                      SizedBox(width:10),
+                        Text(
+                        "$tobeShowed",
+                          style: searchResultTextStyle,
+                          ),
+                    ],
+                  ),
+                ],                 
               ),
-              SizedBox(width: 30),
-              Text(
-                text,
-                style: searchResultTextStyle,
-              ),
+
+                Column(
+                  children: [
+                    OutlinedButton(
+                    child: Text(
+                    "Unfollow",
+                     style: unf_ButtonTextStyle,
+                    ),
+                    style: unf_ButtonStyle,
+                    onPressed: () { }, 
+                    ),
+                  ],
+                ),  
             ],
           ),
         ),
@@ -57,6 +84,12 @@ class FollowingSubscription extends SubscriptionResultBase {
 
   @override
   Widget build(BuildContext context) {
+    String tobeShowed;
+    if (this.text.length > 15) {
+      tobeShowed = this.text.substring(0, 10) + "...";
+    } else {
+      tobeShowed = this.text;
+    }   
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
@@ -72,18 +105,39 @@ class FollowingSubscription extends SubscriptionResultBase {
         child: Padding(
           padding: EdgeInsets.all(4.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
-                backgroundImage: this.image,
-                backgroundColor: Colors.grey[400],
-                radius: 30,
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: this.image,
+                        backgroundColor: Colors.grey[400],
+                        radius: 30,
+                      ),
+                      SizedBox(width:10),
+                        Text(
+                        "$tobeShowed",
+                          style: searchResultTextStyle,
+                          ),
+                    ],
+                  ),
+                ],                 
               ),
-              SizedBox(width: 30),
-              Text(
-                text,
-                style: searchResultTextStyle,
-              ),
+
+                Column(
+                  children: [
+                    OutlinedButton(
+                    child: Text(
+                    "Unfollow",
+                     style: unf_ButtonTextStyle,
+                    ),
+                    style: unf_ButtonStyle,
+                    onPressed: () { }, 
+                    ),
+                  ],
+                ),  
             ],
           ),
         ),
@@ -99,6 +153,12 @@ class TopicSubscription extends SubscriptionResultBase {
 
   @override
   Widget build(BuildContext context) {
+    String tobeShowed;
+    if (this.text.length > 15) {
+      tobeShowed = this.text.substring(0, 10) + "...";
+    } else {
+      tobeShowed = this.text;
+    }
     return Container(
       child: Card(
         shape: RoundedRectangleBorder(
@@ -106,14 +166,34 @@ class TopicSubscription extends SubscriptionResultBase {
         ),
         margin: EdgeInsets.fromLTRB(20, 0, 20, 14),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(40, 20, 0, 20),
+          padding: EdgeInsets.all(4.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "#$text",
-                style: searchResultTextStyle,
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "#$tobeShowed",
+                        style: searchResultTextStyle,
+                      ),
+                    ],
+                  ),
+                ],
               ),
+              Column(
+                children: [
+                  OutlinedButton(
+                    child: Text(
+                    "Unfollow",
+                     style: unf_ButtonTextStyle,
+                    ),
+                    style: unf_ButtonStyle,
+                    onPressed: () { }, 
+                    ),
+                ],
+              ),                                   
             ],
           ),
         ),
@@ -124,9 +204,14 @@ class TopicSubscription extends SubscriptionResultBase {
 
 class LocationSubscription extends SubscriptionResultBase {
   LocationSubscription({text, id}) : super(text: text, id: id);
-
   @override
   Widget build(BuildContext context) {
+    String tobeShowed;
+    if (this.text.length > 15) {
+      tobeShowed = this.text.substring(0, 10) + "...";
+    } else {
+      tobeShowed = this.text;
+    }
     return Container(
       child: Card(
         shape: RoundedRectangleBorder(
@@ -134,15 +219,35 @@ class LocationSubscription extends SubscriptionResultBase {
         ),
         margin: EdgeInsets.fromLTRB(20, 0, 20, 14),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(40, 20, 0, 20),
+          padding: EdgeInsets.all(4.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.location_pin),
-              Text(
-                "$text",
-                style: searchResultTextStyle,
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.location_pin),
+                      Text(
+                        "$tobeShowed",
+                        style: searchResultTextStyle,
+                      ),
+                    ],
+                  ),
+                ],
               ),
+               Column(
+                 children: [
+                   OutlinedButton(
+                    child: Text(
+                    "Unfollow",
+                     style: unf_ButtonTextStyle,
+                    ),
+                    style: unf_ButtonStyle,
+                    onPressed: () { }, 
+                    ),
+                 ],
+               ),               
             ],
           ),
         ),

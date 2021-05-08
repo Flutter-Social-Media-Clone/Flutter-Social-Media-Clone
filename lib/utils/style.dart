@@ -15,7 +15,7 @@ TextStyle login_signupButtonTextStyle = TextStyle(
   fontSize: 18,
 );
 
-ButtonStyle subs_signupButtonStyle = OutlinedButton.styleFrom(
+ButtonStyle subs_ButtonStyle = OutlinedButton.styleFrom(
   elevation: 5,
   shadowColor: Color.fromRGBO(220, 220, 220, 0.7),
   backgroundColor: Color.fromRGBO(250, 250, 250, 0.8),
@@ -25,10 +25,27 @@ ButtonStyle subs_signupButtonStyle = OutlinedButton.styleFrom(
     ),
   ),
 );
-TextStyle subs_signupButtonTextStyle = TextStyle(
+TextStyle subs_ButtonTextStyle = TextStyle(
   color: Colors.black,
   fontSize: 15,
 );
+
+
+ButtonStyle unf_ButtonStyle = OutlinedButton.styleFrom(
+  elevation: 5,
+  shadowColor: Color.fromRGBO(18, 52, 86, 1.0),
+  backgroundColor: Color.fromRGBO(18, 52, 86, 1.0),
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(25),
+    ),
+  ),
+);
+TextStyle unf_ButtonTextStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 15,
+);
+
 
 
 

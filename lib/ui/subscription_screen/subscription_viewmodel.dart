@@ -16,46 +16,47 @@ class SubscriptionViewModel extends ChangeNotifier {
     followers = [
       FollowersSubscription(
         id: "thirdPersonProfile",
-        text: "deneme",
+        text: "Gulce",
         image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
+          "https://pbs.twimg.com/profile_images/1169595630706208771/T75ayGDO_400x400.jpg",
         ),
       ),
       FollowersSubscription(
         id: "hiddenProfile",
-        text: "deneme",
+        text: "Mahmut_01",
         image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
+          "https://pbs.twimg.com/profile_images/1169595630706208771/T75ayGDO_400x400.jpg",
         ),
       ),
       FollowersSubscription(
         id: "hiddenProfile",
-        text: "deneme",
+        text: "Takibetakipseritakip",
         image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
+          "https://pbs.twimg.com/profile_images/1169595630706208771/T75ayGDO_400x400.jpg",
         ),
       ),
     ];
+
     following = [
       FollowingSubscription(
         id: "thirdPersonProfile",
-        text: "deneme",
+        text: "Skywalker",
         image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
+          "https://pbs.twimg.com/profile_images/1169595630706208771/T75ayGDO_400x400.jpg",
         ),
       ),
       FollowingSubscription(
         id: "hiddenProfile",
-        text: "deneme",
+        text: "John Doe",
         image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
+          "https://pbs.twimg.com/profile_images/1169595630706208771/T75ayGDO_400x400.jpg",
         ),
       ),
       FollowingSubscription(
         id: "hiddenProfile",
-        text: "deneme",
+        text: "SendekiBen",
         image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
+          "https://pbs.twimg.com/profile_images/1169595630706208771/T75ayGDO_400x400.jpg",
         ),
       ),
     ];
@@ -63,121 +64,54 @@ class SubscriptionViewModel extends ChangeNotifier {
     topicsubs = [
       TopicSubscription(
         id: "thirdPersonProfile",
-        text: "deneme",
+        text: "Huawei",
       ),
       TopicSubscription(
         id: "thirdPersonProfile",
-        text: "deneme",
+        text: "İmamHatiplerKapatılsın",
       ),
       TopicSubscription(
         id: "hiddenProfile",
-        text: "deneme",
+        text: "ÇevrimiçiEgitim",
       )
     ];
+
     locationsubs = [
       LocationSubscription(
         id: "thirdPersonProfile",
-        text: "deneme",
+        text: "Kurtköy",
       ),
       LocationSubscription(
         id: "thirdPersonProfile",
-        text: "deneme",
+        text: "Sabanci University",
       ),
       LocationSubscription(
         id: "hiddenProfile",
-        text: "deneme",
+        text: "Mekke",
       ),
     ];
 
-  SubscriptionViewModel() {
-    followers = [
-      FollowersSubscription(
-        id: "thirdPersonProfile",
-        text: "deneme",
-        image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
-        ),
-      ),
-      FollowersSubscription(
-        id: "hiddenProfile",
-        text: "deneme",
-        image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
-        ),
-      ),
-      FollowersSubscription(
-        id: "hiddenProfile",
-        text: "deneme",
-        image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
-        ),
-      ),
-    ];
-    following = [
-      FollowingSubscription(
-        id: "thirdPersonProfile",
-        text: "deneme",
-        image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
-        ),
-      ),
-      FollowingSubscription(
-        id: "hiddenProfile",
-        text: "deneme",
-        image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
-        ),
-      ),
-      FollowingSubscription (
-        id: "hiddenProfile",
-        text: "deneme",
-        image: NetworkImage(
-          "https://randomuser.me/api/portraits/women/3.jpg",
-        ),
-      ),
-    ];
-    topicsubs = [
-      TopicSubscription(
-        text: "deneme",
-      ),
-      TopicSubscription(
-        text: "deneme",
-      ),
-      TopicSubscription(
-        text: "deneme",
-      )
-    ];
-    locationsubs = [
-      LocationSubscription(
-        text: "deneme",
-      ),
-      LocationSubscription(
-        text: "deneme",
-      ),
-      LocationSubscription(
-        text: "deneme",
-      ),
-    ];
+  
 
     notifyListeners();
   }
   
 
-}
+
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
 
   String _myselectedIndex = "locationsubs";
   String get myselectedIndex => _myselectedIndex;
 
-  String _selectedModetopic = "topicsubs";
+ /*  String _selectedModetopic = "topicsubs";
   String get selectedMode => _selectedModetopic;
 
   String _selectedModefollowers = "followers";
   String get selectedFollower => _selectedModefollowers;
 
   String _selectedModefollowing = "following";
-  String get selectedFollowing => _selectedModefollowing;
+  String get selectedFollowing => _selectedModefollowing; */
 
 
   
@@ -186,7 +120,7 @@ class SubscriptionViewModel extends ChangeNotifier {
     notifyListeners(); // <-- notify listeners
   }
 
-  void setMode(String index) {
+/*   void setMode(String index) {
     _selectedModetopic = index;
     notifyListeners();
   }
@@ -199,7 +133,7 @@ class SubscriptionViewModel extends ChangeNotifier {
  void setModeFollowing(String index) {
     _selectedModefollowing = index;
     notifyListeners();
-  }
+  } */
 
 
   void setmyIndex(String index) {
@@ -210,11 +144,11 @@ class SubscriptionViewModel extends ChangeNotifier {
   List<SubscriptionResultBase> getSubscriptionResult() {
     if (_myselectedIndex == "locationsubs") {
       return locationsubs;
-    } else if (_selectedModetopic == "topicsubs") {
+    } else if (_myselectedIndex == "topicsubs") {
       return topicsubs;
-    } else if (_selectedModefollowing == "following") {
+    } else if (_myselectedIndex == "following") {
       return following;
-     } else if (_selectedModefollowers == "followers") {
+     } else if (_myselectedIndex == "followers") {
       return followers;
      } 
     }
@@ -231,4 +165,5 @@ class SubscriptionViewModel extends ChangeNotifier {
     notifyListeners(); // <-- notify listeners
   }
 }
+
 

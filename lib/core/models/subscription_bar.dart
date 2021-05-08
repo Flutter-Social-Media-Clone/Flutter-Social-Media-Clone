@@ -1,3 +1,4 @@
+import 'package:cs310insta/core/models/searchResultBase.dart';
 import 'package:cs310insta/core/models/subscriptionResultBase.dart';
 import 'package:cs310insta/ui/main_app_screen/main_app_viewmodel.dart';
 import 'package:cs310insta/ui/subscription_screen/subscription_screen.dart';
@@ -52,38 +53,42 @@ class SubscriptionBar extends StatelessWidget {
                           OutlinedButton(
                             child: Text(
                               "Location",
-                              style: subs_signupButtonTextStyle,
+                              style: subs_ButtonTextStyle,
                               
                             ),
-                            style: subs_signupButtonStyle,
+                            style: subs_ButtonStyle,
                             onPressed: () {
+                              model.setmyIndex("locationsubs");
                             },
                           ),
                           OutlinedButton(
                             child: Text(
                               "Topic",
-                              style: subs_signupButtonTextStyle,
+                              style: subs_ButtonTextStyle,
                             ),
-                            style: subs_signupButtonStyle,
+                            style: subs_ButtonStyle,
                             onPressed: () {
+                              model.setmyIndex("topicsubs");
                             },
                           ),                          
                           OutlinedButton(
                             child: Text(
                               "Followers",
-                             style: subs_signupButtonTextStyle,
+                             style: subs_ButtonTextStyle,
                             ),
-                            style: subs_signupButtonStyle,
+                            style: subs_ButtonStyle,
                             onPressed: () {
+                              model.setmyIndex("followers");
                             },
                           ),
                           OutlinedButton(
                             child: Text(
                               "Following",
-                              style: subs_signupButtonTextStyle,
+                              style: subs_ButtonTextStyle,
                             ),
-                            style: subs_signupButtonStyle,
+                            style: subs_ButtonStyle,
                             onPressed: () {
+                              model.setmyIndex("following");
                             },
                           ),
                         ],
@@ -94,77 +99,6 @@ class SubscriptionBar extends StatelessWidget {
               ),
             ),
           ),
-          AppBar(
-            // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 76, // default is 56
-            //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Feed'),
-          ),
-          AppBar(
-            // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 76, // default is 56
-            //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Share'),
-          ),
-          AppBar(
-            // leading: Icon(Icons.arrow_back_outlined),
-            toolbarHeight: 76, // default is 56
-            //toolbarOpacity: 1,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Notifications'),
-          ),
-
-          PreferredSize(
-              preferredSize: Size(340, 320),
-              child: Container(
-                child: Column(
-                  children: [
-                    AppBar(
-                      toolbarHeight: 180,
-                      automaticallyImplyLeading: false,
-                      backgroundColor: bottomNavBackgroundColor,
-                      leadingWidth: 110,
-                      leading: Container(
-                        height: 180,
-                        margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      ),
-                      title: Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              "https://img-s1.onedio.com/id-5d2ef7db3810d17123d5122c/rev-0/w-635/listing/f-jpg-webp/s-28249b47a72289a187b15a1dfc011ddedc8e0ab0.webp",
-                            ),
-                            radius: 70.0,
-                          ),
-                        ],
-                      ),
-                      actions: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 70),
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () =>
-                                    {_scaffoldKey.currentState.openEndDrawer()},
-                                child: Icon(
-                                  Icons.dehaze,
-                                  size: 40,
-                                ),
-                              ),
-                              SizedBox(height: 60)
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              )),
         ].elementAt(model.selectedIndex),          
         body: Center(
           child: Column(
@@ -174,10 +108,12 @@ class SubscriptionBar extends StatelessWidget {
               [
                 SubscriptionScreen(),
                 //SearchResult(model.peoples),
+                SubscriptionResult(model.locationsubs),
+                SubscriptionResult(model.topicsubs),
                 SubscriptionResult(model.followers),
                 SubscriptionResult(model.following),
-                SubscriptionResult(model.topicsubs),
-                SubscriptionResult(model.locationsubs),
+                
+                
               ].elementAt(model.selectedIndex),
             ],
           ),
