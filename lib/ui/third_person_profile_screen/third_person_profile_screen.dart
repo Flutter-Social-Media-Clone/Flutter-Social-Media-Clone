@@ -1,7 +1,9 @@
 import 'package:cs310insta/core/models/postBase.dart';
+import 'package:cs310insta/core/state/analytics.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:cs310insta/utils/style.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -20,8 +22,12 @@ import 'package:get/get.dart';
 //       viewModelBuilder: () => SearchViewModel(),
 
 class ThirdPersonProfileScreen extends StatelessWidget {
+  final MyAnalytics myAnalytics = Get.put(MyAnalytics());
+
   @override
   Widget build(BuildContext context) {
+    myAnalytics.mySetCurrentScreen("third person screen");
+
     return Scaffold(
       backgroundColor: feedBackgroundColor,
       appBar: PreferredSize(

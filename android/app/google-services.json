@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "846211571979",
+    "project_id": "cs310insta-5b3c1",
+    "storage_bucket": "cs310insta-5b3c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846211571979:android:2132c523db254fda2e420e",
+        "android_client_info": {
+          "package_name": "com.example.cs310insta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846211571979-ekkbgtt0j8179sfn7dvbi2v4r6n07osa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT6XRxLIPwGlc9QgcAJMORWGIvUjdZGQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846211571979-ekkbgtt0j8179sfn7dvbi2v4r6n07osa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "846211571979-8nq7ogvnpd15va3o0jcv9sfulsc2v54c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cs310insta"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,10 @@
+import 'package:cs310insta/core/state/analytics.dart';
+import 'package:cs310insta/core/state/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../components/notificationCard/notification_card.dart';
 import 'dart:math';
 import '../../core/models/cardModel.dart';
@@ -15,9 +20,17 @@ class NotificationScreen extends StatelessWidget {
           date: "$i h ago",
           image_url: "asdsda",
           notification: "notification $i"));
+
+  //final MyAuth myAuth = Get.put(MyAuth());
+
   @override
   Widget build(BuildContext context) {
     // ViewModelBuilder is what provides the view model to the widget tree.
+    //FirebaseCrashlytics.instance.log("Higgs-Boson detected! Bailing out");
+    //FirebaseCrashlytics.instance.crash();
+
+    //myAuth.login("gokberk@gmail.com", "12345678");
+
     return Expanded(
       child: ListView(
         padding: EdgeInsets.fromLTRB(12, 12, 12, 5),

@@ -1,4 +1,5 @@
 import 'package:cs310insta/core/models/bottom_bar.dart';
+import 'package:cs310insta/core/state/analytics.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/ui/components/RightDrawer/right_drawer.dart';
 import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
@@ -28,6 +29,9 @@ class MainAppScreen extends StatelessWidget {
     final ShareState shareState = Get.put(ShareState());
     final BottomNavigationState bottomNavigationState =
         Get.put(BottomNavigationState());
+
+    final MyAnalytics myAnalytics = Get.put(MyAnalytics());
+    myAnalytics.mySetCurrentScreen("main app screen");
 
     // ViewModelBuilder is what provides the view model to the widget tree.
     return Obx(

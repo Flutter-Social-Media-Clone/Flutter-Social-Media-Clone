@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileDrawerItem extends StatelessWidget {
   final IconData icon;
@@ -10,7 +11,11 @@ class ProfileDrawerItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         print("tapped ${this.text}");
-        Navigator.pushNamed(context, "${this.toUrl}");
+        if (this.toUrl == "/welcome") {
+          Get.offAllNamed("/welcome");
+        } else {
+          Navigator.pushNamed(context, "${this.toUrl}");
+        }
       },
       child: Row(
         children: [
@@ -48,7 +53,7 @@ List<DrawerItemModel> elementsList = [
       icon: Icons.verified_user, text: "Change password", toURL: ""),
   DrawerItemModel(icon: Icons.pause, text: "Deactivate account", toURL: ""),
   DrawerItemModel(icon: Icons.delete_sweep, text: "Delete account", toURL: ""),
-  DrawerItemModel(icon: Icons.exit_to_app, text: "Logout", toURL: ""),
+  DrawerItemModel(icon: Icons.exit_to_app, text: "Logout", toURL: "/welcome"),
   DrawerItemModel(
       icon: Icons.edit, text: "Edit profile", toURL: "/editProfile"),
 ];

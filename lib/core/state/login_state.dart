@@ -1,4 +1,5 @@
 import 'package:cs310insta/core/models/KFormField.dart';
+import 'package:cs310insta/core/state/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,13 +8,15 @@ class LoginState extends GetxController {
   var email = "".obs;
   var pass = "".obs;
 
+  final MyAuth myAuth = Get.put(MyAuth());
+
   void handleLogin() async {
     if (formKey.currentState.validate()) {
       print("Handle login tapped!");
       formKey.currentState.save();
       print(email);
       print(pass);
-      Get.offAllNamed("/mainapp");
+      myAuth.login(email.value, pass.value);
     }
   }
 
