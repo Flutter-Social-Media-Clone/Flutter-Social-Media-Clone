@@ -14,6 +14,7 @@ class MyProfileState extends GetxController {
   Future<void> getUsername() async {
     var data = await myFirestore.getUser(myAuth.getCurrentUser());
     username.value = data["username"].toString();
+    print(data);
   }
 
   void setmyIndex(var index) {

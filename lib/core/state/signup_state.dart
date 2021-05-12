@@ -36,6 +36,7 @@ class SignupState extends GetxController {
 
       myAuth.signup(
           email.value, pass.value, username.value, age.value, gender.value);
+      addImage2Storage(_image.value, username.value);
     }
   }
 
@@ -151,18 +152,20 @@ class SignupState extends GetxController {
     _image.value = PickedFile("");
   }
 
-  void addImage2Storage(PickedFile image) async {
+  void addImage2Storage(PickedFile image, String username) async {
     _imageFile = File(image.path);
     final byteData = await rootBundle.load(image.path);
     await _imageFile.writeAsBytes(byteData.buffer
         .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-    TaskSnapshot snapshot =
-        await storage.ref().child("images/deneme.jpg").putFile(_imageFile);
+    TaskSnapshot snapshot = await storage
+        .ref()
+        .child("profilePhotos/${username}.jpg")
+        .putFile(_imageFile);
     if (snapshot.state == TaskState.success) {
       final String downloadUrl = await snapshot.ref.getDownloadURL();
       await FirebaseFirestore.instance
-          .collection("images")
-          .add({"url": downloadUrl, "name": "deneme.jpg"});
+          .collection("profilePhotos")
+          .add({"url": downloadUrl, "name": "${username}.jpg"});
     }
   }
 }
