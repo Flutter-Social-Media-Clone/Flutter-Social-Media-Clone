@@ -16,6 +16,7 @@ import 'package:cs310insta/ui/notification_screen/notification_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,9 +25,14 @@ import 'package:cs310insta/ui/message_screen/message_screen.dart';
 
 import 'core/models/subscription_bar.dart';
 import 'core/state/analytics.dart';
+import 'core/state/auth.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
   runApp(App());
 }
 

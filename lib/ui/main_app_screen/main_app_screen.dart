@@ -1,5 +1,6 @@
 import 'package:cs310insta/core/models/bottom_bar.dart';
 import 'package:cs310insta/core/state/analytics.dart';
+import 'package:cs310insta/core/state/auth.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/ui/components/RightDrawer/right_drawer.dart';
 import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
@@ -31,7 +32,14 @@ class MainAppScreen extends StatelessWidget {
         Get.put(BottomNavigationState());
 
     final MyAnalytics myAnalytics = Get.put(MyAnalytics());
+
     myAnalytics.mySetCurrentScreen("main app screen");
+
+    final MyAuth myAuth = Get.put(MyAuth());
+
+    String a = myAuth.getCurrentUser();
+
+    print("AAAAAAAAAAAAAA    " + a);
 
     // ViewModelBuilder is what provides the view model to the widget tree.
     return Obx(
@@ -226,7 +234,9 @@ class MainAppScreen extends StatelessWidget {
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30)),
             ),
-            title: Text('Notifications'),
+            title: Text(
+              '$a',
+            ),
           ),
 
           PreferredSize(
