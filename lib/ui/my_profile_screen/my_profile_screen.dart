@@ -9,6 +9,7 @@ class MyProfileAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    myProfileState.getUsername();
     return Container(
       child: Column(
         children: <Widget>[
@@ -31,11 +32,13 @@ class MyProfileAppBar extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: [
-                    Text(
-                      "Jane Doe",
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        color: Colors.white,
+                    Obx(
+                      () => Text(
+                        myProfileState.username.value,
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     SizedBox(

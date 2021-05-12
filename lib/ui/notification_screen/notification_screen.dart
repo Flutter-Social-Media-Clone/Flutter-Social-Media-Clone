@@ -1,5 +1,6 @@
 import 'package:cs310insta/core/state/analytics.dart';
 import 'package:cs310insta/core/state/auth.dart';
+import 'package:cs310insta/core/state/fireStore_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/gestures.dart';
@@ -21,7 +22,8 @@ class NotificationScreen extends StatelessWidget {
           image_url: "asdsda",
           notification: "notification $i"));
 
-  //final MyAuth myAuth = Get.put(MyAuth());
+  final MyAuth myAuth = Get.put(MyAuth());
+  final MyFirestore myFirestore = Get.put(MyFirestore());
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,8 @@ class NotificationScreen extends StatelessWidget {
     //FirebaseCrashlytics.instance.crash();
 
     //myAuth.login("gokberk@gmail.com", "12345678");
+
+    //myFirestore.getUser();
 
     return Expanded(
       child: ListView(

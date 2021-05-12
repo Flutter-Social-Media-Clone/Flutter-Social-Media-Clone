@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cs310insta/core/models/KFormField.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cs310insta/core/state/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,8 @@ import 'package:image_picker/image_picker.dart';
 
 class SignupState extends GetxController {
   final formKey = GlobalKey<FormState>();
+
+  final MyAuth myAuth = Get.put(MyAuth());
 
   var email = "".obs;
   var username = "".obs;
@@ -30,6 +33,9 @@ class SignupState extends GetxController {
       print(gender);
       print(pass);
       print(pass2);
+
+      myAuth.signup(
+          email.value, pass.value, username.value, age.value, gender.value);
     }
   }
 
