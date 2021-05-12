@@ -84,12 +84,53 @@ class PostHeader extends StatelessWidget {
           flex: 1,
           child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(12, 2, 12, 0),
-              child: Icon(
-                Icons.more_horiz,
-                size: 25,
-              ),
-            ),
+                padding: const EdgeInsets.fromLTRB(12, 2, 12, 0),
+                child: InkWell(
+                  child: Icon(Icons.more_horiz, size: 25),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            //title: Text("Add Comment"),
+                            content: Container(
+                              height: 160,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                          child: Icon(Icons.close),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          })
+                                    ],
+                                  ),
+                                  OutlinedButton(
+                                      child: Text("Delete"),
+                                      onPressed: () {
+                                        print("asda");
+                                      }),
+                                  OutlinedButton(
+                                      child: Text("Update"),
+                                      onPressed: () {
+                                        print("asda");
+                                      }),
+                                ],
+                              ),
+                            ),
+                          );
+                        });
+                  },
+                )
+                // Icon(
+                //   Icons.more_horiz,
+                //   size: 25,
+                // ),
+
+                ),
           ]),
         ),
       ],
