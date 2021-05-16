@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class MyProfileState extends GetxController {
   var myselectedIndex = "posts".obs;
   var username = "".obs;
+  var userData = {}.obs;
 
   final MyFirestore myFirestore = Get.put(MyFirestore());
   final MyAuth myAuth = Get.put(MyAuth());
@@ -14,7 +15,12 @@ class MyProfileState extends GetxController {
   Future<void> getUsername() async {
     var data = await myFirestore.getUser(myAuth.getCurrentUser());
     username.value = data["username"].toString();
+
     print(data);
+  }
+
+  Future<void> getUserData() async {
+    userData.value = await myFirestore.getUser(myAuth.getCurrentUser());
   }
 
   void setmyIndex(var index) {
@@ -86,7 +92,8 @@ class MyProfileState extends GetxController {
     ),
   ].obs;
 
-  List<PostBase> getMyResults() {
+  List<PostBase> getMyResults(String username) {
+    print("getMyResults for " + username);
     if (myselectedIndex.value == "posts") {
       return myPosts;
     } else if (myselectedIndex.value == "medias") {

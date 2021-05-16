@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,10 +34,47 @@ class SignupState extends GetxController {
       print(gender);
       print(pass);
       print(pass2);
+      print(username.value);
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where("username", isEqualTo: username.value)
+          .get()
+          .then((data) => {
+                if (data.docs.length == 1)
+                  {
+                    Get.snackbar(
+                      "Username is already exists",
+                      "You need to change your username",
+                      snackPosition: SnackPosition.BOTTOM,
+                      animationDuration: Duration(seconds: 2),
+                      backgroundColor: Colors.black,
+                      colorText: Colors.white,
+                    ),
+                  }
+                else
+                  {
+                    myAuth.signup(email.value, pass.value, username.value,
+                        age.value, gender.value, _image.value)
+                  }
+              });
+    }
+  }
 
-      myAuth.signup(
-          email.value, pass.value, username.value, age.value, gender.value);
-      addImage2Storage(_image.value, username.value);
+  ///silinecek
+  ///
+
+  void handleEditProfile() async {
+    if (formKey.currentState.validate()) {
+      print("Handle Edit Profile tapped!");
+      formKey.currentState.save();
+      print(email);
+      print(username);
+      print(age);
+      print(gender);
+      print(pass);
+      print(pass2);
+
+      myAuth.editProfile(username.value, age.value, gender.value, _image.value);
     }
   }
 
@@ -150,22 +188,5 @@ class SignupState extends GetxController {
 
   void removeImage() {
     _image.value = PickedFile("");
-  }
-
-  void addImage2Storage(PickedFile image, String username) async {
-    _imageFile = File(image.path);
-    final byteData = await rootBundle.load(image.path);
-    await _imageFile.writeAsBytes(byteData.buffer
-        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-    TaskSnapshot snapshot = await storage
-        .ref()
-        .child("profilePhotos/${username}.jpg")
-        .putFile(_imageFile);
-    if (snapshot.state == TaskState.success) {
-      final String downloadUrl = await snapshot.ref.getDownloadURL();
-      await FirebaseFirestore.instance
-          .collection("profilePhotos")
-          .add({"url": downloadUrl, "name": "${username}.jpg"});
-    }
   }
 }

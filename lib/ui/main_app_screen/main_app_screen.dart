@@ -25,7 +25,8 @@ class MainAppScreen extends StatelessWidget {
     // void _openEndDrawer() {
     //   _scaffoldKey.currentState!.openEndDrawer();
     // }
-
+    final MyProfileState myProfileState = Get.put(MyProfileState());
+    myProfileState.getUserData();
     final SearchState searchState = Get.put(SearchState());
     final ShareState shareState = Get.put(ShareState());
     final BottomNavigationState bottomNavigationState =
@@ -272,12 +273,21 @@ class MainAppScreen extends StatelessWidget {
                       ),
                       title: Column(
                         children: [
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              "https://img-s1.onedio.com/id-5d2ef7db3810d17123d5122c/rev-0/w-635/listing/f-jpg-webp/s-28249b47a72289a187b15a1dfc011ddedc8e0ab0.webp",
-                            ),
-                            radius: 70.0,
-                          ),
+                          Obx(() =>
+                              myProfileState.userData.value["imgUrl"] == null
+                                  ? CircleAvatar(
+                                      backgroundColor: Colors.white38,
+                                      backgroundImage: NetworkImage(
+                                          "https://randomuser.me/api/portraits/women/4.jpg"),
+                                      radius: 70,
+                                    )
+                                  : CircleAvatar(
+                                      backgroundColor: Colors.white38,
+                                      backgroundImage: NetworkImage(
+                                        myProfileState.userData.value["imgUrl"],
+                                      ),
+                                      radius: 70,
+                                    )),
                         ],
                       ),
                       actions: [

@@ -5,22 +5,39 @@ import 'package:get/get.dart';
 class MyFirestore extends GetxController {
   final firestoreInstance = FirebaseFirestore.instance;
 
-  void signupDetails(
-      String username, String email, int age, String gender, String uid) {
+  void signupDetails(String username, String email, int age, String gender,
+      String imgUrl, String uid) {
     firestoreInstance.collection("users").doc(uid).set({
       "username": username,
       "age": age,
       "email": email,
-      "gender": gender
+      "gender": gender,
+      "imgUrl": imgUrl,
+      "isActive": true,
     }).then((_) {
       print("success");
     });
   }
 
-  void signupDetailsGoogle(String username, String email, String uid) {
-    firestoreInstance.collection("users").doc(uid).set({
+  void editDetails(
+      String username, int age, String gender, String imgUrl, String uid) {
+    firestoreInstance.collection("users").doc(uid).update({
       "username": username,
+      "age": age,
+      "gender": gender,
+      "imgUrl": imgUrl,
+    }).then((_) {
+      print("success");
+    });
+  }
+
+  void signupDetailsGoogle(
+      String username, String email, String photoURL, String uid) {
+    firestoreInstance.collection("users").doc(uid).set({
+      "username": email,
       "email": email,
+      "imgUrl": photoURL,
+      "isActive": true,
     }).then((_) {
       print("success");
     });

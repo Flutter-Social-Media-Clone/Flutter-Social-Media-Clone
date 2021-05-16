@@ -1,3 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cs310insta/core/state/signup_state.dart';
+import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
+
 dynamic emailValidator(String value) {
   if (value.isEmpty) {
     return "Please enter your email";
@@ -15,9 +20,15 @@ dynamic passwordValidator(String value) {
 }
 
 dynamic usernameValidator(String value) {
+  // final SignupState signUpState = Get.put(SignupState());
   if (value.isEmpty) {
     return "Please enter your username";
   }
+  // print("username validator: ${signUpState.doesExist.value}");
+  // if (signUpState.doesExist.value != true) {
+  //   return "Username already taken";
+  // }
+
   return null;
 }
 

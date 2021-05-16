@@ -1,6 +1,7 @@
 import 'package:cs310insta/ui/comments_screen/comments_screen.dart';
 
 import 'package:cs310insta/ui/c_password_screen/change_password_screen.dart';
+import 'package:cs310insta/ui/delete_account_screen/delete_account_screen.dart';
 import 'package:cs310insta/ui/edit_profile_screen/edit_profile_screen.dart';
 import 'package:cs310insta/ui/f_password_screen/password_screen.dart';
 import 'package:cs310insta/ui/hidden_screen/hidden_screen.dart';
@@ -26,6 +27,7 @@ import 'package:cs310insta/ui/message_screen/message_screen.dart';
 import 'core/models/subscription_bar.dart';
 import 'core/state/analytics.dart';
 import 'core/state/auth.dart';
+import 'ui/deactivate_screen/deactivate_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -144,6 +146,9 @@ class _AppState extends State<App> {
         GetPage(name: "/subscription", page: () => SubscriptionBar()),
         GetPage(name: "/password", page: () => ForgotPassword()),
         GetPage(name: "/changepassword", page: () => ChangePassword()),
+        GetPage(name: "/deleteAccount", page: () => DeleteAccountScreen()),
+        GetPage(
+            name: "/deactivateAccount", page: () => DeactivateAccountScreen()),
       ],
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: myAnalytics.analytics),

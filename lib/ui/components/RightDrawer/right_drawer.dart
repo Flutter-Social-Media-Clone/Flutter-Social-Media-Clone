@@ -51,8 +51,14 @@ List<DrawerItemModel> elementsList = [
       icon: Icons.visibility_off, text: "Profile visibility", toURL: ""),
   DrawerItemModel(
       icon: Icons.verified_user, text: "Change password", toURL: ""),
-  DrawerItemModel(icon: Icons.pause, text: "Deactivate account", toURL: ""),
-  DrawerItemModel(icon: Icons.delete_sweep, text: "Delete account", toURL: ""),
+  DrawerItemModel(
+      icon: Icons.pause,
+      text: "Deactivate account",
+      toURL: "/deactivateAccount"),
+  DrawerItemModel(
+      icon: Icons.delete_sweep,
+      text: "Delete account",
+      toURL: "/deleteAccount"),
   DrawerItemModel(icon: Icons.exit_to_app, text: "Logout", toURL: "/welcome"),
   DrawerItemModel(
       icon: Icons.edit, text: "Edit profile", toURL: "/editProfile"),

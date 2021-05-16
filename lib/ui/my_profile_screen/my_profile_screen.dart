@@ -9,7 +9,7 @@ class MyProfileAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    myProfileState.getUsername();
+    myProfileState.getUserData();
     return Container(
       child: Column(
         children: <Widget>[
@@ -34,7 +34,7 @@ class MyProfileAppBar extends StatelessWidget {
                   children: [
                     Obx(
                       () => Text(
-                        myProfileState.username.value,
+                        myProfileState.userData.value["username"],
                         style: TextStyle(
                           fontSize: 22.0,
                           color: Colors.white,
@@ -125,7 +125,7 @@ class MyProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Posts(
-        myProfileState.getMyResults(),
+        myProfileState.getMyResults(myProfileState.userData.value["username"]),
       ),
     );
   }
