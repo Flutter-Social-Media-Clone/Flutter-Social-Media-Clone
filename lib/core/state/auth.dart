@@ -91,6 +91,20 @@ class MyAuth extends GetxController {
         User user = userCredential.user;
         print("NAMEEE" + user.displayName);
         print("USEEEER" + user.toString());
+
+        Get.snackbar(
+          "signin succesfull",
+          "you will be directed to the main page in a second",
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: Duration(seconds: 2),
+          backgroundColor: Colors.black,
+          colorText: Colors.white,
+        );
+
+        myFirestore.signupDetailsGoogle(
+            user.displayName, user.email, auth.currentUser.uid);
+        await Future.delayed(Duration(seconds: 3));
+
         Get.offAllNamed("/mainapp");
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {

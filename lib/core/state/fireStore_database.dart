@@ -17,6 +17,15 @@ class MyFirestore extends GetxController {
     });
   }
 
+  void signupDetailsGoogle(String username, String email, String uid) {
+    firestoreInstance.collection("users").doc(uid).set({
+      "username": username,
+      "email": email,
+    }).then((_) {
+      print("success");
+    });
+  }
+
   Future<Map<String, dynamic>> getUser(String uid) async {
     var data = await firestoreInstance
         .collection("users")
