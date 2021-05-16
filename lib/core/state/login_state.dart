@@ -17,6 +17,7 @@ class LoginState extends GetxController {
       print(email);
       print(pass);
       myAuth.login(email.value, pass.value);
+      //myAuth.googleSignin();
     }
   }
 

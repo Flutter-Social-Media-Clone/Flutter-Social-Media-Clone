@@ -2,9 +2,17 @@ import 'package:cs310insta/core/state/fireStore_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class MyAuth extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
 
   final MyFirestore myFirestore = Get.put(MyFirestore());
 
@@ -61,6 +69,44 @@ class MyAuth extends GetxController {
       return user.uid;
     } catch (e) {
       return "yok";
+    }
+  }
+
+  Future<void> googleSignin() async {
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+
+    try {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
+
+        User user = userCredential.user;
+        print("NAMEEE" + user.displayName);
+        print("USEEEER" + user.toString());
+        Get.offAllNamed("/mainapp");
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          // handle the error here
+          print("account-exists-with-different-credential");
+        } else if (e.code == 'invalid-credential') {
+          // handle the error here
+          print("invalid-credential");
+        }
+      } catch (e) {
+        // handle the error here
+        print(e.toString());
+      }
+    } catch (e) {
+      print("We are in first catch");
+      print(e.toString());
     }
   }
 }

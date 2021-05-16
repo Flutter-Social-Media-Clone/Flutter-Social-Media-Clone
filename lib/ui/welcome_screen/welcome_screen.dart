@@ -1,3 +1,4 @@
+import 'package:cs310insta/core/state/auth.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,8 @@ import '../../utils/style.dart';
 
 // Since the state was moved to the view model, this is now a StatelessWidget.
 class WelcomeScreen extends StatelessWidget {
+  final MyAuth myAuth = Get.put(MyAuth());
+
   @override
   Widget build(BuildContext context) {
     // ViewModelBuilder is what provides the view model to the widget tree.
@@ -32,6 +35,21 @@ class WelcomeScreen extends StatelessWidget {
               // Text(
               //   "My Welcome sub text",
               // ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: OutlinedButton(
+                      style: login_signupButtonStyle,
+                      child: Text(
+                        "Sign in with Google",
+                        style: login_signupButtonTextStyle,
+                      ),
+                      onPressed: () => {myAuth.googleSignin()},
+                    ),
+                  ),
+                ],
+              ),
               Row(
                 children: [
                   SizedBox(width: 16),
