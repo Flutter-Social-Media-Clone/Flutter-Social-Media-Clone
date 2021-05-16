@@ -56,4 +56,29 @@ class MyFirestore extends GetxController {
 
     return data;
   }
+
+  Future sharePost(String text, List<String> topics, String uid) async {
+    await firestoreInstance.collection("post").add({
+      "creator_uid": uid,
+      "type": "post",
+      "topic": topics,
+      "text": text,
+      "createdAt": DateTime.now(),
+    }).then((res) {
+      print(res.id);
+      print("success");
+    });
+  }
+
+  // void shareMedia(
+  //     String text, List<String> topics,String type, ) {
+  //     firestoreInstance.collection("post").doc(uid).set({
+  //     "type": type,
+  //     "topic": topics,
+  //     "createdAt": DateTime.now().millisecondsSinceEpoch,
+  //   }).then((_) {
+  //     print("success");
+  //   });
+  // }
+
 }
