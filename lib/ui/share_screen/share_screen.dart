@@ -114,52 +114,49 @@ class PostImage extends StatelessWidget {
 }
 
 class PostPost extends StatelessWidget {
-  final MyFirestore myFirestore = Get.put(MyFirestore());
-  final MyAuth myAuth = Get.put(MyAuth());
+  final ShareState myShareState = Get.put(ShareState());
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(30.0),
-      child: Column(
-        children: [
-          TextField(
-            maxLength: 140,
-            style: TextStyle(
-              fontSize: 25,
-            ),
-            cursorColor: Colors.pink,
-            cursorWidth: 3,
-            cursorHeight: 25,
-            decoration: new InputDecoration(
-              counterStyle: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
+      child: Form(
+        key: myShareState.formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              maxLength: 140,
+              style: TextStyle(
+                fontSize: 25,
               ),
-              fillColor: Colors.white,
-              filled: true,
-              enabledBorder: const OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.blue, width: 3.0),
-                borderRadius: BorderRadius.all(Radius.circular(30)),
+              cursorColor: Colors.pink,
+              cursorWidth: 3,
+              cursorHeight: 25,
+              decoration: new InputDecoration(
+                counterStyle: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+                fillColor: Colors.white,
+                filled: true,
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.blue, width: 3.0),
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.pink, width: 3.0),
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                ),
               ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.pink, width: 3.0),
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-              ),
-            ),
 
-            keyboardType: TextInputType.multiline,
-            minLines: 6, //Normal textInputField will be displayed
-            maxLines: 6, // when user presses enter it will adapt to it
-          ),
-          OutlinedButton(
-            child: Text(
-              "Share",
-              style: login_signupButtonTextStyle,
+              keyboardType: TextInputType.multiline,
+              minLines: 6, //Normal textInputField will be displayed
+              maxLines: 6, // when user presses enter it will adapt to it
+              onSaved: (value) {
+                myShareState.handleSavePostText(value);
+              },
             ),
-            onPressed: () =>
-                {myFirestore.sharePost("aa", [], myAuth.getCurrentUser())},
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

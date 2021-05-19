@@ -1,6 +1,9 @@
+import 'package:cs310insta/core/models/KFormField.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cs310insta/utils/validators.dart' as validator;
+import 'package:cs310insta/utils/style.dart';
 
 class SelectTopics extends StatelessWidget {
   final ShareState shareState = Get.put(ShareState());
@@ -13,54 +16,37 @@ class SelectTopics extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          child: Column(
-            children: [
-              OutlinedButton(
-                child: Text("Bu Sayda Değişecek"),
-                onPressed: () {},
-              ),
-              OutlinedButton(
-                child: Text("Bu Sayda Değişecek"),
-                onPressed: () {},
-              ),
-              OutlinedButton(
-                child: Text("Bu Sayda Değişecek"),
-                onPressed: () {},
-              ),
-              OutlinedButton(
-                child: Text("Bu Sayda Değişecek"),
-                onPressed: () {},
-              ),
-              OutlinedButton(
-                child: Text("Bu Sayda Değişecek"),
-                onPressed: () {},
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 30, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      child: Icon(
-                        Icons.close,
-                        size: 44,
-                      ),
-                      onTap: shareState.removeImage,
-                    ),
-                  ],
+          child: Form(
+            key: shareState.topicKey,
+            child: Column(
+              children: [
+                KFormFieldWidget(
+                  kFormField: shareState.topicField1,
+                  validator: validator.topicValidator,
+                  save: shareState.handleSaveTopic1,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                child: ClipRRect(
-                  child: Image.file(
-                    shareState.getImage(),
-                    height: 600,
-                    width: 400,
+                SizedBox(height: 12),
+                KFormFieldWidget(
+                  kFormField: shareState.topicField2,
+                  validator: validator.topicValidator,
+                  save: shareState.handleSaveTopic2,
+                ),
+                SizedBox(height: 12),
+                KFormFieldWidget(
+                  kFormField: shareState.topicField3,
+                  validator: validator.topicValidator,
+                  save: shareState.handleSaveTopic3,
+                ),
+                SizedBox(height: 12),
+                OutlinedButton(
+                  child: Text(
+                    "Share",
+                    style: login_signupButtonTextStyle,
                   ),
+                  onPressed: () => {shareState.handleWrapper()},
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

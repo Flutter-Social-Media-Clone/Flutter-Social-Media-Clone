@@ -2,5 +2,11 @@
     "editor.autoClosingBrackets": "always",
     "auto-close-tag.disableOnLanguage": [
     
-    ]
+    ],
+    "extensions.enabled": ["ms-vscode.csharp", "dart-code.dart-code", "dart-code.flutter"],
+    "liveshare.languages.allowGuestCommandControl": true,
+    "liveshare.notebooks.allowGuestExecuteCells": true,
+    "liveshare.publishWorkspaceInfo": true,
+    "dart.openDevTools": "flutter",
+    "dart.flutterSdkPath": "/Users/demirdemirel/Documents/flutter/flutter",
 }

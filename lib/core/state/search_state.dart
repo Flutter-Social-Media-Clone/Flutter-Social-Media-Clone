@@ -4,9 +4,24 @@ import 'package:get/get.dart';
 
 class SearchState extends GetxController {
   var selectedMode = "peoples".obs;
+  var topic1 = "".obs;
+  var topic2 = "".obs;
+  var topic3 = "".obs;
 
   void setMode(var index) {
     selectedMode.value = index;
+  }
+
+  handleSaveTopic1(value) {
+    topic1.value = value;
+  }
+
+  handleSaveTopic2(value) {
+    topic2.value = value;
+  }
+
+  handleSaveTopic3(value) {
+    topic3.value = value;
   }
 
   List<SearchResultBase> peoples = [

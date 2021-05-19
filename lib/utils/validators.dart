@@ -10,6 +10,17 @@ dynamic emailValidator(String value) {
   return null;
 }
 
+dynamic topicValidator(String value) {
+  if (value.isEmpty) {
+    return "Please enter your email";
+  } else if (value[0] != "#") {
+    return "Topic should start with an #";
+  } else if (value.length < 4) {
+    return "Topic must be at least 3 characters";
+  }
+  return null;
+}
+
 dynamic passwordValidator(String value) {
   if (value.isEmpty) {
     return "Please enter your password";

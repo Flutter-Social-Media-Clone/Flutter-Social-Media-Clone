@@ -27,35 +27,21 @@ class MyProfileState extends GetxController {
     myselectedIndex.value = index;
   }
 
-  List<PostBase> myMedias = [
-    ImagePost(
-      username: "Kaya",
-      image: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/3.jpg",
-      ),
-    ),
-    ImagePost(
-      username: "Kaya",
-      image: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/3.jpg",
-      ),
-    ),
-    ImagePost(
-      username: "Kaya",
-      image: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/3.jpg",
-      ),
-    ),
-  ].obs;
+  Future getMyMedias() async {
+    await getUserData();
+    var a = await myFirestore.getMyMedias(myAuth.getCurrentUser());
+    var b = List<PostBase>();
+    a.forEach((item) {
+      b.add(ImagePost(
+        username: userData["username"],
+        profileImage: NetworkImage(userData["imgUrl"]),
+        image: NetworkImage(item),
+      ));
+    });
+    myMedias = b;
+  }
+
+  List<PostBase> myMedias = new RxList<PostBase>();
 
   List<PostBase> myPosts = [
     TextPost(

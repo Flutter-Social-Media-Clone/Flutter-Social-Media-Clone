@@ -123,6 +123,8 @@ class MyProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    myProfileState.getMyMedias();
+
     return Obx(
       () => Posts(
         myProfileState.getMyResults(myProfileState.userData.value["username"]),

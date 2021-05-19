@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cs310insta/core/models/postBase.dart';
 import 'package:cs310insta/core/state/auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyFirestore extends GetxController {
@@ -57,12 +59,64 @@ class MyFirestore extends GetxController {
     return data;
   }
 
+  Future<List<String>> getMyMedias(String uid) async {
+    var data = FirebaseFirestore.instance
+        .collection('post')
+        .where("creator_uid", isEqualTo: uid)
+        .where("type", isEqualTo: "image")
+        .orderBy("createdAt", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      List<String> posts = [];
+
+      querySnapshot.docs.forEach((doc) {
+        print(doc["imgUrl"]);
+
+        posts.add(
+          doc["imgUrl"],
+        );
+      });
+
+      return posts;
+    });
+
+    return data;
+    //return result;
+  }
+
+  // Future<Map<String, dynamic>> getMyTextPosts(String uid) async {
+
+  //   var data = await FirebaseFirestore.instance
+  //       .collection('post')
+  //       .where("creator_uid", isEqualTo: uid)
+  //       .where("type", isEqualTo: "post")
+  //       .get()
+  //       .then((value) => {
+  //         return value.data();
+  //     });
+
+  //   return data;
+  // }
+
   Future sharePost(String text, List<String> topics, String uid) async {
     await firestoreInstance.collection("post").add({
       "creator_uid": uid,
       "type": "post",
       "topic": topics,
       "text": text,
+      "createdAt": DateTime.now(),
+    }).then((res) {
+      print(res.id);
+      print("success");
+    });
+  }
+
+  Future shareImagePost(String imgUrl, List<String> topics, String uid) async {
+    await firestoreInstance.collection("post").add({
+      "creator_uid": uid,
+      "type": "image",
+      "topic": topics,
+      "imgUrl": imgUrl,
       "createdAt": DateTime.now(),
     }).then((res) {
       print(res.id);
