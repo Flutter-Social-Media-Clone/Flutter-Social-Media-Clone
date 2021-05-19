@@ -70,6 +70,16 @@ class MyFirestore extends GetxController {
     });
   }
 
+  void bookmarkDetails(String username, String imgUrl) {
+    firestoreInstance.collection("username").doc(username).set({
+      "username": username,
+      "imgUrl": imgUrl, // TODO remove this 
+      
+    }).then((_) {
+      print("success");
+    });
+  }
+
   // void shareMedia(
   //     String text, List<String> topics,String type, ) {
   //     firestoreInstance.collection("post").doc(uid).set({
