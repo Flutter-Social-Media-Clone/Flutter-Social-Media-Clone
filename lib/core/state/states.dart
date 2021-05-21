@@ -1,6 +1,7 @@
 export 'package:cs310insta/core/state/share_state.dart';
 export 'package:cs310insta/core/state/search_state.dart';
 export 'package:cs310insta/core/state/my_profile_state.dart';
+export 'package:cs310insta/core/state/thirdpersonprofile_state.dart';
 export 'package:cs310insta/core/state/feed_state.dart';
 export 'package:cs310insta/core/state/bottom_navigation_state.dart';
 export 'package:cs310insta/core/state/login_state.dart';

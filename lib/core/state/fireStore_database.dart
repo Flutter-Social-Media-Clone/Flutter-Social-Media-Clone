@@ -70,11 +70,9 @@ class MyFirestore extends GetxController {
     });
   }
 
-  void bookmarkDetails(String username, String imgUrl) {
+  void bookmarkDetails(String username) {
     firestoreInstance.collection("username").doc(username).set({
       "username": username,
-      "imgUrl": imgUrl, // TODO remove this 
-      
     }).then((_) {
       print("success");
     });
