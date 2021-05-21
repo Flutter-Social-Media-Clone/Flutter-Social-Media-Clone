@@ -60,6 +60,7 @@ class MyFirestore extends GetxController {
   }
 
   Future<List<String>> getMyMedias(String uid) async {
+    print("getMyMedias starts");
     var data = FirebaseFirestore.instance
         .collection('post')
         .where("creator_uid", isEqualTo: uid)
@@ -84,19 +85,59 @@ class MyFirestore extends GetxController {
     //return result;
   }
 
-  // Future<Map<String, dynamic>> getMyTextPosts(String uid) async {
+  Future<Map<String, dynamic>> getMyTextPosts(String uid) async {
+    print("getMyTextPosts starts");
+    var data = FirebaseFirestore.instance
+        .collection('post')
+        .where("creator_uid", isEqualTo: uid)
+        .where("type", isEqualTo: "post")
+        .orderBy("createdAt", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      Map<String, dynamic> posts = {};
+      print(querySnapshot.docs);
+      querySnapshot.docs.forEach((doc) {
+        print("---->>" + doc["text"]);
+        print(doc.id.toString() + "<<---");
+        posts[doc.id.toString()] = doc["text"];
 
-  //   var data = await FirebaseFirestore.instance
-  //       .collection('post')
-  //       .where("creator_uid", isEqualTo: uid)
-  //       .where("type", isEqualTo: "post")
-  //       .get()
-  //       .then((value) => {
-  //         return value.data();
-  //     });
+        // posts.add(
+        //   doc["text"],
+        // );
+      });
+      print("--HEYY-->>" + posts.toString());
+      return posts;
+    });
+    print("AAAANNAANN" + data.toString());
+    return data;
+  }
 
-  //   return data;
-  // }
+  Future<Map<String, dynamic>> getMyMessages(String uid) async {
+    print("getMyTextPosts starts");
+    var data = FirebaseFirestore.instance
+        .collection('messages')
+        // .where("creator_uid", isEqualTo: uid)
+        // .where("type", isEqualTo: "post")
+        // .orderBy("createdAt", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      Map<String, dynamic> posts = {};
+      print(querySnapshot.docs);
+      querySnapshot.docs.forEach((doc) {
+        print("---->>" + doc["text"]);
+        print(doc.id.toString() + "<<---");
+        posts[doc.id.toString()] = doc["text"];
+
+        // posts.add(
+        //   doc["text"],
+        // );
+      });
+      print("--HEYY-->>" + posts.toString());
+      return posts;
+    });
+    print("AAAANNAANN" + data.toString());
+    return data;
+  }
 
   Future sharePost(String text, List<String> topics, String uid) async {
     await firestoreInstance.collection("post").add({
@@ -124,6 +165,81 @@ class MyFirestore extends GetxController {
     });
   }
 
+  Future sendMessage(
+      String toUid,
+      String fromUid,
+      bool isRead,
+      String text,
+      String toUsername,
+      String fromUsername,
+      String toImgUrl,
+      String fromImgUrl) async {
+    print("\n\n\n\n\n Message is sending:");
+    print("From:" + fromUsername + "--->> to:" + toUsername);
+    print("FromUid:" + fromUid + "--->> toUid:" + toUid);
+    print("FromImg:" + fromImgUrl + "--->> toImg:" + toImgUrl);
+    print("Message is: " + text + "\n\n\n\n\n.");
+
+    await firestoreInstance
+        .collection("messages")
+        .doc("${fromUid}")
+        .collection("friends")
+        .doc("${toUid}")
+        .collection("messageList")
+        .add({
+      "imgUrl": fromImgUrl,
+      "isRead": false,
+      "text": text,
+      "username": fromUsername,
+      "timestamp": DateTime.now(),
+    }).then((res) {
+      print(res);
+      print("success");
+    });
+    await firestoreInstance
+        .collection("messages")
+        .doc("${fromUid}")
+        .collection("friends")
+        .doc("${toUid}")
+        .set({
+      "imgUrl": toImgUrl,
+      "isRead": isRead,
+      "lastMessage": text,
+      "username": toUsername,
+    }).then((res) {
+      print("success");
+    });
+
+    await firestoreInstance
+        .collection("messages")
+        .doc("${toUid}")
+        .collection("friends")
+        .doc("${fromUid}")
+        .collection("messageList")
+        .add({
+      "imgUrl": toImgUrl,
+      "isRead": isRead,
+      "text": text,
+      "username": fromUsername,
+      "timestamp": DateTime.now(),
+    }).then((res) {
+      print(res);
+      print("success");
+    });
+    await firestoreInstance
+        .collection("messages")
+        .doc("${toUid}")
+        .collection("friends")
+        .doc("${fromUid}")
+        .set({
+      "imgUrl": fromImgUrl,
+      "isRead": isRead,
+      "lastMessage": text,
+      "username": fromUsername,
+    }).then((res) {
+      print("success");
+    });
+  }
   // void shareMedia(
   //     String text, List<String> topics,String type, ) {
   //     firestoreInstance.collection("post").doc(uid).set({

@@ -124,6 +124,7 @@ class MyProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     myProfileState.getMyMedias();
+    myProfileState.getMyPosts();
 
     return Obx(
       () => Posts(

@@ -7,6 +7,7 @@ export 'package:cs310insta/core/state/login_state.dart';
 export 'package:cs310insta/core/state/signup_state.dart';
 export 'package:cs310insta/core/state/thirdpersonprofile_state.dart';
 export 'package:cs310insta/core/state/walkthrough_state.dart';
+export 'package:cs310insta/core/state/message_state.dart';
 
 import 'package:cs310insta/core/models/KFormField.dart';
 import 'package:cs310insta/core/models/postBase.dart';

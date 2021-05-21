@@ -13,7 +13,8 @@ class MessageModel {
   String message;
   String img;
   bool is_read;
-  MessageModel({this.from, this.message, this.img, this.is_read});
+  String docId;
+  MessageModel({this.from, this.message, this.img, this.is_read, this.docId});
 }
 
 class CommentsModel {

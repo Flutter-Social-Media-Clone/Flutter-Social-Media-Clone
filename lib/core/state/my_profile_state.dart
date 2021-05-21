@@ -42,30 +42,46 @@ class MyProfileState extends GetxController {
   }
 
   List<PostBase> myMedias = new RxList<PostBase>();
+  Future getMyPosts() async {
+    await getUserData();
+    var a = await myFirestore.getMyTextPosts(myAuth.getCurrentUser());
+    var b = List<PostBase>();
+    print("TADAA" + a.toString());
+    a.forEach((k, item) {
+      print("anan" + item);
+      b.add(TextPost(
+        username: userData["username"],
+        profileImage: NetworkImage(userData["imgUrl"]),
+        text: item,
+      ));
+    });
+    myPosts = b;
+  }
 
-  List<PostBase> myPosts = [
-    TextPost(
-      username: "Kaya",
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-    ),
-    TextPost(
-      username: "Kaya",
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-    ),
-    TextPost(
-      username: "Kaya",
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-    ),
-  ].obs;
+  List<PostBase> myPosts = new RxList<PostBase>();
+  // List<PostBase> myPosts = [
+  //   TextPost(
+  //     username: "Kaya",
+  //     profileImage: NetworkImage(
+  //       "https://randomuser.me/api/portraits/women/4.jpg",
+  //     ),
+  //     text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  //   ),
+  //   TextPost(
+  //     username: "Kaya",
+  //     profileImage: NetworkImage(
+  //       "https://randomuser.me/api/portraits/women/4.jpg",
+  //     ),
+  //     text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  //   ),
+  //   TextPost(
+  //     username: "Kaya",
+  //     profileImage: NetworkImage(
+  //       "https://randomuser.me/api/portraits/women/4.jpg",
+  //     ),
+  //     text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  //   ),
+  // ].obs;
   List<PostBase> myLocations = [
     ImagePost(
       username: "Kaya",
@@ -81,8 +97,10 @@ class MyProfileState extends GetxController {
   List<PostBase> getMyResults(String username) {
     print("getMyResults for " + username);
     if (myselectedIndex.value == "posts") {
+      print("POST");
       return myPosts;
     } else if (myselectedIndex.value == "medias") {
+      print("POST");
       return myMedias;
     } else {
       return myLocations;
