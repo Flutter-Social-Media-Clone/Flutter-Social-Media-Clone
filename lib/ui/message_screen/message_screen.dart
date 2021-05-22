@@ -63,7 +63,7 @@ class MessagePage extends StatelessWidget {
                 //.doc("toUsers")
                 //.where("username", isEqualTo: "deneme")
                 .collection("friends")
-                // .orderBy('timestamp', descending: true)
+                .orderBy('timestamp', descending: true)
                 //.limit(1)
                 //.get()
                 //.then((QuerySnapshot querySnapshot) {}),
@@ -89,6 +89,7 @@ class MessagePage extends StatelessWidget {
                       is_read: doc["isRead"],
                       message: doc["lastMessage"],
                       docId: doc.id,
+                      timestamp: doc["timestamp"],
                     ),
                   );
                   // return MessageCardNotification(
@@ -99,6 +100,7 @@ class MessagePage extends StatelessWidget {
                   //       message: doc["lastMessage"]),
                   // );
                 });
+                print(b);
                 //print(a);
                 //print(snapshot.data.docs[myAuth.getCurrentUser()]);
                 // snapshot.data.forEach((doc) {

@@ -62,6 +62,14 @@ class MessageCardNotification extends StatelessWidget {
                   messageState.setmyConv(this.messageFields.docId),
                   messageState.setmyConv2(
                       this.messageFields.from, this.messageFields.img),
+                  myFirestore.changeReadStatus(
+                    myAuth.getCurrentUser(),
+                    this.messageFields.docId,
+                    this.messageFields.img,
+                    this.messageFields.message,
+                    this.messageFields.timestamp,
+                    this.messageFields.from,
+                  ),
                   Navigator.pushNamed(
                     context,
                     "/messageSingle",

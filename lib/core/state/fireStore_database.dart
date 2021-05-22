@@ -174,11 +174,11 @@ class MyFirestore extends GetxController {
       String fromUsername,
       String toImgUrl,
       String fromImgUrl) async {
-    print("\n\n\n\n\n Message is sending:");
-    print("From:" + fromUsername + "--->> to:" + toUsername);
-    print("FromUid:" + fromUid + "--->> toUid:" + toUid);
-    print("FromImg:" + fromImgUrl + "--->> toImg:" + toImgUrl);
-    print("Message is: " + text + "\n\n\n\n\n.");
+    // print("\n\n\n\n\n Message is sending:");
+    // print("From:" + fromUsername + "--->> to:" + toUsername);
+    // print("FromUid:" + fromUid + "--->> toUid:" + toUid);
+    // print("FromImg:" + fromImgUrl + "--->> toImg:" + toImgUrl);
+    // print("Message is: " + text + "\n\n\n\n\n.");
 
     await firestoreInstance
         .collection("messages")
@@ -203,9 +203,10 @@ class MyFirestore extends GetxController {
         .doc("${toUid}")
         .set({
       "imgUrl": toImgUrl,
-      "isRead": isRead,
+      "isRead": false,
       "lastMessage": text,
       "username": toUsername,
+      "timestamp": DateTime.now(),
     }).then((res) {
       print("success");
     });
@@ -236,6 +237,50 @@ class MyFirestore extends GetxController {
       "isRead": isRead,
       "lastMessage": text,
       "username": fromUsername,
+      "timestamp": DateTime.now(),
+    }).then((res) {
+      print("success");
+    });
+  }
+
+  Future changeReadStatus(
+    String toUid,
+    String fromUid,
+    String fromImgUrl,
+    String fromText,
+    Timestamp fromTimestamp,
+    String fromUsername,
+  ) async {
+    bool isRead = false;
+    print("aloooo" + toUid + "///" + fromUid);
+
+    await firestoreInstance
+        .collection("messages")
+        .doc("${toUid}")
+        .collection("friends")
+        .doc("${fromUid}")
+        .collection("messageList")
+        .add({
+      "imgUrl": fromImgUrl,
+      "isRead": false,
+      "text": fromText,
+      "timestamp": fromTimestamp,
+      "username": fromUsername
+    }).then((res) {
+      print("success");
+    });
+    await firestoreInstance
+        .collection("messages")
+        .doc("${toUid}")
+        .collection("friends")
+        .doc("${fromUid}")
+        .set({
+      "imgUrl": fromImgUrl,
+      "isRead": false,
+      "lastMessage": fromText,
+      "timestamp": fromTimestamp,
+      "username": fromUsername
+      //"timestamp": DateTime.now(),
     }).then((res) {
       print("success");
     });

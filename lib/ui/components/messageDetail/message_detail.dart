@@ -16,7 +16,10 @@ class MessageDetail extends StatelessWidget {
   final MyFirestore myFirestore = Get.put(MyFirestore());
   final MessageState messageState = Get.put(MessageState());
   final MyProfileState myProfileState = Get.put(MyProfileState());
-  //final MessageModel messageFields;
+  final _formKey = GlobalKey<FormState>();
+  //final MessageModel messageFields
+  var message = "";
+  final ScrollController listScrollController = ScrollController();
 
   //MessageDetail({this.messageFields});
   //getter
@@ -50,6 +53,7 @@ class MessageDetail extends StatelessWidget {
         is_read: false,
         message: "yazmıyon ya piç :p"),
   ];
+  var _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     print("ddddd" + messageState.toProfile.value.from);
@@ -74,19 +78,21 @@ class MessageDetail extends StatelessWidget {
                         .collection("friends")
                         .doc(messageState.myselectedConv.value)
                         .collection("messageList")
+                        .orderBy("timestamp", descending: false)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return new Text("Error!");
                       } else {
-                        print("geldi dayı");
-                        print(snapshot.data);
-                        print(snapshot.data.docs.map((doc) => doc.data()));
+                        // print("geldi dayı");
+                        // print(snapshot.data);
+                        // print(snapshot.data.docs.map((doc) => doc.data()));
                         var docs = snapshot.data.docs.map((doc) => doc.data());
-                        print(docs);
+                        //print(docs);
                         var b = List<MessageModel>();
                         docs.forEach((doc) {
-                          print(doc["text"]);
+                          //
+                          print(doc["timestamp"]);
                           //print(doc.id);
                           b.add(
                             MessageModel(
@@ -106,6 +112,8 @@ class MessageDetail extends StatelessWidget {
                                         .userData.value["username"],
                                   ))
                               .toList(),
+                          reverse: false,
+                          controller: listScrollController,
                         );
                         return Text("aaa");
                       }
@@ -126,37 +134,47 @@ class MessageDetail extends StatelessWidget {
               Container(
                 alignment: Alignment.bottomCenter,
                 margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 18,
-                      child: Card(
-                        color: Colors.amber,
-                        child: TextField(
-                          onSubmitted: (e) => {print(e)},
+                child: Form(
+                  key: _formKey,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 18,
+                        child: Card(
+                          color: Colors.amber,
+                          child: TextFormField(
+                            controller: _controller,
+                            onChanged: (e) {
+                              message = e;
+                            },
+
+                            //onSubmitted: (e) => {print(e)},
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                        flex: 1,
-                        child: Container(
-                          child: InkWell(
-                            child: Icon(Icons.send),
-                            onTap: () => {
-                              print("send message"),
-                              myFirestore.sendMessage(
-                                  messageState.myselectedConv.value,
-                                  myAuth.getCurrentUser(),
-                                  true,
-                                  "text from: demo321--->> to:demo2editted",
-                                  messageState.toProfile.value.from,
-                                  myProfileState.userData.value["username"],
-                                  messageState.toProfile.value.img,
-                                  myProfileState.userData.value["imgUrl"])
-                            },
-                          ),
-                        ))
-                  ],
+                      Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: InkWell(
+                              child: Icon(Icons.send),
+                              onTap: () => {
+                                print("send message" + message),
+                                myFirestore.sendMessage(
+                                    messageState.myselectedConv.value,
+                                    myAuth.getCurrentUser(),
+                                    true,
+                                    message, //"text from: demo321--->> to:demo2editted",
+                                    messageState.toProfile.value.from,
+                                    myProfileState.userData.value["username"],
+                                    messageState.toProfile.value.img,
+                                    myProfileState.userData.value["imgUrl"]),
+                                message = "",
+                                _controller.clear(),
+                              },
+                            ),
+                          ))
+                    ],
+                  ),
                 ),
               )
             ],
