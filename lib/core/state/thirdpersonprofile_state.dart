@@ -18,6 +18,9 @@ class ThirdPersonProfileState extends GetxController {
 
   final String userId = Get.parameters["userId"];
 
+  List<PostBase> userMedias = new RxList<PostBase>();
+  List<PostBase> userPosts = new RxList<PostBase>();
+
   Future<void> getUsername() async {
     //DONE: myAuth.getCurrentUser() --> userId
     thirdUserId.value = userId;
@@ -52,69 +55,99 @@ class ThirdPersonProfileState extends GetxController {
     }
   }
 
+  Future getUserMedias() async {
+    await getUserData();
+    var a = await myFirestore.getMyMedias(thirdUserId.value);
+    var b = List<PostBase>();
+    a.forEach((item) {
+      b.add(ImagePost(
+        username: userData["username"],
+        profileImage: NetworkImage(userData["imgUrl"]),
+        image: NetworkImage(item),
+      ));
+    });
+    userMedias = b;
+  }
+
+  Future getUserPosts() async {
+    await getUserData();
+    var a = await myFirestore.getMyTextPosts(thirdUserId.value);
+    var b = List<PostBase>();
+    print("TADAA" + a.toString());
+    a.forEach((k, item) {
+      print("anan" + item);
+      b.add(TextPost(
+        username: userData["username"],
+        profileImage: NetworkImage(userData["imgUrl"]),
+        text: item,
+      ));
+    });
+    userPosts = b;
+  }
+
   List<PostBase> getMyResults() {
     if (myselectedIndex.value == "posts") {
-      return myPosts;
+      return userPosts;
     } else if (myselectedIndex.value == "medias") {
-      return myMedias;
+      return userMedias;
     } else {
       return myLocations;
     }
   }
 
-  List<PostBase> myMedias = [
-    ImagePost(
-      username: "Gulce",
-      image: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/3.jpg",
-      ),
-    ),
-    ImagePost(
-      username: "Gulce",
-      image: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/3.jpg",
-      ),
-    ),
-    ImagePost(
-      username: "Gulce",
-      image: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/3.jpg",
-      ),
-    ),
-  ].obs;
+//   List<PostBase> userMedias = [
+//     ImagePost(
+//       username: "Gulce",
+//       image: NetworkImage(
+//         "https://randomuser.me/api/portraits/women/4.jpg",
+//       ),
+//       profileImage: NetworkImage(
+//         "https://randomuser.me/api/portraits/women/3.jpg",
+//       ),
+//     ),
+//     ImagePost(
+//       username: "Gulce",
+//       image: NetworkImage(
+//         "https://randomuser.me/api/portraits/women/4.jpg",
+//       ),
+//       profileImage: NetworkImage(
+//         "https://randomuser.me/api/portraits/women/3.jpg",
+//       ),
+//     ),
+//     ImagePost(
+//       username: "Gulce",
+//       image: NetworkImage(
+//         "https://randomuser.me/api/portraits/women/4.jpg",
+//       ),
+//       profileImage: NetworkImage(
+//         "https://randomuser.me/api/portraits/women/3.jpg",
+//       ),
+//     ),
+//   ].obs;
 
-  List<PostBase> myPosts = [
-    TextPost(
-      username: "Gulce",
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-    ),
-    TextPost(
-      username: "Gulce",
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-    ),
-    TextPost(
-      username: "Gulce",
-      profileImage: NetworkImage(
-        "https://randomuser.me/api/portraits/women/4.jpg",
-      ),
-      text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-    ),
-  ].obs;
+//   List<PostBase> userPosts = [
+//     TextPost(
+//       username: "Gulce",
+//       profileImage: NetworkImage(
+//         "https://randomuser.me/api/portraits/women/4.jpg",
+//       ),
+//       text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+//     ),
+//     TextPost(
+//       username: "Gulce",
+//       profileImage: NetworkImage(
+//         "https://randomuser.me/api/portraits/women/4.jpg",
+//       ),
+//       text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+//     ),
+//     TextPost(
+//       username: "Gulce",
+//       profileImage: NetworkImage(
+//         "https://randomuser.me/api/portraits/women/4.jpg",
+//       ),
+//       text: "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+//     ),
+//   ].obs;
 
   List<PostBase> myLocations = [
     ImagePost(

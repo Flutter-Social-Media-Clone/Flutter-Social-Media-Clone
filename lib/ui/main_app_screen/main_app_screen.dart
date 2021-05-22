@@ -74,6 +74,7 @@ class MainAppScreen extends StatelessWidget {
                         ),
                       ),
                       onChanged: (text) {
+                        searchState.getPeopleForSearch(text.toLowerCase());
                         text = text.toLowerCase();
                       },
                     ),

@@ -104,11 +104,14 @@ class ThirdPersonAppBar extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              "https://img-s1.onedio.com/id-5d2ef7db3810d17123d5122c/rev-0/w-635/listing/f-jpg-webp/s-28249b47a72289a187b15a1dfc011ddedc8e0ab0.webp",
+                          Obx(
+                            () => CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                (thirdPersonProfileState
+                                    .userData.value)["imgUrl"],
+                              ),
+                              radius: 50.0,
                             ),
-                            radius: 50.0,
                           ),
                         ],
                       ),
@@ -290,6 +293,9 @@ class ThirdPersonBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    thirdPersonProfileState.getUserMedias();
+    thirdPersonProfileState.getUserPosts();
+
     return Obx(
       () => Posts(
         thirdPersonProfileState.getMyResults(),

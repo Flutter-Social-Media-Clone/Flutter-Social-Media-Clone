@@ -11,7 +11,7 @@ class SearchState extends GetxController {
   var topic2 = "".obs;
   var topic3 = "".obs;
 
-  List<SearchResultBase> peoples = new RxList<SearchResultBase>();
+  var peoples = <SearchResultBase>[].obs;
 
   void setMode(var index) {
     selectedMode.value = index;
@@ -29,9 +29,9 @@ class SearchState extends GetxController {
     topic3.value = value;
   }
 
-  Future getPeopleForSearch() async {
-    var people = await myFirestore.getPeopleForSearch("d");
-    var newPeople = List<SearchResultBase>();
+  Future getPeopleForSearch(String queryText) async {
+    var people = await myFirestore.getPeopleForSearch(queryText);
+    var newPeople = <SearchResultBase>[];
     people.forEach((item) {
       newPeople.add(PeopleSearchResult(
         id: "/thirdPersonProfile/${item["userId"]}",
@@ -39,7 +39,7 @@ class SearchState extends GetxController {
         image: NetworkImage(item["imgUrl"]),
       ));
     });
-    peoples = newPeople;
+    peoples.value = newPeople;
   }
 
   // List<SearchResultBase> peoples = [
@@ -97,6 +97,7 @@ class SearchState extends GetxController {
   ].obs;
 
   List<SearchResultBase> getSearchResult() {
+    update(peoples.value);
     if (selectedMode.value == "peoples") {
       return peoples;
     } else if (selectedMode.value == "locations") {
