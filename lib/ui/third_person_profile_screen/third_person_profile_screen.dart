@@ -1,12 +1,15 @@
 import 'package:cs310insta/core/models/postBase.dart';
-import 'package:cs310insta/core/state/analytics.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:cs310insta/utils/style.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cs310insta/core/state/states.dart';
+import 'package:flutter_button/flutter_button.dart';
+
 
 // class ThirdPersonProfileScreen extends ViewModelWidget<ThirdPersonViewModel> {
 //   @override
@@ -22,12 +25,12 @@ import 'package:get/get.dart';
 //       viewModelBuilder: () => SearchViewModel(),
 
 class ThirdPersonProfileScreen extends StatelessWidget {
-  final MyAnalytics myAnalytics = Get.put(MyAnalytics());
+  final ThirdPersonProfileState thirdpersonProfileState = Get.put(ThirdPersonProfileState());
 
   @override
   Widget build(BuildContext context) {
-    myAnalytics.mySetCurrentScreen("third person screen");
-
+    //myAnalytics.mySetCurrentScreen("third person screen");
+    thirdpersonProfileState.getUserData();
     return Scaffold(
       backgroundColor: feedBackgroundColor,
       appBar: PreferredSize(
@@ -50,11 +53,11 @@ class ThirdPersonProfileScreen extends StatelessWidget {
 //   Widget build(BuildContext context, MainAppViewModel model) {
 
 class ThirdPersonAppBar extends StatelessWidget {
-  final ThirdPersonProfileState thirdPersonProfileState =
-      Get.put(ThirdPersonProfileState());
+  final ThirdPersonProfileState thirdPersonProfileState = Get.put(ThirdPersonProfileState());
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: <Widget>[
         Container(
@@ -114,24 +117,44 @@ class ThirdPersonAppBar extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          IconButton(
-                              icon: Icon(Icons.bookmark_outline),
-                              iconSize: 35,
-                              color: Colors.white,
-                              onPressed: () {}),
+                            LikeButton(
+                            icon: Icons.bookmark_outlined,
+                            deactiveColor: Colors.white,
+                            activeColor: Colors.black,
+                            deactiveSize: 30,
+                            activeSize: 35,
+                            curve: Curves.easeInExpo,
+                            onTap: () {
+                              print("ON TAPPED");
+
+                            },
+                            ),
                         ],
                       ),
                       Column(
                         children: [
-                          IconButton(
-                              icon: Icon(Icons.favorite_outline),
-                              iconSize: 35,
-                              color: Colors.white,
-                              onPressed: () {}),
+                            FavoriteButton(
+                                            isFavorite: false,
+                                            iconDisabledColor: Colors.white,
+                                            valueChanged: (_isFavorite) {
+                                              thirdPersonProfileState.setmyIndex("username");
+                                              print('Is Favorite : $_isFavorite');
+                                            },
+                                          ),
                         ],
                       ),
                     ],
                   ),
+                // icon: Icon(isPressed ? Icons.bookmark : Icons.bookmark_outline),
+                //               iconSize: 35,
+                //               color: Colors.white,
+                //                    onPressed: ()
+                //                    {
+                //                   setState(()
+                //                   {
+                //                     isPressed= true;
+                //                     });                    
+                //                     }),
                   SizedBox(
                     height: 15.0,
                   ),

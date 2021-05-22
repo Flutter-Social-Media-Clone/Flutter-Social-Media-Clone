@@ -29,6 +29,7 @@ dependencies:
   stacked: ^2.0.2
   cupertino_icons: ^1.0.2
   http: ^0.13.1
+  flutter_button: ^0.0.4
   google_fonts: ^2.0.0
   carousel_slider: ^3.0.0
   shared_preferences: ^2.0.5
@@ -45,6 +46,7 @@ dependencies:
   google_sign_in: ^5.0.3
   uuid: ^3.0.4
   firebase_messaging: ^10.0.0
+  favorite_button: ^0.0.4
 
   #lutter_auth_buttons: ^1.0.0
 
