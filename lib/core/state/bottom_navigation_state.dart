@@ -2,7 +2,7 @@ import 'package:cs310insta/core/state/analytics.dart';
 import 'package:get/get.dart';
 
 class BottomNavigationState extends GetxController {
-  var selectedIndex = 0.obs;
+  var selectedIndex = 1.obs;
 
   final MyAnalytics myAnalytics = Get.put(MyAnalytics());
 

@@ -1,3 +1,4 @@
+import 'package:cs310insta/core/models/postBase.dart';
 import 'package:cs310insta/core/models/searchResultBase.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +9,30 @@ class WrapSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //searchState.getPeopleForSearch();
+    // searchState.getPeopleForSearch();
+    // searchState.getPeopleForSearch();
+
+    var elementToDisplay;
+
+    // if (searchState.selectedMode.value == "peoples" ||
+    //     searchState.selectedMode.value == "locations") {
+    //   elementToDisplay = Obx(
+    //     () => SearchResult(
+    //       searchState.getSearchResult(),
+    //     ),
+    //   );
+    // } else {
+    //   elementToDisplay = Obx(() => (searchState.getSearchTopicResult()));
+    // }
+
     return Expanded(
       child: Container(
         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Column(
           children: [
             Obx(
-              () => SearchResult(
-                searchState.getSearchResult(),
-              ),
-            )
+              () => searchState.getSearchResult(),
+            ),
           ],
         ),
       ),

@@ -298,6 +298,10 @@ class MyFirestore extends GetxController {
 
   Future<List<Map>> getPeopleForSearch(String queryText) async {
     print("getPeopleForSearch starts");
+
+    if (queryText == "") {
+      return List<Map>();
+    }
     var data = await FirebaseFirestore.instance
         .collection('users')
         .where("isActive", isEqualTo: true)
@@ -324,6 +328,78 @@ class MyFirestore extends GetxController {
     });
 
     return data;
+    //return result;
+  }
+
+  Future<List<Map>> getTopicForSearch(String queryText) async {
+    if (queryText == "as") {
+      print("getTopicForSearch as stops");
+
+      return List<Map>();
+    }
+    print("getTopicForSearch starts");
+    List<Map> topicPosts = [];
+    await FirebaseFirestore.instance
+        .collection('post')
+        .where("topic", arrayContains: queryText)
+        .orderBy("createdAt", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      print("IS IT EVEN COME TO TOPIC?????????????????????");
+      querySnapshot.docs.forEach((doc) {
+        print("TOPIICCCC ${(doc["creator_uid"])}");
+
+        print(doc["type"]);
+        print("is ID HERE TOPIC???? ==> ${doc.id}");
+        print("is DATA HERE TOPIC ???? ==> ${doc.data()}");
+        //print("NEWLY USER DATAAAAAAAA TOPIC $userData");
+        var postContent;
+        if (doc["type"] == "image") {
+          postContent = doc["imgUrl"];
+        } else if (doc["type"] == "post") {
+          postContent = doc["text"];
+        }
+        print("postContent postContent postContent postContent $postContent");
+        topicPosts.add({
+          "creator_uid": doc["creator_uid"],
+          "postId": doc.id,
+          "type": doc["type"],
+          "postContent": postContent,
+          // "username": "demo1000",
+          // "profileImg":
+          //     "https://www.booksie.com/files/profiles/22/mr-anonymous.png",
+          //"username": userData["username"],
+          //"profileImg": userData["imgUrl"],
+        });
+      });
+      print("topicPosts topicPosts topicPosts topicPosts $topicPosts");
+    });
+
+    print("DATA DATA DATA DATA $topicPosts");
+    List<Map> newTopicPosts = [];
+    await Future.forEach(topicPosts, (item) async {
+      var userData = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(item["creator_uid"])
+          .get()
+          .then((value) {
+        print(value.data());
+        print("DATAAAAAA TOPIIC");
+        return value.data();
+      });
+
+      print("NEWLY USER DATAAAAAAAA TOPIC $userData");
+      newTopicPosts.add({
+        "postId": item["postId"],
+        "type": item["type"],
+        "postContent": item["postContent"],
+        "username": userData["username"],
+        "profileImg": userData["imgUrl"],
+      });
+    });
+
+    print("BİZİM BİZİM BİZİM BİZİM $newTopicPosts");
+    return newTopicPosts;
     //return result;
   }
 }

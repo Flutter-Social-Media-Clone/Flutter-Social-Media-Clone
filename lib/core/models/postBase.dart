@@ -144,6 +144,7 @@ class PostHeaderDivider extends StatelessWidget {
 
 class Posts extends StatelessWidget {
   final List<PostBase> items;
+
   Posts(this.items);
 
   @override

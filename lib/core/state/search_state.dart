@@ -1,3 +1,4 @@
+import 'package:cs310insta/core/models/postBase.dart';
 import 'package:cs310insta/core/models/searchResultBase.dart';
 import 'package:cs310insta/core/state/fireStore_database.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class SearchState extends GetxController {
   var topic3 = "".obs;
 
   var peoples = <SearchResultBase>[].obs;
+  var topicPostsObx = <PostBase>[].obs;
 
   void setMode(var index) {
     selectedMode.value = index;
@@ -42,6 +44,32 @@ class SearchState extends GetxController {
     peoples.value = newPeople;
   }
 
+  Future getTopicForSearch(String queryText) async {
+    var topicPosts = await myFirestore.getTopicForSearch(queryText);
+    var newTopicPosts = <PostBase>[];
+    print("DENEME GELIYOR MU? $topicPosts");
+    topicPosts.forEach((item) {
+      if (item["type"] == "image") {
+        newTopicPosts.add(ImagePost(
+            username: item["username"],
+            image: NetworkImage(item["postContent"]),
+            profileImage: NetworkImage(
+              item["profileImg"],
+            )));
+      } else {
+        newTopicPosts.add(TextPost(
+          username: item["username"],
+          profileImage: NetworkImage(
+            item["profileImg"],
+          ),
+          text: item["postContent"],
+        ));
+      }
+    });
+
+    topicPostsObx.value = newTopicPosts;
+  }
+
   // List<SearchResultBase> peoples = [
   //   PeopleSearchResult(
   //     id: "/thirdPersonProfile/bdEH0CnOYSdNSHr3ZBpII1CCSP83",
@@ -69,41 +97,51 @@ class SearchState extends GetxController {
   List<SearchResultBase> locations = [
     LocationSearchResult(
       id: "thirdPersonProfile",
-      text: "deneme",
+      text: "deneme2",
     ),
     LocationSearchResult(
       id: "thirdPersonProfile",
-      text: "deneme",
+      text: "deneme3",
     ),
     LocationSearchResult(
       id: "hiddenProfile",
-      text: "deneme",
+      text: "deneme4",
     ),
   ].obs;
 
-  List<SearchResultBase> topics = [
-    TopicSearchResult(
-      id: "thirdPersonProfile",
-      text: "deneme",
-    ),
-    TopicSearchResult(
-      id: "thirdPersonProfile",
-      text: "deneme",
-    ),
-    TopicSearchResult(
-      id: "hiddenProfile",
-      text: "deneme",
-    )
-  ].obs;
+  // List<SearchResultBase> topics = [
+  //   TopicSearchResult(
+  //     id: "thirdPersonProfile",
+  //     text: "deneme",
+  //   ),
+  //   TopicSearchResult(
+  //     id: "thirdPersonProfile",
+  //     text: "deneme",
+  //   ),
+  //   TopicSearchResult(
+  //     id: "hiddenProfile",
+  //     text: "deneme",
+  //   )
+  // ].obs;
 
-  List<SearchResultBase> getSearchResult() {
+  dynamic getSearchResult() {
     update(peoples.value);
+    update(topicPostsObx.value);
     if (selectedMode.value == "peoples") {
-      return peoples;
+      return SearchResult(peoples.value);
+    } else if (selectedMode.value == "topics") {
+      return Posts(topicPostsObx.value);
     } else if (selectedMode.value == "locations") {
-      return locations;
-    } else {
-      return topics;
+      return SearchResult(locations);
     }
   }
+
+  // List<PostBase> getSearchTopicResult() {
+  //   update(topicPostsObx.value);
+  //   if (selectedMode.value == "topics") {
+  //     return topicPostsObx;
+  //   }
+
+  //   return List<PostBase>();
+  // }
 }
