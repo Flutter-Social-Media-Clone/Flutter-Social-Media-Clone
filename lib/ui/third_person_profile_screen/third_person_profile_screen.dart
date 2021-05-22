@@ -115,45 +115,47 @@ class ThirdPersonAppBar extends StatelessWidget {
                       SizedBox(
                         width: 50,
                       ),
+
                       Column(
                         children: [
-                          LikeButton(
-                            icon: Icons.bookmark_outlined,
-                            deactiveColor: Colors.white,
-                            activeColor: Colors.black,
-                            deactiveSize: 30,
-                            activeSize: 35,
-                            curve: Curves.easeInExpo,
-                            onTap: () {
-                              print("ON TAPPED");
-                            },
+                          Obx(
+                      () => LikeButton(
+                              icon: Icons.bookmark_outlined,
+                              deactiveColor: Colors.white,
+                              //activeColor: Colors.black,
+                              deactiveSize: 30,
+                              activeSize: 35,
+                              curve: Curves.easeInExpo,
+                              onTap: () {
+                                thirdPersonProfileState.handleBookmark();
+                                activateColor: Colors.black;
+                                print("ON TAPPED");
+
+                                //TODO: database get request, black mi white mi ona göre ayarla, on changed handlebookmark'ın icinde tru/false yazdıgı updatelencek
+                                //2 state variable 1 tane handle
+                              },
+                            ),
                           ),
                         ],
                       ),
                       Column(
-                        children: [
+                        children: 
+                        [
                           FavoriteButton(
+                            
                             isFavorite: false,
                             iconDisabledColor: Colors.white,
                             valueChanged: (_isFavorite) {
                               thirdPersonProfileState.setmyIndex("username");
                               print('Is Favorite : $_isFavorite');
+                              
                             },
-                          ),
+                          ),  
+
                         ],
                       ),
                     ],
                   ),
-                  // icon: Icon(isPressed ? Icons.bookmark : Icons.bookmark_outline),
-                  //               iconSize: 35,
-                  //               color: Colors.white,
-                  //                    onPressed: ()
-                  //                    {
-                  //                   setState(()
-                  //                   {
-                  //                     isPressed= true;
-                  //                     });
-                  //                     }),
                   SizedBox(
                     height: 15.0,
                   ),

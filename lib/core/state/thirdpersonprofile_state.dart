@@ -43,13 +43,14 @@ class ThirdPersonProfileState extends GetxController {
   }
 
   //TODO: bu fireStore_state'e bir daha yazılmalı
-  void handleBookmark() async {
-    //TODO: myAuth.getCurrentUser() --> userId
-    if (formKey.currentState.validate()) {
-      print("Handle Bookmark tapped!");
-      formKey.currentState.save();
-      print(username);
-    }
+  Future<bool> handleBookmark() async {
+
+    var userid = await myFirestore.getUser(myAuth.getCurrentUser());
+    print("Handle Bookmark tapped!");
+
+    formKey.currentState.save();
+    print(userid);
+    return true;
   }
 
   List<PostBase> getMyResults() {

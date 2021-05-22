@@ -45,6 +45,14 @@ class MyFirestore extends GetxController {
     });
   }
 
+  void bookMark(String username) {
+    firestoreInstance.collection("users").doc(username).update({
+      "username": username,
+    }).then((_) {
+      print("bookmarked");
+    });
+  }
+
   Future<Map<String, dynamic>> getUser(String uid) async {
     var data = await firestoreInstance
         .collection("users")
@@ -164,6 +172,7 @@ class MyFirestore extends GetxController {
       print("success");
     });
   }
+
 
   Future sendMessage(
       String toUid,
