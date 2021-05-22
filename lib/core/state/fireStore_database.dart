@@ -95,20 +95,20 @@ class MyFirestore extends GetxController {
         .get()
         .then((QuerySnapshot querySnapshot) {
       Map<String, dynamic> posts = {};
-      print(querySnapshot.docs);
+      //print(querySnapshot.docs);
       querySnapshot.docs.forEach((doc) {
-        print("---->>" + doc["text"]);
-        print(doc.id.toString() + "<<---");
+        // print("---->>" + doc["text"]);
+        // print(doc.id.toString() + "<<---");
         posts[doc.id.toString()] = doc["text"];
 
         // posts.add(
         //   doc["text"],
         // );
       });
-      print("--HEYY-->>" + posts.toString());
+
       return posts;
     });
-    print("AAAANNAANN" + data.toString());
+
     return data;
   }
 
@@ -122,20 +122,20 @@ class MyFirestore extends GetxController {
         .get()
         .then((QuerySnapshot querySnapshot) {
       Map<String, dynamic> posts = {};
-      print(querySnapshot.docs);
+
       querySnapshot.docs.forEach((doc) {
-        print("---->>" + doc["text"]);
-        print(doc.id.toString() + "<<---");
+        // print("---->>" + doc["text"]);
+        // print(doc.id.toString() + "<<---");
         posts[doc.id.toString()] = doc["text"];
 
         // posts.add(
         //   doc["text"],
         // );
       });
-      print("--HEYY-->>" + posts.toString());
+
       return posts;
     });
-    print("AAAANNAANN" + data.toString());
+
     return data;
   }
 
@@ -296,4 +296,34 @@ class MyFirestore extends GetxController {
   //   });
   // }
 
+  Future<List<Map>> getPeopleForSearch(String queryText) async {
+    print("getPeopleForSearch starts");
+    var data = await FirebaseFirestore.instance
+        .collection('users')
+        .where("isActive", isEqualTo: true)
+        .where("username", isGreaterThanOrEqualTo: queryText)
+        .where("username", isLessThanOrEqualTo: queryText + '\uf8ff')
+        .orderBy("username")
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      List<Map> users = [];
+
+      querySnapshot.docs.forEach((doc) {
+        print(doc["username"]);
+        print(doc["imgUrl"]);
+        print("is ID HERE ???? ==> ${doc.id}");
+        print("is DATA HERE ???? ==> ${doc.data()}");
+        users.add({
+          "userId": doc.id,
+          "username": doc["username"],
+          "imgUrl": doc["imgUrl"]
+        });
+      });
+
+      return users;
+    });
+
+    return data;
+    //return result;
+  }
 }

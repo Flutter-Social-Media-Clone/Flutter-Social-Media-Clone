@@ -8,6 +8,7 @@ class WrapSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    searchState.getPeopleForSearch();
     return Expanded(
       child: Container(
         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),

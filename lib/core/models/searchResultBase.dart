@@ -1,5 +1,6 @@
 import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 abstract class SearchResultBase extends StatelessWidget {
   final String id;
@@ -15,10 +16,9 @@ class PeopleSearchResult extends SearchResultBase {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          "/$id",
-        );
+        print("id will print gokberk  $id");
+        Navigator.pushNamed(context, id);
+        //Get.toNamed(id);
       },
       child: Card(
         shape: RoundedRectangleBorder(

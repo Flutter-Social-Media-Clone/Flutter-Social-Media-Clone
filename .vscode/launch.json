@@ -12,5 +12,16 @@
             "request": "launch",
             "type": "dart"
         }
-    ]
+    ],
+    "dart.openDevTools": "flutter",
+    "editor.accessibilitySupport": "off",
+    "workbench.editorAssociations": [
+        {
+            "viewType": "default",
+            "filenamePattern": "*"
+        }
+    ],
+    "dart.env": {
+    
+    },
 }

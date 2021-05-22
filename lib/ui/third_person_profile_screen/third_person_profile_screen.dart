@@ -10,7 +10,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:flutter_button/flutter_button.dart';
 
-
 // class ThirdPersonProfileScreen extends ViewModelWidget<ThirdPersonViewModel> {
 //   @override
 //   Widget build(BuildContext context, ThirdPersonViewModel model) {
@@ -25,7 +24,8 @@ import 'package:flutter_button/flutter_button.dart';
 //       viewModelBuilder: () => SearchViewModel(),
 
 class ThirdPersonProfileScreen extends StatelessWidget {
-  final ThirdPersonProfileState thirdpersonProfileState = Get.put(ThirdPersonProfileState());
+  final ThirdPersonProfileState thirdpersonProfileState =
+      Get.put(ThirdPersonProfileState());
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +53,11 @@ class ThirdPersonProfileScreen extends StatelessWidget {
 //   Widget build(BuildContext context, MainAppViewModel model) {
 
 class ThirdPersonAppBar extends StatelessWidget {
-  final ThirdPersonProfileState thirdPersonProfileState = Get.put(ThirdPersonProfileState());
+  final ThirdPersonProfileState thirdPersonProfileState =
+      Get.put(ThirdPersonProfileState());
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: <Widget>[
         Container(
@@ -117,7 +117,7 @@ class ThirdPersonAppBar extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                            LikeButton(
+                          LikeButton(
                             icon: Icons.bookmark_outlined,
                             deactiveColor: Colors.white,
                             activeColor: Colors.black,
@@ -126,43 +126,44 @@ class ThirdPersonAppBar extends StatelessWidget {
                             curve: Curves.easeInExpo,
                             onTap: () {
                               print("ON TAPPED");
-
                             },
-                            ),
+                          ),
                         ],
                       ),
                       Column(
                         children: [
-                            FavoriteButton(
-                                            isFavorite: false,
-                                            iconDisabledColor: Colors.white,
-                                            valueChanged: (_isFavorite) {
-                                              thirdPersonProfileState.setmyIndex("username");
-                                              print('Is Favorite : $_isFavorite');
-                                            },
-                                          ),
+                          FavoriteButton(
+                            isFavorite: false,
+                            iconDisabledColor: Colors.white,
+                            valueChanged: (_isFavorite) {
+                              thirdPersonProfileState.setmyIndex("username");
+                              print('Is Favorite : $_isFavorite');
+                            },
+                          ),
                         ],
                       ),
                     ],
                   ),
-                // icon: Icon(isPressed ? Icons.bookmark : Icons.bookmark_outline),
-                //               iconSize: 35,
-                //               color: Colors.white,
-                //                    onPressed: ()
-                //                    {
-                //                   setState(()
-                //                   {
-                //                     isPressed= true;
-                //                     });                    
-                //                     }),
+                  // icon: Icon(isPressed ? Icons.bookmark : Icons.bookmark_outline),
+                  //               iconSize: 35,
+                  //               color: Colors.white,
+                  //                    onPressed: ()
+                  //                    {
+                  //                   setState(()
+                  //                   {
+                  //                     isPressed= true;
+                  //                     });
+                  //                     }),
                   SizedBox(
                     height: 15.0,
                   ),
-                  Text(
-                    "Jane Doe",
-                    style: TextStyle(
-                      fontSize: 22.0,
-                      color: Colors.white,
+                  Obx(
+                    () => Text(
+                      (thirdPersonProfileState.userData.value)["username"],
+                      style: TextStyle(
+                        fontSize: 22.0,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   SizedBox(

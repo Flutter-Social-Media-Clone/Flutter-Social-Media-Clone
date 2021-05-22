@@ -135,9 +135,9 @@ class _AppState extends State<App> {
         GetPage(name: "/notification", page: () => NotificationScreen()),
         GetPage(name: "/mainapp", page: () => MainAppScreen()),
         GetPage(
-            name: "/thirdPersonProfile",
+            name: "/thirdPersonProfile/:userId",
             page: () => ThirdPersonProfileScreen()),
-        GetPage(name: "/hiddenProfile", page: () => HiddenProfile()),
+        GetPage(name: "/hiddenProfile/:userId", page: () => HiddenProfile()),
         GetPage(name: "/editProfile", page: () => EditProfilePage()),
         GetPage(name: "/selectTopics", page: () => SelectTopics()),
         GetPage(name: "/messageSingle", page: () => MessageDetail()),

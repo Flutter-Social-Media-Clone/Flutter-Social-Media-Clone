@@ -83,6 +83,8 @@ class MessageDetail extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return new Text("Error!");
+                      } else if (snapshot == null) {
+                        return new Text("Loading!");
                       } else {
                         // print("geldi dayı");
                         // print(snapshot.data);
