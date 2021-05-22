@@ -10,7 +10,7 @@ class MessageCard extends StatelessWidget {
   Paint painter;
   @override
   Widget build(BuildContext context) {
-    if (this.messageFields.from == this.myname) {
+    if (this.messageFields.from != this.myname) {
       return MessageCardGeneric(
         mainaxisallignment: MainAxisAlignment.start,
         crossaxisallignment: CrossAxisAlignment.start,

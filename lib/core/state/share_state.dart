@@ -24,6 +24,7 @@ class ShareState extends GetxController {
   var myShareIndex = "media".obs;
   File _imageFile;
   void setShareIndex(var index) {
+    print("--->" + index);
     myShareIndex.value = index;
   }
 
@@ -117,9 +118,11 @@ class ShareState extends GetxController {
 
   void handleWrapper() async {
     print("---------------");
+    print(myShareIndex.value);
     print(_image.value.path.length == 0);
+    // TODO: bura çalışmıyor post share ederiken mediadaki öğe silinmediyse
     print("------------");
-    if (_image.value.path.length == 0) {
+    if (myShareIndex.value == "post") {
       handleSharePost();
     } else {
       handleShareImage();

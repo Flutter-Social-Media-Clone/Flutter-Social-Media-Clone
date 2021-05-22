@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class NotificationModel {
@@ -13,7 +14,15 @@ class MessageModel {
   String message;
   String img;
   bool is_read;
-  MessageModel({this.from, this.message, this.img, this.is_read});
+  String docId;
+  Timestamp timestamp;
+  MessageModel(
+      {this.from,
+      this.message,
+      this.img,
+      this.is_read,
+      this.docId,
+      this.timestamp});
 }
 
 class CommentsModel {
