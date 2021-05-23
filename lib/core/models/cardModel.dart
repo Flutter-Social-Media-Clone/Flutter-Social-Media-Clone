@@ -14,15 +14,17 @@ class MessageModel {
   String message;
   String img;
   bool is_read;
-  String docId;
+  String fromUid;
   Timestamp timestamp;
+  String docId;
   MessageModel(
       {this.from,
       this.message,
       this.img,
       this.is_read,
-      this.docId,
-      this.timestamp});
+      this.fromUid,
+      this.timestamp,
+      this.docId});
 }
 
 class CommentsModel {

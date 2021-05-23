@@ -59,16 +59,22 @@ class MessageCardNotification extends StatelessWidget {
               }
               return InkWell(
                 onTap: () => {
-                  messageState.setmyConv(this.messageFields.docId),
+                  print("\n\n\n\n\nmessageFields.from" +
+                      this.messageFields.from.toString()),
+                  print("messageFields.fromUid" +
+                      this.messageFields.fromUid.toString()),
+                  print("\n\n\n\n\n\n\n\n\n."),
+                  messageState.setmyConv(this.messageFields.fromUid),
                   messageState.setmyConv2(
                       this.messageFields.from, this.messageFields.img),
                   myFirestore.changeReadStatus(
                     myAuth.getCurrentUser(),
-                    this.messageFields.docId,
+                    this.messageFields.fromUid,
                     this.messageFields.img,
                     this.messageFields.message,
                     this.messageFields.timestamp,
                     this.messageFields.from,
+                    this.messageFields.docId,
                   ),
                   Navigator.pushNamed(
                     context,

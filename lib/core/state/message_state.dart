@@ -10,7 +10,8 @@ class MessageState extends GetxController {
   var username = "".obs;
   var userData = {}.obs;
   var toProfile =
-      MessageModel(from: "", img: "", is_read: true, message: "").obs;
+      MessageModel(from: "", img: "", is_read: true, message: "", fromUid: "")
+          .obs;
 
   final MyFirestore myFirestore = Get.put(MyFirestore());
   final MyAuth myAuth = Get.put(MyAuth());
@@ -31,7 +32,12 @@ class MessageState extends GetxController {
   }
 
   void setmyConv2(var from, var img) {
-    toProfile =
-        MessageModel(from: from, img: img, is_read: true, message: "").obs;
+    toProfile = MessageModel(
+            from: from,
+            img: img,
+            is_read: true,
+            message: "",
+            fromUid: myselectedConv.value)
+        .obs;
   }
 }
