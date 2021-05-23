@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 abstract class PostBase extends StatelessWidget {
   final NetworkImage profileImage;
   final String username;
-  PostBase({this.profileImage, this.username});
+  final bool isMine;
+  PostBase({this.profileImage, this.username, this.isMine});
 }
 
 class ImagePost extends PostBase {
   final NetworkImage image;
-  ImagePost({this.image, NetworkImage profileImage, String username})
-      : super(profileImage: profileImage, username: username);
+  ImagePost(
+      {this.image, NetworkImage profileImage, String username, bool isMine})
+      : super(profileImage: profileImage, username: username, isMine: isMine);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,10 @@ class ImagePost extends PostBase {
           padding: EdgeInsets.all(4.0),
           child: Column(
             children: [
-              PostHeader(profileImage: profileImage, username: username),
+              PostHeader(
+                  profileImage: profileImage,
+                  username: username,
+                  isMine: false),
               PostHeaderDivider(),
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -49,10 +54,12 @@ class PostHeader extends StatelessWidget {
     Key key,
     @required this.profileImage,
     @required this.username,
+    @required this.isMine,
   }) : super(key: key);
 
   final NetworkImage profileImage;
   final String username;
+  final bool isMine;
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +91,91 @@ class PostHeader extends StatelessWidget {
           flex: 1,
           child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(12, 2, 12, 0),
-              child: Icon(
-                Icons.more_horiz,
-                size: 25,
-              ),
-            ),
+                padding: const EdgeInsets.fromLTRB(12, 2, 12, 0),
+                child: InkWell(
+                  child: Icon(Icons.more_horiz, size: 25),
+                  onTap: () {
+                    isMine
+                        ? showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                //title: Text("Add Comment"),
+                                content: Container(
+                                  height: 160,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          InkWell(
+                                              child: Icon(Icons.close),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              })
+                                        ],
+                                      ),
+                                      OutlinedButton(
+                                          child: Text("aDelete"),
+                                          onPressed: () {
+                                            print("asda");
+                                          }),
+                                      OutlinedButton(
+                                          child: Text("Update"),
+                                          onPressed: () {
+                                            print("asda");
+                                          }),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            })
+                        : showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                //title: Text("Add Comment"),
+                                content: Container(
+                                  height: 160,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          InkWell(
+                                              child: Icon(Icons.close),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              })
+                                        ],
+                                      ),
+                                      OutlinedButton(
+                                          child: Text("Delete"),
+                                          onPressed: () {
+                                            print("asda");
+                                          }),
+                                      OutlinedButton(
+                                          child: Text("Update"),
+                                          onPressed: () {
+                                            print("asda");
+                                          }),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                  },
+                )
+                // Icon(
+                //   Icons.more_horiz,
+                //   size: 25,
+                // ),
+
+                ),
           ]),
         ),
       ],
@@ -115,7 +201,8 @@ class TextPost extends PostBase {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              PostHeader(profileImage: profileImage, username: username),
+              PostHeader(
+                  profileImage: profileImage, username: username, isMine: true),
               PostHeaderDivider(),
               Text(
                 this.text,
