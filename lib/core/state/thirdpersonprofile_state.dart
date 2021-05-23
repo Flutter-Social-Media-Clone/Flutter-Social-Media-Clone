@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cs310insta/core/models/KFormField.dart';
 import 'package:cs310insta/core/models/postBase.dart';
 import 'package:cs310insta/core/state/auth.dart';
@@ -12,6 +13,7 @@ class ThirdPersonProfileState extends GetxController {
   var username = "".obs;
   var userData = {}.obs;
   var thirdUserId = "".obs;
+  var bookmarked = "".obs;
 
   final MyFirestore myFirestore = Get.put(MyFirestore());
   final MyAuth myAuth = Get.put(MyAuth());
@@ -20,8 +22,6 @@ class ThirdPersonProfileState extends GetxController {
 
   Future<void> getUsername() async {
     //DONE: myAuth.getCurrentUser() --> userId
-    thirdUserId.value = userId;
-    print(thirdUserId.value);
     var data = await myFirestore.getUser(myAuth.getCurrentUser());
     username.value = data["username"].toString();
 
@@ -42,16 +42,48 @@ class ThirdPersonProfileState extends GetxController {
     myselectedIndex.value = index;
   }
 
+  bool isBookmarked = false;
+  Future<void>  handleBookmark() async {
+    //bookMark(thirdUserId, username, String uid) {
+    var data = await myFirestore.getUser( myAuth.getCurrentUser());
+    username.value = data["username"].toString();
+    
+    //bookmarked.value = await myFirestore.getbookmarked(username, bookmarked, uid);
+    
+    var data1 = await myFirestore.getUser(thirdUserId.value);
+    bookmarked.value = data1["bookmarked"].toString();
+ 
+    }
+
+
+
+
   //TODO: bu fireStore_state'e bir daha yazılmalı
-  Future<bool> handleBookmark() async {
+  // Future<bool> handleBookmark() async {
 
-    var userid = await myFirestore.getUser(myAuth.getCurrentUser());
-    print("Handle Bookmark tapped!");
+  //   var userid = await myFirestore.getUser(myAuth.getCurrentUser());
+    
+  //   print("Handle Bookmark tapped!");
 
-    formKey.currentState.save();
-    print(userid);
-    return true;
-  }
+  //   formKey.currentState.save();
+  //   print(userid);
+  //   return true;
+  // }
+
+// bool isBookmarked;
+// Future<void> handleBookmark() async {
+
+  
+// //   Future<void> querySnapshot = FirebaseFirestore.instance.collection('bookmarks').doc('username').get();
+// //   var doc = await myFirestore.bookMark();
+
+// //   if (doc['bookmarkedby'].getUser(userId)) {
+// //       isBookmarked = true;
+// //   } else {
+// //     isBookmarked = false;
+// // }
+
+// }
 
   List<PostBase> getMyResults() {
     if (myselectedIndex.value == "posts") {

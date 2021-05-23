@@ -45,13 +45,16 @@ class MyFirestore extends GetxController {
     });
   }
 
-  void bookMark(String username) {
-    firestoreInstance.collection("users").doc(username).update({
-      "username": username,
+  void getbookmarked(String username, String bookmarked, String uid) {
+    firestoreInstance.collection("bookmarks").doc(uid).set({
+      "username": username, //current user
+      "bookmarked": bookmarked, //bookmarked person
     }).then((_) {
       print("bookmarked");
     });
   }
+
+
 
   Future<Map<String, dynamic>> getUser(String uid) async {
     var data = await firestoreInstance

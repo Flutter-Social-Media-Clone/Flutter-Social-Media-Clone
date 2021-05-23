@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cs310insta/core/state/states.dart';
 import 'package:flutter_button/flutter_button.dart';
-
+import 'package:cs310insta/core/state/thirdpersonprofile_state.dart';
 // class ThirdPersonProfileScreen extends ViewModelWidget<ThirdPersonViewModel> {
 //   @override
 //   Widget build(BuildContext context, ThirdPersonViewModel model) {
@@ -24,8 +23,7 @@ import 'package:flutter_button/flutter_button.dart';
 //       viewModelBuilder: () => SearchViewModel(),
 
 class ThirdPersonProfileScreen extends StatelessWidget {
-  final ThirdPersonProfileState thirdpersonProfileState =
-      Get.put(ThirdPersonProfileState());
+  final ThirdPersonProfileState thirdpersonProfileState = Get.put(ThirdPersonProfileState());
 
   @override
   Widget build(BuildContext context) {
@@ -118,24 +116,28 @@ class ThirdPersonAppBar extends StatelessWidget {
 
                       Column(
                         children: [
-                          Obx(
-                      () => LikeButton(
+                        Obx( () => LikeButton(
+                              
                               icon: Icons.bookmark_outlined,
                               deactiveColor: Colors.white,
-                              //activeColor: Colors.black,
+                              activeColor: Colors.black,
                               deactiveSize: 30,
                               activeSize: 35,
                               curve: Curves.easeInExpo,
-                              onTap: () {
-                                thirdPersonProfileState.handleBookmark();
-                                activateColor: Colors.black;
+                              
+                              onTap: () { 
+                                //thirdPersonProfileState.handleBookmark();
+                                thirdPersonProfileState.userData.value["username"];
+                      
+                                (thirdPersonProfileState.userData.value)["bookmark"];
+                                                                            
                                 print("ON TAPPED");
 
                                 //TODO: database get request, black mi white mi ona göre ayarla, on changed handlebookmark'ın icinde tru/false yazdıgı updatelencek
                                 //2 state variable 1 tane handle
                               },
                             ),
-                          ),
+                        ),
                         ],
                       ),
                       Column(
