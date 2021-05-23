@@ -1,4 +1,6 @@
 import 'package:cs310insta/core/models/postBase.dart';
+import 'package:cs310insta/core/state/auth.dart';
+import 'package:cs310insta/core/state/fireStore_database.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:cs310insta/utils/style.dart';
@@ -55,6 +57,11 @@ class ThirdPersonProfileScreen extends StatelessWidget {
 class ThirdPersonAppBar extends StatelessWidget {
   final ThirdPersonProfileState thirdPersonProfileState =
       Get.put(ThirdPersonProfileState());
+  final firestoreInstance = FirebaseFirestore.instance;
+  final MyAuth myAuth = Get.put(MyAuth());
+  final MyFirestore myFirestore = Get.put(MyFirestore());
+  final MessageState messageState = Get.put(MessageState());
+  final MyProfileState myProfileState = Get.put(MyProfileState());
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +216,35 @@ class ThirdPersonAppBar extends StatelessWidget {
                                 style: profileButtonTextStyle,
                               ),
                               style: hiddenprofile_ButtonStyle,
-                              onPressed: () {}),
+                              onPressed: () {
+                                print(
+                                    "\n\n\n\n\n\n\n\n thirdPersonProfileScreeen 217" +
+                                        thirdPersonProfileState
+                                            .thirdUserId.value);
+                                print(
+                                    "\n\n\n\n\n\n\n\n thirdPersonProfileScreeen 218" +
+                                        myAuth.getCurrentUser());
+                                print("\n\n\n\n\n\n\n\n.");
+                                messageState.setmyConv(
+                                    thirdPersonProfileState.thirdUserId.value);
+                                messageState.setmyConv2(
+                                    thirdPersonProfileState
+                                        .userData.value["username"],
+                                    thirdPersonProfileState
+                                        .userData.value["imgUrl"]);
+                                myFirestore.createConv(
+                                  thirdPersonProfileState.thirdUserId.value,
+                                  myAuth.getCurrentUser(),
+                                  thirdPersonProfileState
+                                      .userData.value["imgUrl"],
+                                  thirdPersonProfileState
+                                      .userData.value["username"],
+                                );
+                                Navigator.pushNamed(
+                                  context,
+                                  "/messageSingle",
+                                );
+                              }),
                         ],
                       ),
                     ],

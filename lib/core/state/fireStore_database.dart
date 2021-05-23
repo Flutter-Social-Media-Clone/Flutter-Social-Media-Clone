@@ -174,12 +174,12 @@ class MyFirestore extends GetxController {
       String fromUsername,
       String toImgUrl,
       String fromImgUrl) async {
-    // print("\n\n\n\n\n Message is sending:");
-    // print("From:" + fromUsername + "--->> to:" + toUsername);
-    // print("FromUid:" + fromUid + "--->> toUid:" + toUid);
-    // print("FromImg:" + fromImgUrl + "--->> toImg:" + toImgUrl);
-    // print("Message is: " + text + "\n\n\n\n\n.");
-
+    print("\n\n\n\n\n Message is sending:");
+    print("From:" + fromUsername + "--->> to:" + toUsername);
+    print("FromUid:" + fromUid + "--->> toUid:" + toUid);
+    print("FromImg:" + fromImgUrl + "--->> toImg:" + toImgUrl);
+    print("Message is: " + text + "\n\n\n\n\n.");
+    var docId = "";
     await firestoreInstance
         .collection("messages")
         .doc("${fromUid}")
@@ -193,7 +193,8 @@ class MyFirestore extends GetxController {
       "username": fromUsername,
       "timestamp": DateTime.now(),
     }).then((res) {
-      print(res);
+      print("kkkk" + res.id);
+      docId = res.id;
       print("success");
     });
     await firestoreInstance
@@ -205,8 +206,9 @@ class MyFirestore extends GetxController {
       "imgUrl": toImgUrl,
       "isRead": false,
       "lastMessage": text,
-      "username": toUsername,
+      "username": fromUsername,
       "timestamp": DateTime.now(),
+      "docId": docId,
     }).then((res) {
       print("success");
     });
@@ -226,6 +228,7 @@ class MyFirestore extends GetxController {
     }).then((res) {
       print(res);
       print("success");
+      docId = res.id;
     });
     await firestoreInstance
         .collection("messages")
@@ -238,6 +241,7 @@ class MyFirestore extends GetxController {
       "lastMessage": text,
       "username": fromUsername,
       "timestamp": DateTime.now(),
+      "docId": docId,
     }).then((res) {
       print("success");
     });
@@ -250,25 +254,34 @@ class MyFirestore extends GetxController {
     String fromText,
     Timestamp fromTimestamp,
     String fromUsername,
+    String messageId,
   ) async {
     bool isRead = false;
     print("aloooo" + toUid + "///" + fromUid);
 
-    await firestoreInstance
-        .collection("messages")
-        .doc("${toUid}")
-        .collection("friends")
-        .doc("${fromUid}")
-        .collection("messageList")
-        .add({
-      "imgUrl": fromImgUrl,
-      "isRead": false,
-      "text": fromText,
-      "timestamp": fromTimestamp,
-      "username": fromUsername
-    }).then((res) {
-      print("success");
-    });
+    print("\n\n\n\n\n Message is READING:");
+    print("From:" + fromUsername + "--->> to:");
+    print("FromUid:" + fromUid + "--->> toUid:");
+    print("FromImg:" + fromImgUrl + "--->> toImg:");
+    print("MessageID is: " + messageId + "\n\n\n\n\n.");
+
+    // await firestoreInstance
+    //     .collection("messages")
+    //     .doc("${toUid}")
+    //     .collection("friends")
+    //     .doc("${fromUid}")
+    //     .collection("messageList")
+    //     .add({
+    //   // .doc(messageId)
+    //   // .set({
+    //   "imgUrl": fromImgUrl,
+    //   "isRead": false,
+    //   "text": fromText,
+    //   "timestamp": fromTimestamp,
+    //   "username": fromUsername
+    // }).then((res) {
+    //   print("success");
+    // });
     await firestoreInstance
         .collection("messages")
         .doc("${toUid}")
@@ -279,11 +292,68 @@ class MyFirestore extends GetxController {
       "isRead": false,
       "lastMessage": fromText,
       "timestamp": fromTimestamp,
-      "username": fromUsername
+      "username": fromUsername,
+      "docId": messageId,
       //"timestamp": DateTime.now(),
     }).then((res) {
       print("success");
     });
+  }
+
+  Future createConv(
+    String toUid,
+    String fromUid,
+    String toImgUrl,
+    String toUsername,
+  ) async {
+    bool isRead = false;
+    print("aloooo" + toUid + "///" + fromUid);
+
+    await firestoreInstance
+        .collection("messages")
+        .doc("${fromUid}")
+        .collection("friends")
+        .doc("${toUid}")
+        .set({
+      "docId": "newMessage",
+      "imgUrl": toImgUrl,
+      "isRead": false,
+      "lastMessage": "You attempt to start conversation but no message sent",
+      "timestamp": DateTime.now(),
+      "username": toUsername
+    }).then((res) {
+      print("success");
+    });
+    // await firestoreInstance
+    //     .collection("messages")
+    //     .doc("${fromUid}")
+    //     .collection("friends")
+    //     .doc("${toUid}")
+    //     .collection("messageList")
+    //     .add({
+    //   "imgUrl": "dummy",
+    //   "isRead": false,
+    //   "lastMessage": "new",
+    //   "timestamp": DateTime.now(),
+    //   "username": toUsername
+    // }).then((res) {
+    //   print("success");
+    // });
+    // await firestoreInstance
+    //     .collection("messages")
+    //     .doc("${toUid}")
+    //     .collection("friends")
+    //     .doc("${fromUid}")
+    //     .set({
+    //   "imgUrl": fromImgUrl,
+    //   "isRead": false,
+    //   "lastMessage": fromText,
+    //   "timestamp": fromTimestamp,
+    //   "username": fromUsername
+    //   //"timestamp": DateTime.now(),
+    // }).then((res) {
+    //   print("success");
+    // });
   }
   // void shareMedia(
   //     String text, List<String> topics,String type, ) {

@@ -75,22 +75,24 @@ class MessagePage extends StatelessWidget {
                 return new Text("Error!");
               } else {
                 print("geldi dayı");
-                //print(snapshot.data.docs.map((doc) => doc.data()));
+                print(snapshot.data.docs.map((doc) => doc.data()));
                 var docs = snapshot.data.docs.map((doc) => doc);
                 print(docs);
+                // ({imgUrl: https:firebasestorage.googleapis.com/v0/b/cs310insta-5b3c1.appspot.com/o/profilePhotos%2Fdd%20demir.jpg?alt=media&token=fbc6e69f-e388-4f55-a74a-c78f8c98fa7d, isRead: false, timestamp: Timestamp(seconds=1621686725, nanoseconds=823999000), username: dd demir, lastMessage: eee},
+                // {imgUrl: https://firebasestorage.googleapis.com/v0/b/cs310insta-5b3c1.appspot.com/o/profilePhotos%2Fdemo2editted.jpg?alt=media&token=241aae4d-d02a-4f64-9b1e-acd0327ce9a7, isRead: false, timestamp: Timestamp(seconds=1621673663, nanoseconds=91000000), username: demo2editted, lastMessage: ew})
                 var b = List<MessageModel>();
                 docs.forEach((doc) {
-                  print(doc["username"]);
-                  print(doc.id);
+                  // print(doc["timestamp"]);
+                  // print(doc.id);
                   b.add(
                     MessageModel(
-                      from: doc["username"],
-                      img: doc["imgUrl"],
-                      is_read: doc["isRead"],
-                      message: doc["lastMessage"],
-                      docId: doc.id,
-                      timestamp: doc["timestamp"],
-                    ),
+                        from: doc["username"],
+                        img: doc["imgUrl"],
+                        is_read: doc["isRead"],
+                        message: doc["lastMessage"],
+                        fromUid: doc.id,
+                        timestamp: doc["timestamp"],
+                        docId: doc["docId"]),
                   );
                   // return MessageCardNotification(
                   //   messageFields: MessageModel(

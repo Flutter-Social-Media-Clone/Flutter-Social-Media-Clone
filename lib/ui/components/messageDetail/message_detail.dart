@@ -58,6 +58,10 @@ class MessageDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     print("ddddd" + messageState.toProfile.value.from);
     print("mynameee:" + myProfileState.userData.value["username"]);
+    print("Path:" +
+        myAuth.getCurrentUser() +
+        "to" +
+        messageState.myselectedConv.value.toString());
     return Scaffold(
       appBar: AppBar(
         title: Column(children: [
@@ -86,15 +90,19 @@ class MessageDetail extends StatelessWidget {
                       } else if (snapshot.data == null) {
                         return new Text("Loading!");
                       } else {
-                        // print("geldi dayı");
+                        // print("geldi dayı" +
+                        //     snapshot.data.docs.length.toString());
+
                         // print(snapshot.data);
                         // print(snapshot.data.docs.map((doc) => doc.data()));
                         var docs = snapshot.data.docs.map((doc) => doc.data());
-                        //print(docs);
+                        print(docs);
                         var b = List<MessageModel>();
                         docs.forEach((doc) {
-                          //
-                          print(doc["timestamp"]);
+                          if (doc["username"] == null) {
+                            print("sdfsdfdsfs");
+                          }
+                          print(doc["text"]);
                           //print(doc.id);
                           b.add(
                             MessageModel(
@@ -104,6 +112,8 @@ class MessageDetail extends StatelessWidget {
                               message: doc["text"],
                             ),
                           );
+
+                          //
                         });
 
                         return ListView(
@@ -160,9 +170,23 @@ class MessageDetail extends StatelessWidget {
                             child: InkWell(
                               child: Icon(Icons.send),
                               onTap: () => {
-                                print("send message" + message),
+                                print(
+                                    "\n\n\n\n\n\n\n\n\nsend message" + message),
+                                print("toUid" +
+                                    messageState.toProfile.value.fromUid),
+                                print("fromUid" + myAuth.getCurrentUser()),
+                                print("isRead" + true.toString()),
+                                print("text" + message),
+                                print("toUsername" +
+                                    messageState.toProfile.value.from),
+                                print("fromUsername" +
+                                    myProfileState.userData.value["username"]),
+                                print("\n\n\n\n\n\n\n\n\n."),
                                 myFirestore.sendMessage(
-                                    messageState.myselectedConv.value,
+                                    messageState.toProfile.value.fromUid,
+
+                                    // messageState.myselectedConv
+                                    //     .value, // to yanlış geliyo
                                     myAuth.getCurrentUser(),
                                     true,
                                     message, //"text from: demo321--->> to:demo2editted",
