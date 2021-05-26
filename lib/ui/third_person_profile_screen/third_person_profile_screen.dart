@@ -97,13 +97,18 @@ class ThirdPersonAppBar extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          OutlinedButton(
-                              child: Text(
-                                "Remove",
-                                style: profileButtonTextStyle,
-                              ),
-                              style: profileButtonStyle,
-                              onPressed: () {}),
+                          Obx(
+                            () => OutlinedButton(
+                                child: Text(
+                                  thirdPersonProfileState.getIsRemoveOrAdd(),
+                                  style: profileButtonTextStyle,
+                                ),
+                                style: profileButtonStyle,
+                                onPressed: () {
+                                  thirdPersonProfileState
+                                      .handleAddRemoveFriend();
+                                }),
+                          ),
                         ],
                       ),
                       SizedBox(

@@ -1,7 +1,10 @@
+import 'package:cs310insta/core/state/auth.dart';
+import 'package:cs310insta/core/state/fireStore_database.dart';
 import 'package:cs310insta/ui/subscription_screen/subscription_viewmodel.dart';
 import 'package:cs310insta/ui/subscription_screen/subscription_screen.dart';
 import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 
 abstract class SubscriptionResultBase extends StatelessWidget {
@@ -21,12 +24,12 @@ class FollowersSubscription extends SubscriptionResultBase {
       tobeShowed = this.text.substring(0, 12) + "...";
     } else {
       tobeShowed = this.text;
-    }   
+    }
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
           context,
-          "/$id",
+          "/thirdPersonProfile/$id",
         );
       },
       child: Card(
@@ -48,28 +51,27 @@ class FollowersSubscription extends SubscriptionResultBase {
                         backgroundColor: Colors.grey[400],
                         radius: 30,
                       ),
-                      SizedBox(width:10),
-                        Text(
+                      SizedBox(width: 10),
+                      Text(
                         "$tobeShowed",
-                          style: searchResultTextStyle,
-                          ),
+                        style: searchResultTextStyle,
+                      ),
                     ],
                   ),
-                ],                 
+                ],
               ),
-
-                Column(
-                  children: [
-                    OutlinedButton(
+              Column(
+                children: [
+                  OutlinedButton(
                     child: Text(
-                    "Unfollow",
-                     style: unf_ButtonTextStyle,
+                      "Unfollow",
+                      style: unf_ButtonTextStyle,
                     ),
                     style: unf_ButtonStyle,
-                    onPressed: () { }, 
-                    ),
-                  ],
-                ),  
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -81,7 +83,8 @@ class FollowersSubscription extends SubscriptionResultBase {
 class FollowingSubscription extends SubscriptionResultBase {
   final NetworkImage image;
   FollowingSubscription({text, this.image, id}) : super(text: text, id: id);
-
+  final MyFirestore myFirestore = Get.put(MyFirestore());
+  final MyAuth myAuth = Get.put(MyAuth());
   @override
   Widget build(BuildContext context) {
     String tobeShowed;
@@ -89,12 +92,12 @@ class FollowingSubscription extends SubscriptionResultBase {
       tobeShowed = this.text.substring(0, 12) + "...";
     } else {
       tobeShowed = this.text;
-    }   
+    }
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
           context,
-          "/$id",
+          "/thirdPersonProfile/$id",
         );
       },
       child: Card(
@@ -116,28 +119,29 @@ class FollowingSubscription extends SubscriptionResultBase {
                         backgroundColor: Colors.grey[400],
                         radius: 30,
                       ),
-                      SizedBox(width:10),
-                        Text(
+                      SizedBox(width: 10),
+                      Text(
                         "$tobeShowed",
-                          style: searchResultTextStyle,
-                          ),
+                        style: searchResultTextStyle,
+                      ),
                     ],
                   ),
-                ],                 
+                ],
               ),
-
-                Column(
-                  children: [
-                    OutlinedButton(
+              Column(
+                children: [
+                  OutlinedButton(
                     child: Text(
-                    "Unfollow",
-                     style: unf_ButtonTextStyle,
+                      "Unfollow",
+                      style: unf_ButtonTextStyle,
                     ),
                     style: unf_ButtonStyle,
-                    onPressed: () { }, 
-                    ),
-                  ],
-                ),  
+                    onPressed: () {
+                      myFirestore.deleteFriendship(myAuth.getCurrentUser(), id);
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -145,8 +149,6 @@ class FollowingSubscription extends SubscriptionResultBase {
     );
   }
 }
-
-
 
 class TopicSubscription extends SubscriptionResultBase {
   TopicSubscription({text, id}) : super(text: text, id: id);
@@ -186,14 +188,14 @@ class TopicSubscription extends SubscriptionResultBase {
                 children: [
                   OutlinedButton(
                     child: Text(
-                    "Unfollow",
-                     style: unf_ButtonTextStyle,
+                      "Unfollow",
+                      style: unf_ButtonTextStyle,
                     ),
                     style: unf_ButtonStyle,
-                    onPressed: () { }, 
-                    ),
+                    onPressed: () {},
+                  ),
                 ],
-              ),                                   
+              ),
             ],
           ),
         ),
@@ -236,18 +238,18 @@ class LocationSubscription extends SubscriptionResultBase {
                   ),
                 ],
               ),
-               Column(
-                 children: [
-                   OutlinedButton(
+              Column(
+                children: [
+                  OutlinedButton(
                     child: Text(
-                    "Unfollow",
-                     style: unf_ButtonTextStyle,
+                      "Unfollow",
+                      style: unf_ButtonTextStyle,
                     ),
                     style: unf_ButtonStyle,
-                    onPressed: () { }, 
-                    ),
-                 ],
-               ),               
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -271,4 +273,3 @@ class SubscriptionResult extends StatelessWidget {
     );
   }
 }
-

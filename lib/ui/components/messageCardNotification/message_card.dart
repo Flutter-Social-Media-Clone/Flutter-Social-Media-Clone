@@ -28,6 +28,32 @@ class MessageCardNotification extends StatelessWidget {
       tobeShowed = this.messageFields.message;
     }
     print("id:" + this.messageFields.docId);
+
+    String tobeShowedusername;
+    if (this.messageFields.toUsername.length > 20) {
+      tobeShowedusername =
+          this.messageFields.toUsername.substring(0, 17) + "...";
+    } else {
+      tobeShowedusername = this.messageFields.toUsername;
+    }
+    print("id:" + this.messageFields.docId);
+
+    var c = Duration(
+        seconds:
+            (Timestamp.now().seconds - this.messageFields.timestamp.seconds));
+    String tobeShowedDate = "now";
+    print("timeeeeee in days:" + c.inDays.toString());
+    print("timeeeeee:" + c.inHours.toString());
+    print("timeeeeee:" + c.inMinutes.toString());
+    if (c.inDays > 0) {
+      tobeShowedDate = c.inDays.toString() + " day";
+    } else if (c.inHours > 0) {
+      tobeShowedDate = c.inHours.toString() + " hour";
+    } else if (c.inMinutes > 0) {
+      tobeShowedDate = c.inMinutes.toString() + " min";
+    } else {
+      tobeShowedDate = "now";
+    }
     return Container(
 
         //padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
@@ -57,6 +83,8 @@ class MessageCardNotification extends StatelessWidget {
 
                 print("messagecard");
               }
+              // final toUsername =
+              //     myFirestore.getUser(this.messageFields.fromUid);
               return InkWell(
                 onTap: () => {
                   print("\n\n\n\n\nmessageFields.from" +
@@ -66,7 +94,7 @@ class MessageCardNotification extends StatelessWidget {
                   print("\n\n\n\n\n\n\n\n\n."),
                   messageState.setmyConv(this.messageFields.fromUid),
                   messageState.setmyConv2(
-                      this.messageFields.from, this.messageFields.img),
+                      this.messageFields.toUsername, this.messageFields.img),
                   myFirestore.changeReadStatus(
                     myAuth.getCurrentUser(),
                     this.messageFields.fromUid,
@@ -106,7 +134,7 @@ class MessageCardNotification extends StatelessWidget {
                               height: 30,
                               width: 200,
                               child: Text(
-                                "${this.messageFields.from}",
+                                "${tobeShowedusername}",
                                 style: notificationMessageText,
                               ),
                             ),
@@ -132,7 +160,7 @@ class MessageCardNotification extends StatelessWidget {
                                   SizedBox(
                                     height: 30,
                                     child: Text(
-                                      "now",
+                                      "${tobeShowedDate}",
                                       style: notificationDateText,
                                     ),
                                   ),

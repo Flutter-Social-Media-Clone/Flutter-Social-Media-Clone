@@ -9,7 +9,7 @@ class MyProfileAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    myProfileState.getUserData();
+    // myProfileState.getUserData();
     return Container(
       child: Column(
         children: <Widget>[
@@ -123,12 +123,9 @@ class MyProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    myProfileState.getMyMedias();
-    myProfileState.getMyPosts();
-
     return Obx(
       () => Posts(
-        myProfileState.getMyResults(myProfileState.userData.value["username"]),
+        myProfileState.getMyResults(),
       ),
     );
   }

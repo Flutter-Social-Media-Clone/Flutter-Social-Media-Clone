@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:cs310insta/utils/style.dart';
@@ -9,6 +10,22 @@ class NotificationCard extends StatelessWidget {
   NotificationCard({this.notificationMessage});
   @override
   Widget build(BuildContext context) {
+    var c = Duration(
+        seconds: (Timestamp.now().seconds -
+            this.notificationMessage.timestamp.seconds));
+    String tobeShowedDate = "now";
+    print("timeeeeee in days:" + c.inDays.toString());
+    print("timeeeeee:" + c.inHours.toString());
+    print("timeeeeee:" + c.inMinutes.toString());
+    if (c.inDays > 0) {
+      tobeShowedDate = c.inDays.toString() + " day";
+    } else if (c.inHours > 0) {
+      tobeShowedDate = c.inHours.toString() + " hour";
+    } else if (c.inMinutes > 0) {
+      tobeShowedDate = c.inMinutes.toString() + " min";
+    } else {
+      tobeShowedDate = "now";
+    }
     return Container(
       //padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
       //margin: EdgeInsets.fromLTRB(0, 200, 0, 0),
@@ -41,7 +58,7 @@ class NotificationCard extends StatelessWidget {
                   SizedBox(
                     height: 20,
                     child: Text(
-                      "asda ago", //"${this.notificationMessage.timestamp}",
+                      "${tobeShowedDate}", //"${this.notificationMessage.timestamp}",
                       style: notificationDateText,
                     ),
                   ),

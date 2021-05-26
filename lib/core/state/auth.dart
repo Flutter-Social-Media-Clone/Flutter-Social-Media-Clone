@@ -173,7 +173,7 @@ class MyAuth extends GetxController {
   String getCurrentUser() {
     try {
       var user = auth.currentUser;
-      print(" CURRENT USER " + user.uid);
+      // print(" CURRENT USER " + user.uid);
       return user.uid;
     } catch (e) {
       return "yok";

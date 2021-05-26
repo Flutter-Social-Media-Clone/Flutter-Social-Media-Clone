@@ -1,6 +1,7 @@
 import 'package:cs310insta/core/models/bottom_bar.dart';
 import 'package:cs310insta/core/state/analytics.dart';
 import 'package:cs310insta/core/state/auth.dart';
+import 'package:cs310insta/core/state/fireStore_database.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/ui/components/RightDrawer/right_drawer.dart';
 import 'package:cs310insta/ui/feed_screen/feed_screen.dart';
@@ -35,12 +36,18 @@ class MainAppScreen extends StatelessWidget {
     final MyAnalytics myAnalytics = Get.put(MyAnalytics());
 
     myAnalytics.mySetCurrentScreen("main app screen");
+    myProfileState.getUserData();
 
-    final MyAuth myAuth = Get.put(MyAuth());
+    // MyFirestore myFirestore = Get.put(MyFirestore());
+    MyAuth myAuth = Get.put(MyAuth());
+    // myFirestore.getFeed(myAuth.getCurrentUser());
+    final FeedState feedState = Get.put(FeedState());
+    feedState.getMyFeed(myAuth.getCurrentUser());
+    // final MyAuth myAuth = Get.put(MyAuth());
 
-    String a = myAuth.getCurrentUser();
+    // String a = myAuth.getCurrentUser();
 
-    print("AAAAAAAAAAAAAA    " + a);
+    // print("AAAAAAAAAAAAAA    " + a);
 
     // ViewModelBuilder is what provides the view model to the widget tree.
     return Obx(
@@ -265,7 +272,9 @@ class MainAppScreen extends StatelessWidget {
                                     style: profileButtonTextStyle,
                                   ),
                                   style: profileButtonStyle,
-                                  onPressed: () {}),
+                                  onPressed: () {
+                                    Get.toNamed("/subscription");
+                                  }),
                             ),
                             SizedBox(
                               height: 80,

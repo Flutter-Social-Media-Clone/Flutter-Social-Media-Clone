@@ -127,6 +127,7 @@ class ShareState extends GetxController {
     } else {
       handleShareImage();
     }
+    //Get.toNamed("/mainapp");
   }
 
   var _image = PickedFile("").obs;

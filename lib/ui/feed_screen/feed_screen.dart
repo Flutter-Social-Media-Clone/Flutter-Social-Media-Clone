@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class ImagePostList extends StatelessWidget {
   final FeedState feedState = Get.put(FeedState());
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -12,8 +13,10 @@ class ImagePostList extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Column(
           children: [
-            Posts(
-              feedState.posts,
+            Obx(
+              () => Posts(
+                feedState.posts.value,
+              ),
             ),
           ],
         ),

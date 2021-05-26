@@ -1,28 +1,36 @@
 import 'package:cs310insta/core/models/subscriptionResultBase.dart';
-import 'package:cs310insta/ui/subscription_screen/subscription_viewmodel.dart';
+import 'package:cs310insta/core/state/auth.dart';
+import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
+import 'package:get/get.dart';
 
-class SubscriptionScreen extends ViewModelWidget<SubscriptionViewModel> {
+class SubscriptionScreen extends StatelessWidget {
+  final SubscriptionState mySubscriptionState = Get.put(SubscriptionState());
+  final MyAuth myAuth = Get.put(MyAuth());
+
   @override
-  Widget build(BuildContext context, SubscriptionViewModel model) {
+  Widget build(BuildContext context) {
+    mySubscriptionState.getFollowers(myAuth.getCurrentUser());
+    mySubscriptionState.getFollowing(myAuth.getCurrentUser());
+
     return Expanded(
       child: Container(
         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Column(
           children: [
-            SubscriptionResult(
-              model.getSubscriptionResult(),
+            Obx(
+              () => SubscriptionResult(
+                mySubscriptionState.getSubscriptionResult(),
+              ),
+            ),
+          ],
         ),
-        ],
       ),
-    ),
 
-    // Container(
-    //   child: SearchResult(model.peoples),
-    // );
+      // Container(
+      //   child: SearchResult(model.peoples),
+      // );
     );
-    
   }
 }

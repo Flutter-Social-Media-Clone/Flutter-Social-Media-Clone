@@ -52,41 +52,21 @@ class MyFirestore extends GetxController {
         .doc(uid)
         .get()
         .then((value) {
-      print(value.data());
-      print("DATAAAAAA");
+      // print(value.data());
+      // print("DATAAAAAA");
       return value.data();
     });
 
     return data;
   }
 
-  // Future<List<String>> getMyMedias(String uid) async {
-  //   print("getMyMedias starts");
-  //   var data = FirebaseFirestore.instance
-  //       .collection('post')
-  //       .where("creator_uid", isEqualTo: uid)
-  //       .where("type", isEqualTo: "image")
-  //       .orderBy("createdAt", descending: true)
-  //       .get()
-  //       .then((QuerySnapshot querySnapshot) {
-  //     List<String> posts = [];
-
-  //     querySnapshot.docs.forEach((doc) {
-  //       print("--------->>>" + doc["imgUrl"]);
-  //       print("--------->>>" + doc.id);
-  //       print("\n\n\n\n\n\n.");
-
-  //       posts.add(
-  //         doc.id//["imgUrl"]
-  //       );
-  //     });
-
-  //     return posts;
-  //   });
-
-  //   return data;
-  //   //return result;
-  // }
+  Future<String> getUserName(String uid) async {
+    var userData = {};
+    userData = await getUser(uid);
+    var a = await getUser(uid);
+    print(userData["username"]);
+    return userData["username"];
+  }
 
   Future<Map<String, dynamic>> getMyMedias(String uid) async {
     print("getMyMedias starts");
@@ -101,9 +81,9 @@ class MyFirestore extends GetxController {
       Map<String, dynamic> posts = {};
 
       querySnapshot.docs.forEach((doc) {
-        print("--------->>>" + doc["imgUrl"]);
-        print("--------->>>" + doc.id);
-        print("\n\n\n\n\n\n.");
+        // print("--------->>>" + doc["imgUrl"]);
+        // print("--------->>>" + doc.id);
+        // print("\n\n\n\n\n\n.");
 
         posts[doc.id.toString()] = doc["imgUrl"];
         // posts.add(
@@ -208,12 +188,14 @@ class MyFirestore extends GetxController {
       String fromUsername,
       String toImgUrl,
       String fromImgUrl) async {
+    var toUsername = await getUserName(toUid);
     print("\n\n\n\n\n Message is sending:");
     print("From:" + fromUsername + "--->> to:" + toUsername);
     print("FromUid:" + fromUid + "--->> toUid:" + toUid);
     print("FromImg:" + fromImgUrl + "--->> toImg:" + toImgUrl);
     print("Message is: " + text + "\n\n\n\n\n.");
     var docId = "";
+
     await firestoreInstance
         .collection("messages")
         .doc("${fromUid}")
@@ -240,7 +222,8 @@ class MyFirestore extends GetxController {
       "imgUrl": toImgUrl,
       "isRead": false,
       "lastMessage": text,
-      "username": fromUsername,
+      "lastSenderUsername": fromUsername,
+      "username": toUsername,
       "timestamp": DateTime.now(),
       "docId": docId,
     }).then((res) {
@@ -273,6 +256,7 @@ class MyFirestore extends GetxController {
       "imgUrl": fromImgUrl,
       "isRead": isRead,
       "lastMessage": text,
+      "lastSenderUsername": toUsername,
       "username": fromUsername,
       "timestamp": DateTime.now(),
       "docId": docId,
@@ -298,6 +282,7 @@ class MyFirestore extends GetxController {
     print("FromUid:" + fromUid + "--->> toUid:");
     print("FromImg:" + fromImgUrl + "--->> toImg:");
     print("MessageID is: " + messageId + "\n\n\n\n\n.");
+    var toUsername = await getUserName(fromUid);
 
     // await firestoreInstance
     //     .collection("messages")
@@ -326,7 +311,8 @@ class MyFirestore extends GetxController {
       "isRead": false,
       "lastMessage": fromText,
       "timestamp": fromTimestamp,
-      "username": fromUsername,
+      "lastSenderUsername": fromUsername,
+      "username": toUsername,
       "docId": messageId,
       //"timestamp": DateTime.now(),
     }).then((res) {
@@ -342,6 +328,7 @@ class MyFirestore extends GetxController {
   ) async {
     bool isRead = false;
     print("aloooo" + toUid + "///" + fromUid);
+    var fromUsername = await getUserName(fromUid);
 
     await firestoreInstance
         .collection("messages")
@@ -354,6 +341,7 @@ class MyFirestore extends GetxController {
       "isRead": false,
       "lastMessage": "You attempt to start conversation but no message sent",
       "timestamp": DateTime.now(),
+      "lastSenderUsername": fromUsername,
       "username": toUsername
     }).then((res) {
       print("success");
@@ -389,16 +377,6 @@ class MyFirestore extends GetxController {
     //   print("success");
     // });
   }
-  // void shareMedia(
-  //     String text, List<String> topics,String type, ) {
-  //     firestoreInstance.collection("post").doc(uid).set({
-  //     "type": type,
-  //     "topic": topics,
-  //     "createdAt": DateTime.now().millisecondsSinceEpoch,
-  //   }).then((_) {
-  //     print("success");
-  //   });
-  // }
 
   Future<List<Map>> getPeopleForSearch(String queryText) async {
     print("getPeopleForSearch starts");
@@ -553,4 +531,220 @@ class MyFirestore extends GetxController {
       print("success");
     });
   }
+
+  void addFriendship(String from, String to) {
+    firestoreInstance.collection("friends").add({
+      "from": from,
+      "to": to,
+    }).then((_) {
+      print("success friend added");
+    });
+  }
+
+  void deleteFriendship(String from, String to) async {
+    await firestoreInstance
+        .collection("friends")
+        .where("from", isEqualTo: from)
+        .where("to", isEqualTo: to)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        print("DELETEEE CALLEED FOR ELEMENT ID ${element.id}");
+        firestoreInstance
+            .collection("friends")
+            .doc(element.id)
+            .delete()
+            .then((value) {
+          print("Success!");
+        });
+      });
+    });
+  }
+
+  Future<List<Map>> getFollowers(String to) async {
+    var data = await firestoreInstance
+        .collection("friends")
+        .where("to", isEqualTo: to)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      var list = [];
+      querySnapshot.docs.forEach((doc) {
+        list.add(doc["from"]);
+      });
+      return list;
+    });
+    print("FOLLOWERSSSSS $data");
+
+    List<Map> mapOfFollowers = [];
+
+    await Future.forEach(data, (item) async {
+      var userData = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(item)
+          .get()
+          .then((value) {
+        return value.data();
+      });
+
+      mapOfFollowers.add({
+        "userId": item,
+        "username": userData["username"],
+        "imgUrl": userData["imgUrl"],
+      });
+    });
+    print("FOLLOWERSSSSS 22222222 $mapOfFollowers");
+    return mapOfFollowers;
+  }
+
+  Future<List<Map>> getFollowing(String from) async {
+    var data = await firestoreInstance
+        .collection("friends")
+        .where("from", isEqualTo: from)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      var list = [];
+      querySnapshot.docs.forEach((doc) {
+        list.add(doc["to"]);
+      });
+      return list;
+    });
+    print("FOLLOWIINNGGGGG $data");
+
+    List<Map> mapOfFollowing = [];
+
+    await Future.forEach(data, (item) async {
+      var userData = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(item)
+          .get()
+          .then((value) {
+        return value.data();
+      });
+
+      mapOfFollowing.add({
+        "userId": item,
+        "username": userData["username"],
+        "imgUrl": userData["imgUrl"],
+      });
+    });
+
+    print("FOLLOWIINNGGGGG 22222 $mapOfFollowing");
+
+    return mapOfFollowing;
+  }
+
+  Future<bool> isFollowing(String firstPerson, String thirdPerson) async {
+    var isFriend = await firestoreInstance
+        .collection("friends")
+        .where("from", isEqualTo: firstPerson)
+        .where("to", isEqualTo: thirdPerson)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      var count = 0;
+      querySnapshot.docs.forEach((doc) {
+        count += 1;
+      });
+      print("COUNTTTTTT $count");
+      return count;
+    });
+
+    return (isFriend == 0 ? false : true);
+  }
+
+  Future<List<Map>> getFeed(String uid) async {
+    List<Map> following = await getFollowing(uid);
+
+    List<Map> posts = [];
+    await Future.forEach(following, (item) async {
+      var postData = await FirebaseFirestore.instance
+          .collection("post")
+          .where("creator_uid", isEqualTo: item["userId"])
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          var postContent;
+          if (doc["type"] == "image") {
+            postContent = doc["imgUrl"];
+          } else if (doc["type"] == "post") {
+            postContent = doc["text"];
+          }
+          posts.add({
+            "creator_uid": doc["creator_uid"],
+            "postId": doc.id,
+            "type": doc["type"],
+            "postContent": postContent,
+            "username": item["username"],
+            "profileImg": item["imgUrl"],
+          });
+        });
+      });
+    });
+
+    print("FEEEDD DAATTAAAAAAA\n\n\n$posts");
+    return posts;
+  }
+
+  // following de uid al
+  // uid ile post
+  // uid ile text
+  // mergele ?
+
 }
+
+// Future<List<Map>> getTopicForSearch(String queryText) async {
+//   if (queryText == "as") {
+//     print("getTopicForSearch as stops");
+
+//     return List<Map>();
+//   }
+//   List<Map> topicPosts = [];
+//   await FirebaseFirestore.instance
+//       .collection('post')
+//       .where("topic", arrayContains: queryText)
+//       .orderBy("createdAt", descending: true)
+//       .get()
+//       .then((QuerySnapshot querySnapshot) {
+//     querySnapshot.docs.forEach((doc) {
+
+//       //print("NEWLY USER DATAAAAAAAA TOPIC $userData");
+//       var postContent;
+//       if (doc["type"] == "image") {
+//         postContent = doc["imgUrl"];
+//       } else if (doc["type"] == "post") {
+//         postContent = doc["text"];
+//       }
+//       topicPosts.add({
+//         "creator_uid": doc["creator_uid"],
+//         "postId": doc.id,
+//         "type": doc["type"],
+//         "postContent": postContent,
+//       });
+//     });
+//   });
+
+//   List<Map> newTopicPosts = [];
+  
+//   await Future.forEach(topicPosts, (item) async {
+//     var userData = await FirebaseFirestore.instance
+//         .collection("users")
+//         .doc(item["creator_uid"])
+//         .get()
+//         .then((value) {
+   
+
+//       return value.data();
+//     });
+
+//     newTopicPosts.add({
+//       "postId": item["postId"],
+//       "type": item["type"],
+//       "postContent": item["postContent"],
+//       "username": userData["username"],
+//       "profileImg": userData["imgUrl"],
+//     });
+//   });
+
+  
+//   return newTopicPosts;
+//   //return result;
+// }

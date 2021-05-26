@@ -1,5 +1,6 @@
 import 'package:cs310insta/utils/color.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 import 'package:cs310insta/utils/style.dart';
 

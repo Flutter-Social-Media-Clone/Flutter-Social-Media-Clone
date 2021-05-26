@@ -13,6 +13,8 @@ class ThirdPersonProfileState extends GetxController {
   var userData = {}.obs;
   var thirdUserId = "".obs;
 
+  var friendShipStatus = false.obs;
+
   final MyFirestore myFirestore = Get.put(MyFirestore());
   final MyAuth myAuth = Get.put(MyAuth());
 
@@ -76,9 +78,9 @@ class ThirdPersonProfileState extends GetxController {
     await getUserData();
     var a = await myFirestore.getMyTextPosts(thirdUserId.value);
     var b = List<PostBase>();
-    print("TADAA" + a.toString());
+    // print("TADAA" + a.toString());
     a.forEach((k, item) {
-      print("anan" + item);
+      // print("anan" + item);
       b.add(TextPost(
         username: userData["username"],
         profileImage: NetworkImage(userData["imgUrl"]),
@@ -97,6 +99,31 @@ class ThirdPersonProfileState extends GetxController {
       return userMedias;
     } else {
       return myLocations;
+    }
+  }
+
+  String getIsRemoveOrAdd() {
+    thirdUserId.value = userId;
+    myFirestore
+        .isFollowing(myAuth.getCurrentUser(), thirdUserId.value)
+        .then((value) {
+      friendShipStatus.value = value;
+    });
+
+    if (friendShipStatus.value) {
+      return "Remove";
+    } else {
+      return "Add";
+    }
+  }
+
+  void handleAddRemoveFriend() {
+    if (friendShipStatus.value) {
+      myFirestore.deleteFriendship(myAuth.getCurrentUser(), thirdUserId.value);
+      friendShipStatus.value = false;
+    } else {
+      myFirestore.addFriendship(myAuth.getCurrentUser(), thirdUserId.value);
+      friendShipStatus.value = true;
     }
   }
 

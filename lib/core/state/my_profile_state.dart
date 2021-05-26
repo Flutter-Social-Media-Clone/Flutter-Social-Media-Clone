@@ -8,6 +8,10 @@ class MyProfileState extends GetxController {
   var myselectedIndex = "posts".obs;
   var username = "".obs;
   var userData = {}.obs;
+  var firstPersonId = "".obs;
+
+  List<PostBase> myMedias = new RxList<PostBase>();
+  List<PostBase> myPosts = new RxList<PostBase>();
 
   final MyFirestore myFirestore = Get.put(MyFirestore());
   final MyAuth myAuth = Get.put(MyAuth());
@@ -20,6 +24,10 @@ class MyProfileState extends GetxController {
   }
 
   Future<void> getUserData() async {
+    userData.value = await myFirestore.getUser(myAuth.getCurrentUser());
+  }
+
+  Future<void> getProfileCurrentUser() async {
     userData.value = await myFirestore.getUser(myAuth.getCurrentUser());
   }
 
@@ -43,14 +51,13 @@ class MyProfileState extends GetxController {
     myMedias = b;
   }
 
-  List<PostBase> myMedias = new RxList<PostBase>();
   Future getMyPosts() async {
     await getUserData();
     var a = await myFirestore.getMyTextPosts(myAuth.getCurrentUser());
     var b = List<PostBase>();
-    print("TADAA" + a.toString());
+    // print("TADAA" + a.toString());
     a.forEach((k, item) {
-      print("anan" + item);
+      // print("anan" + item);
       b.add(TextPost(
         username: userData["username"],
         profileImage: NetworkImage(userData["imgUrl"]),
@@ -62,7 +69,6 @@ class MyProfileState extends GetxController {
     myPosts = b;
   }
 
-  List<PostBase> myPosts = new RxList<PostBase>();
   // List<PostBase> myPosts = [
   //   TextPost(
   //     username: "Kaya",
@@ -98,8 +104,7 @@ class MyProfileState extends GetxController {
     ),
   ].obs;
 
-  List<PostBase> getMyResults(String username) {
-    print("getMyResults for " + username);
+  List<PostBase> getMyResults() {
     if (myselectedIndex.value == "posts") {
       print("POST");
       return myPosts;

@@ -37,7 +37,7 @@ class ThirdPartyProfileAppBar extends StatelessWidget {
                         children: [
                           OutlinedButton(
                               child: Text(
-                                "Remove",
+                                "Remcccccccove",
                                 style: profileButtonTextStyle,
                               ),
                               style: profileButtonStyle,

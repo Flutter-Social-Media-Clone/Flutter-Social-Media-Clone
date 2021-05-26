@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cs310insta/core/state/analytics.dart';
 import 'package:cs310insta/core/state/auth.dart';
 import 'package:cs310insta/core/state/fireStore_database.dart';
+import 'package:cs310insta/core/state/notification_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/gestures.dart';
@@ -25,6 +26,7 @@ class NotificationScreen extends StatelessWidget {
 
   final MyAuth myAuth = Get.put(MyAuth());
   final MyFirestore myFirestore = Get.put(MyFirestore());
+  final NotificationState myNotification = Get.put(NotificationState());
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +38,11 @@ class NotificationScreen extends StatelessWidget {
 
     //myFirestore.getUser();
     String myUid = myAuth.getCurrentUser();
-    var a = myFirestore.getNotifications(myUid);
-    print("TTTTTTTTTT" + a.runtimeType.toString());
+    // var a =  myFirestore.getNotifications(myUid);
+    // print("TTTTTTTTTT" + a.runtimeType.toString());
+    myNotification.getMyNotification();
+    List<NotificationModel> notificationList =
+        myNotification.getMyResults(myUid);
 
     return Expanded(
       child: ListView(

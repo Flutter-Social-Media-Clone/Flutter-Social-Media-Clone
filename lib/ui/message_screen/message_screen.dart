@@ -92,7 +92,8 @@ class MessagePage extends StatelessWidget {
                         message: doc["lastMessage"],
                         fromUid: doc.id,
                         timestamp: doc["timestamp"],
-                        docId: doc["docId"]),
+                        docId: doc["docId"],
+                        toUsername: doc["username"]),
                   );
                   // return MessageCardNotification(
                   //   messageFields: MessageModel(

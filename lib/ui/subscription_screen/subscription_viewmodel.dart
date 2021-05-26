@@ -4,13 +4,11 @@ import 'package:cs310insta/ui/search_screen/search_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-
 class SubscriptionViewModel extends ChangeNotifier {
   List<SubscriptionResultBase> followers = [];
   List<SubscriptionResultBase> locationsubs = [];
   List<SubscriptionResultBase> topicsubs = [];
-   List<SubscriptionResultBase> following = [];
-
+  List<SubscriptionResultBase> following = [];
 
   SubscriptionViewModel() {
     followers = [
@@ -91,12 +89,8 @@ class SubscriptionViewModel extends ChangeNotifier {
       ),
     ];
 
-  
-
     notifyListeners();
   }
-  
-
 
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
@@ -104,7 +98,7 @@ class SubscriptionViewModel extends ChangeNotifier {
   String _myselectedIndex = "locationsubs";
   String get myselectedIndex => _myselectedIndex;
 
- /*  String _selectedModetopic = "topicsubs";
+  /*  String _selectedModetopic = "topicsubs";
   String get selectedMode => _selectedModetopic;
 
   String _selectedModefollowers = "followers";
@@ -113,8 +107,6 @@ class SubscriptionViewModel extends ChangeNotifier {
   String _selectedModefollowing = "following";
   String get selectedFollowing => _selectedModefollowing; */
 
-
-  
   void onItemTapped(int index) {
     _selectedIndex = index;
     notifyListeners(); // <-- notify listeners
@@ -135,7 +127,6 @@ class SubscriptionViewModel extends ChangeNotifier {
     notifyListeners();
   } */
 
-
   void setmyIndex(String index) {
     _myselectedIndex = index; //location
     notifyListeners(); // <-- notify listeners
@@ -148,12 +139,10 @@ class SubscriptionViewModel extends ChangeNotifier {
       return topicsubs;
     } else if (_myselectedIndex == "following") {
       return following;
-     } else if (_myselectedIndex == "followers") {
+    } else if (_myselectedIndex == "followers") {
       return followers;
-     } 
     }
-  
-
+  }
 
   TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   int _counter = 0;
@@ -165,5 +154,3 @@ class SubscriptionViewModel extends ChangeNotifier {
     notifyListeners(); // <-- notify listeners
   }
 }
-
-

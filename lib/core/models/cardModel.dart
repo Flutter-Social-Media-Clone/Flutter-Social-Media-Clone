@@ -18,6 +18,7 @@ class MessageModel {
   String fromUid;
   Timestamp timestamp;
   String docId;
+  String toUsername;
   MessageModel(
       {this.from,
       this.message,
@@ -25,7 +26,8 @@ class MessageModel {
       this.is_read,
       this.fromUid,
       this.timestamp,
-      this.docId});
+      this.docId,
+      this.toUsername});
 }
 
 class CommentsModel {
