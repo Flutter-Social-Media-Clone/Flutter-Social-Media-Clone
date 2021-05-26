@@ -1,4 +1,5 @@
 import 'package:cs310insta/core/models/postBase.dart';
+import 'package:cs310insta/core/state/auth.dart';
 import 'package:cs310insta/core/state/states.dart';
 import 'package:cs310insta/utils/color.dart';
 import 'package:cs310insta/utils/style.dart';
@@ -24,7 +25,8 @@ import 'package:cs310insta/core/state/thirdpersonprofile_state.dart';
 
 class ThirdPersonProfileScreen extends StatelessWidget {
   final ThirdPersonProfileState thirdpersonProfileState = Get.put(ThirdPersonProfileState());
-
+   final MyAuth myAuth = Get.put(MyAuth());
+ 
   @override
   Widget build(BuildContext context) {
     //myAnalytics.mySetCurrentScreen("third person screen");
@@ -51,9 +53,10 @@ class ThirdPersonProfileScreen extends StatelessWidget {
 //   Widget build(BuildContext context, MainAppViewModel model) {
 
 class ThirdPersonAppBar extends StatelessWidget {
-  final ThirdPersonProfileState thirdPersonProfileState =
-      Get.put(ThirdPersonProfileState());
-
+  final ThirdPersonProfileState thirdPersonProfileState = Get.put(ThirdPersonProfileState());
+  final firestoreInstance = FirebaseFirestore.instance;
+  final MyAuth myAuth = Get.put(MyAuth());
+  bool isBookmarked = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -113,11 +116,11 @@ class ThirdPersonAppBar extends StatelessWidget {
                       SizedBox(
                         width: 50,
                       ),
-
+                         
                       Column(
-                        children: [
-                        Obx( () => LikeButton(
-                              
+                        children: [          
+                            LikeButton(
+                               
                               icon: Icons.bookmark_outlined,
                               deactiveColor: Colors.white,
                               activeColor: Colors.black,
@@ -125,35 +128,78 @@ class ThirdPersonAppBar extends StatelessWidget {
                               activeSize: 35,
                               curve: Curves.easeInExpo,
                               
-                              onTap: () { 
-                                //thirdPersonProfileState.handleBookmark();
-                                thirdPersonProfileState.userData.value["username"];
-                      
-                                (thirdPersonProfileState.userData.value)["bookmark"];
-                                                                            
-                                print("ON TAPPED");
-
-                                //TODO: database get request, black mi white mi ona göre ayarla, on changed handlebookmark'ın icinde tru/false yazdıgı updatelencek
-                                //2 state variable 1 tane handle
-                              },
+                             onTap: () => { 
+                                isBookmarked==false:
+                                      firestoreInstance
+                                      .collection("bookmarks")
+                                      .add({
+                                    "username": myAuth.getCurrentUser(),
+                                    "bookmarked":  thirdPersonProfileState.thirdUserId.value,
+                                  }) .then((_) {  
+                                    print("BOOKMARK"); 
+                                    isBookmarked = true;
+                                  }),
+                              
+                                  isBookmarked == true:
+                                   firestoreInstance
+                                  .collection("bookmarks")
+                                  .doc("uid")
+                                  .delete().then((_) {  
+                                    print("UNBOOKMARK"); 
+                                    isBookmarked = false;
+                                  }),
+                             }
                             ),
-                        ),
                         ],
                       ),
                       Column(
                         children: 
                         [
                           FavoriteButton(
-                            
                             isFavorite: false,
                             iconDisabledColor: Colors.white,
                             valueChanged: (_isFavorite) {
-                              thirdPersonProfileState.setmyIndex("username");
-                              print('Is Favorite : $_isFavorite');
-                              
+                              if(_isFavorite ==  true){
+                                      firestoreInstance
+                                      .collection("Liked")
+                                      .add({
+                                    "username": myAuth.getCurrentUser(),
+                                    "liked":  thirdPersonProfileState.thirdUserId.value,
+                                    
+                                  }).then((_) { print("Liked"); 
+                                  print('Is Favourite $_isFavorite'); 
+                                  }); 
+                              }
+                               else if(_isFavorite ==  false){
+                                      firestoreInstance
+                                      .collection("Liked")
+                                      .doc("18eLzKOrPDiiXkNib4tI")
+                                      .delete().then((_) { print("UnLiked"); 
+                                  print('Is Favourite $_isFavorite'); 
+                                  }); 
+                              }
                             },
+                            
+                          void deleteFriendship(String from, String to) async {
+    await firestoreInstance
+        .collection("friends")
+        .where("from", isEqualTo: from)
+        .where("to", isEqualTo: to)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        print("DELETEEE CALLEED FOR ELEMENT ID ${element.id}");
+        firestoreInstance
+            .collection("friends")
+            .doc(element.id)
+            .delete()
+            .then((value) {
+          print("Success!");
+        });
+      });
+    });
+  }
                           ),  
-
                         ],
                       ),
                     ],
@@ -167,6 +213,7 @@ class ThirdPersonAppBar extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 22.0,
                         color: Colors.white,
+                        
                       ),
                     ),
                   ),

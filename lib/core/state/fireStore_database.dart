@@ -50,10 +50,17 @@ class MyFirestore extends GetxController {
       "username": username, //current user
       "bookmarked": bookmarked, //bookmarked person
     }).then((_) {
-      print("bookmarked");
+      print("bookmarked!");
     });
   }
-
+    void getLiked(String username, String liked, String uid) {
+    firestoreInstance.collection("Liked").doc(uid).set({
+      "username": username, //current user
+      "liked": liked, //liked person
+    }).then((_) {
+      print("Liked!");
+    });
+  }
 
 
   Future<Map<String, dynamic>> getUser(String uid) async {

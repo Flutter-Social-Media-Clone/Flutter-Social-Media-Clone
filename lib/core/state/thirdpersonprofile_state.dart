@@ -42,18 +42,20 @@ class ThirdPersonProfileState extends GetxController {
     myselectedIndex.value = index;
   }
 
-  bool isBookmarked = false;
-  Future<void>  handleBookmark() async {
+  //bool isBookmarked = false;
+ Future<void> handleBookmark() async {
     //bookMark(thirdUserId, username, String uid) {
     var data = await myFirestore.getUser( myAuth.getCurrentUser());
-    username.value = data["username"].toString();
-    
+    username.value = data["username"].toString(); //curent user
+    print(data);
     //bookmarked.value = await myFirestore.getbookmarked(username, bookmarked, uid);
-    
-    var data1 = await myFirestore.getUser(thirdUserId.value);
-    bookmarked.value = data1["bookmarked"].toString();
- 
-    }
+   
+    var data1 = await myFirestore.getUser(userId);
+    bookmarked.value = data1["bookmarked"].toString(); //bookmarked person (thirdperson)
+    print(data1);
+    //isBookmarked = true;
+    //return bookmarked.value;
+}
 
 
 
