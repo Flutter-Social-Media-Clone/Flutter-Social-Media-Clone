@@ -59,11 +59,14 @@ class ThirdPersonProfileState extends GetxController {
     await getUserData();
     var a = await myFirestore.getMyMedias(thirdUserId.value);
     var b = List<PostBase>();
-    a.forEach((item) {
+    a.forEach((k, item) {
+      print("get user medias:" + item);
       b.add(ImagePost(
         username: userData["username"],
         profileImage: NetworkImage(userData["imgUrl"]),
         image: NetworkImage(item),
+        isMine: false,
+        postId: k,
       ));
     });
     userMedias = b;
@@ -80,6 +83,8 @@ class ThirdPersonProfileState extends GetxController {
         username: userData["username"],
         profileImage: NetworkImage(userData["imgUrl"]),
         text: item,
+        isMine: false,
+        postId: k,
       ));
     });
     userPosts = b;

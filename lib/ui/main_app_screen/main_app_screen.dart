@@ -238,7 +238,7 @@ class MainAppScreen extends StatelessWidget {
                   bottomRight: Radius.circular(30)),
             ),
             title: Text(
-              '$a',
+              'Notifications for ${myProfileState.userData.value["username"]}',
             ),
           ),
 

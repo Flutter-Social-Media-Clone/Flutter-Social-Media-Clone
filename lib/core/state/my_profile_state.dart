@@ -31,11 +31,13 @@ class MyProfileState extends GetxController {
     await getUserData();
     var a = await myFirestore.getMyMedias(myAuth.getCurrentUser());
     var b = List<PostBase>();
-    a.forEach((item) {
+    a.forEach((k, item) {
       b.add(ImagePost(
         username: userData["username"],
         profileImage: NetworkImage(userData["imgUrl"]),
         image: NetworkImage(item),
+        isMine: true,
+        postId: k,
       ));
     });
     myMedias = b;
@@ -53,6 +55,8 @@ class MyProfileState extends GetxController {
         username: userData["username"],
         profileImage: NetworkImage(userData["imgUrl"]),
         text: item,
+        isMine: true,
+        postId: k,
       ));
     });
     myPosts = b;

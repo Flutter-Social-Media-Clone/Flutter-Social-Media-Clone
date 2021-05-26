@@ -1,19 +1,32 @@
+import 'package:cs310insta/core/state/fireStore_database.dart';
 import 'package:cs310insta/utils/style.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 
 abstract class PostBase extends StatelessWidget {
   final NetworkImage profileImage;
   final String username;
   final bool isMine;
-  PostBase({this.profileImage, this.username, this.isMine});
+  final String postId;
+  PostBase({this.profileImage, this.username, this.isMine, this.postId});
 }
 
 class ImagePost extends PostBase {
   final NetworkImage image;
   ImagePost(
-      {this.image, NetworkImage profileImage, String username, bool isMine})
-      : super(profileImage: profileImage, username: username, isMine: isMine);
+      {this.image,
+      NetworkImage profileImage,
+      String username,
+      bool isMine,
+      String postId})
+      : super(
+            profileImage: profileImage,
+            username: username,
+            isMine: isMine,
+            postId: postId);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +43,8 @@ class ImagePost extends PostBase {
               PostHeader(
                   profileImage: profileImage,
                   username: username,
-                  isMine: false),
+                  isMine: isMine,
+                  postId: postId),
               PostHeaderDivider(),
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -55,14 +69,17 @@ class PostHeader extends StatelessWidget {
     @required this.profileImage,
     @required this.username,
     @required this.isMine,
+    @required this.postId,
   }) : super(key: key);
 
   final NetworkImage profileImage;
   final String username;
   final bool isMine;
+  final String postId;
 
   @override
   Widget build(BuildContext context) {
+    final MyFirestore myFirestore = Get.put(MyFirestore());
     return Row(
       children: [
         Expanded(
@@ -118,14 +135,16 @@ class PostHeader extends StatelessWidget {
                                         ],
                                       ),
                                       OutlinedButton(
-                                          child: Text("aDelete"),
+                                          child: Text("Delete"),
                                           onPressed: () {
-                                            print("asda");
+                                            print("Delete this post" + postId);
+                                            myFirestore.deletePost(postId);
                                           }),
                                       OutlinedButton(
                                           child: Text("Update"),
                                           onPressed: () {
-                                            print("asda");
+                                            print("Update this post" + postId);
+                                            //TODO: post update sayfasına yönlendir
                                           }),
                                     ],
                                   ),
@@ -154,14 +173,52 @@ class PostHeader extends StatelessWidget {
                                         ],
                                       ),
                                       OutlinedButton(
-                                          child: Text("Delete"),
-                                          onPressed: () {
-                                            print("asda");
-                                          }),
-                                      OutlinedButton(
-                                          child: Text("Update"),
-                                          onPressed: () {
-                                            print("asda");
+                                          child: Text("Report"),
+                                          onPressed: () async {
+                                            print("Report this post" + postId);
+
+                                            String username =
+                                                'cs310insta@gmail.com';
+                                            String password = 'cs310insta1234';
+
+                                            final smtpServer =
+                                                gmail(username, password);
+                                            // Use the SmtpServer class to configure an SMTP server:
+                                            // final smtpServer = SmtpServer('smtp.domain.com');
+                                            // See the named arguments of SmtpServer for further configuration
+                                            // options.
+
+                                            // Create our message.
+                                            final message = Message()
+                                              ..from = Address(
+                                                  username, 'Cs310Insta')
+                                              ..recipients.add(
+                                                  'demirdemirel@sabanciuniv.edu')
+                                              ..ccRecipients.addAll([
+                                                'cs310insta@gmail.com',
+                                                'kayakapagan@sabanciuniv.edu',
+                                                "gokberkyar@sabanciuniv.edu"
+                                              ])
+                                              //..bccRecipients.add(Address('bccAddress@example.com'))
+                                              ..subject = "Report this post" +
+                                                  postId +
+                                                  "${DateTime.now()}"
+                                              ..text =
+                                                  "Report this post" + postId;
+                                            //..html = "<h1>Test</h1>\n<p>Hey! Here's some HTML content</p>";
+
+                                            try {
+                                              final sendReport = await send(
+                                                  message, smtpServer);
+                                              print('Message sent: ' +
+                                                  sendReport.toString());
+                                            } on MailerException catch (e) {
+                                              print('Message not sent.');
+                                              for (var p in e.problems) {
+                                                print(
+                                                    'Problem: ${p.code}: ${p.msg}');
+                                              }
+                                            }
                                           }),
                                     ],
                                   ),
@@ -185,8 +242,13 @@ class PostHeader extends StatelessWidget {
 
 class TextPost extends PostBase {
   final String text;
-  TextPost({this.text, username, profileImage})
-      : super(profileImage: profileImage, username: username);
+  final bool isMine;
+  TextPost({this.text, username, profileImage, this.isMine, postId})
+      : super(
+            profileImage: profileImage,
+            username: username,
+            isMine: isMine,
+            postId: postId);
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +264,11 @@ class TextPost extends PostBase {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               PostHeader(
-                  profileImage: profileImage, username: username, isMine: true),
+                profileImage: profileImage,
+                username: username,
+                isMine: isMine,
+                postId: postId,
+              ),
               PostHeaderDivider(),
               Text(
                 this.text,

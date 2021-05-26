@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cs310insta/core/state/analytics.dart';
 import 'package:cs310insta/core/state/auth.dart';
 import 'package:cs310insta/core/state/fireStore_database.dart';
@@ -18,7 +19,7 @@ class NotificationScreen extends StatelessWidget {
       Random().nextInt(15),
       (i) => NotificationModel(
           id: 1,
-          date: "$i h ago",
+          timestamp: Timestamp.now(),
           image_url: "asdsda",
           notification: "notification $i"));
 
@@ -34,6 +35,9 @@ class NotificationScreen extends StatelessWidget {
     //myAuth.login("gokberk@gmail.com", "12345678");
 
     //myFirestore.getUser();
+    String myUid = myAuth.getCurrentUser();
+    var a = myFirestore.getNotifications(myUid);
+    print("TTTTTTTTTT" + a.runtimeType.toString());
 
     return Expanded(
       child: ListView(

@@ -41,7 +41,7 @@ class NotificationCard extends StatelessWidget {
                   SizedBox(
                     height: 20,
                     child: Text(
-                      "${this.notificationMessage.date}",
+                      "asda ago", //"${this.notificationMessage.timestamp}",
                       style: notificationDateText,
                     ),
                   ),

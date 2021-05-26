@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cs310insta/core/models/cardModel.dart';
 import 'package:cs310insta/core/models/postBase.dart';
 import 'package:cs310insta/core/state/auth.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,35 @@ class MyFirestore extends GetxController {
     return data;
   }
 
-  Future<List<String>> getMyMedias(String uid) async {
+  // Future<List<String>> getMyMedias(String uid) async {
+  //   print("getMyMedias starts");
+  //   var data = FirebaseFirestore.instance
+  //       .collection('post')
+  //       .where("creator_uid", isEqualTo: uid)
+  //       .where("type", isEqualTo: "image")
+  //       .orderBy("createdAt", descending: true)
+  //       .get()
+  //       .then((QuerySnapshot querySnapshot) {
+  //     List<String> posts = [];
+
+  //     querySnapshot.docs.forEach((doc) {
+  //       print("--------->>>" + doc["imgUrl"]);
+  //       print("--------->>>" + doc.id);
+  //       print("\n\n\n\n\n\n.");
+
+  //       posts.add(
+  //         doc.id//["imgUrl"]
+  //       );
+  //     });
+
+  //     return posts;
+  //   });
+
+  //   return data;
+  //   //return result;
+  // }
+
+  Future<Map<String, dynamic>> getMyMedias(String uid) async {
     print("getMyMedias starts");
     var data = FirebaseFirestore.instance
         .collection('post')
@@ -68,14 +97,19 @@ class MyFirestore extends GetxController {
         .orderBy("createdAt", descending: true)
         .get()
         .then((QuerySnapshot querySnapshot) {
-      List<String> posts = [];
+      // List<String> posts = [];
+      Map<String, dynamic> posts = {};
 
       querySnapshot.docs.forEach((doc) {
-        print(doc["imgUrl"]);
+        print("--------->>>" + doc["imgUrl"]);
+        print("--------->>>" + doc.id);
+        print("\n\n\n\n\n\n.");
 
-        posts.add(
-          doc["imgUrl"],
-        );
+        posts[doc.id.toString()] = doc["imgUrl"];
+        // posts.add(
+        //   doc["imgUrl"],
+        //   doc.id
+        // );
       });
 
       return posts;
@@ -471,5 +505,52 @@ class MyFirestore extends GetxController {
     print("BİZİM BİZİM BİZİM BİZİM $newTopicPosts");
     return newTopicPosts;
     //return result;
+  }
+
+  Future<Map<String, dynamic>> getNotifications(String suid) async {
+    print("getNotifications starts");
+    var data = FirebaseFirestore.instance
+        .collection("notifications")
+        .where("userId", isEqualTo: suid)
+        //.where("type", isEqualTo: "post")
+        .orderBy("timestamp", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      Map<String, dynamic> posts = {};
+      print("\n\n\n\n\n\n---->>");
+      print("---->>" + querySnapshot.docs.toString());
+      print("\n\n\n\n\n\n-");
+
+      querySnapshot.docs.forEach((doc) {
+        print("\n\n\n\n\n\n---->>" + doc["imgUrl"]);
+        print("---->>" + doc["notificationText"]);
+        print("\n\n\n\n\n\n-");
+        // print(doc.id.toString() + "<<---");
+
+        posts[doc.id.toString()] = NotificationModel(
+          id: 1,
+          image_url: doc["imgUrl"],
+          notification: doc["notificationText"],
+          timestamp: doc["timestamp"],
+        );
+
+        // posts.add(
+        //   doc["text"],
+        // );
+      });
+
+      return posts;
+    });
+
+    return data;
+
+    //return result;
+  }
+
+  void deletePost(String postId) {
+    print("post ${postId} will be deleted");
+    firestoreInstance.collection("post").doc(postId).delete().then((_) {
+      print("success");
+    });
   }
 }
