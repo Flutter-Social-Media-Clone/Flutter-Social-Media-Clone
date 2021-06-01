@@ -46,6 +46,7 @@ dependencies:
   google_sign_in: ^5.0.3
   uuid: ^3.0.4
   favorite_button: ^0.0.4
+  like_button: ^2.0.2
 
   #flutter_auth_buttons: ^1.0.0
 
