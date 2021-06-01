@@ -59,8 +59,8 @@ class ThirdPersonAppBar extends StatelessWidget {
   final ThirdPersonProfileState thirdPersonProfileState = Get.put(ThirdPersonProfileState());
   final firestoreInstance = FirebaseFirestore.instance;
   final MyAuth myAuth = Get.put(MyAuth());
-  bool isBookmarked = false;
-   final MyFirestore myFirestore = Get.put(MyFirestore());
+  final MyFirestore myFirestore = Get.put(MyFirestore());
+  bool isBookmarked;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -131,7 +131,7 @@ class ThirdPersonAppBar extends StatelessWidget {
                               activeSize: 35,
                               curve: Curves.easeInExpo,
                               onTap: () async {
-                              isBookmarked = true; 
+                              isBookmarked =true;
                               if(isBookmarked == true){
                                       firestoreInstance
                                       .collection("bookmarks")
@@ -141,6 +141,7 @@ class ThirdPersonAppBar extends StatelessWidget {
                                     
                                   }).then((_) { print("Bookmarked"); 
                                   }); 
+                                  
                               }
                                else if(isBookmarked ==  false){
                                  myFirestore.deleteBookmark(myAuth.getCurrentUser(), thirdPersonProfileState.thirdUserId.value);
