@@ -34,7 +34,7 @@ class NotificationCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: SizedBox(
           width: 320,
-          height: 90,
+          height: 120,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -48,7 +48,7 @@ class NotificationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
-                    height: 50,
+                    height: 80,
                     width: 200,
                     child: Text(
                       "${this.notificationMessage.notification}",
