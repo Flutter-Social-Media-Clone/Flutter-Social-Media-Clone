@@ -19,7 +19,6 @@ class BottomNavigationState extends GetxController {
       myProfileState.getMyMedias();
       myProfileState.getMyPosts();
     }
-
     if (index == 1) {
       feedState.getMyFeed(myAuth.getCurrentUser());
     }
