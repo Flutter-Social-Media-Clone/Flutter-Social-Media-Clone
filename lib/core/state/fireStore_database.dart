@@ -378,6 +378,17 @@ class MyFirestore extends GetxController {
     // });
   }
 
+  Future addNotification(String uid, String text) async {
+    await firestoreInstance.collection("notifications").add({
+      "imgUrl": "dummy",
+      "userId": uid,
+      "timestamp": DateTime.now(),
+      "notificationText": text
+    }).then((res) {
+      print("success");
+    });
+  }
+
   Future<List<Map>> getPeopleForSearch(String queryText) async {
     print("getPeopleForSearch starts");
 
@@ -532,13 +543,16 @@ class MyFirestore extends GetxController {
     });
   }
 
-  void addFriendship(String from, String to) {
+  void addFriendship(String from, String to) async {
     firestoreInstance.collection("friends").add({
       "from": from,
       "to": to,
     }).then((_) {
       print("success friend added");
     });
+    var a = await getUserName(to);
+    addNotification(to, "${from} added you as friend.");
+    addNotification(from, "You added ${a} as friend.");
   }
 
   void deleteFriendship(String from, String to) async {
@@ -723,14 +737,13 @@ class MyFirestore extends GetxController {
 //   });
 
 //   List<Map> newTopicPosts = [];
-  
+
 //   await Future.forEach(topicPosts, (item) async {
 //     var userData = await FirebaseFirestore.instance
 //         .collection("users")
 //         .doc(item["creator_uid"])
 //         .get()
 //         .then((value) {
-   
 
 //       return value.data();
 //     });
@@ -744,7 +757,6 @@ class MyFirestore extends GetxController {
 //     });
 //   });
 
-  
 //   return newTopicPosts;
 //   //return result;
 // }
