@@ -46,6 +46,63 @@ class MyFirestore extends GetxController {
     });
   }
 
+  void getbookmarked(String username, String bookmarked, String uid) {
+    firestoreInstance.collection("bookmarks").doc(uid).set({
+      "username": username, //current user
+      "bookmarked": bookmarked, //bookmarked person
+    }).then((_) {
+      print("bookmarked!");
+    });
+  }
+    void getLiked(String username, String liked, String uid) {
+    firestoreInstance.collection("Liked").doc(uid).set({
+      "username": username, //current user
+      "liked": liked, //liked person
+    }).then((_) {
+      print("Liked!");
+    });
+  }
+
+  void deleteLike(String username, String liked) async {
+    await firestoreInstance
+        .collection("Liked")
+        .where("username", isEqualTo: username)
+        .where("liked", isEqualTo: liked)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        print("DELETEEE CALLEED FOR ELEMENT ID ${element.id}");
+        firestoreInstance
+            .collection("Liked")
+            .doc(element.id)
+            .delete()
+            .then((value) {
+          print("Deleted!");
+        });
+      });
+    });
+  }
+
+  void deleteBookmark(String bookmarked, String username) async {
+    await firestoreInstance
+        .collection("bookmarks")
+        .where("username", isEqualTo: username)
+        .where("bookmarked", isEqualTo: bookmarked) 
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        print("DELETEEE CALLEED FOR ELEMENT ID ${element.id}");
+        firestoreInstance
+            .collection("bookmarks")
+            .doc(element.id)
+            .delete()
+            .then((value) {
+          print("Deleted bookmark!");
+        });
+      });
+    });
+  }
+
   Future<Map<String, dynamic>> getUser(String uid) async {
     var data = await firestoreInstance
         .collection("users")
@@ -178,6 +235,7 @@ class MyFirestore extends GetxController {
       print("success");
     });
   }
+
 
   Future sendMessage(
       String toUid,

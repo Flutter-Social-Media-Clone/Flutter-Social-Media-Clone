@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cs310insta/core/state/states.dart';
 import 'package:flutter_button/flutter_button.dart';
-
+import 'package:cs310insta/core/state/thirdpersonprofile_state.dart';
+import 'package:flutter_button/custom/like_button.dart';
 // class ThirdPersonProfileScreen extends ViewModelWidget<ThirdPersonViewModel> {
 //   @override
 //   Widget build(BuildContext context, ThirdPersonViewModel model) {
@@ -26,9 +26,10 @@ import 'package:flutter_button/flutter_button.dart';
 //       viewModelBuilder: () => SearchViewModel(),
 
 class ThirdPersonProfileScreen extends StatelessWidget {
-  final ThirdPersonProfileState thirdpersonProfileState =
-      Get.put(ThirdPersonProfileState());
-
+  final ThirdPersonProfileState thirdpersonProfileState = Get.put(ThirdPersonProfileState());
+   final MyAuth myAuth = Get.put(MyAuth());
+   
+ 
   @override
   Widget build(BuildContext context) {
     //myAnalytics.mySetCurrentScreen("third person screen");
@@ -62,7 +63,7 @@ class ThirdPersonAppBar extends StatelessWidget {
   final MyFirestore myFirestore = Get.put(MyFirestore());
   final MessageState messageState = Get.put(MessageState());
   final MyProfileState myProfileState = Get.put(MyProfileState());
-
+  bool isBookmarked;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -130,45 +131,75 @@ class ThirdPersonAppBar extends StatelessWidget {
                       SizedBox(
                         width: 50,
                       ),
+                         
                       Column(
-                        children: [
-                          LikeButton(
-                            icon: Icons.bookmark_outlined,
-                            deactiveColor: Colors.white,
-                            activeColor: Colors.black,
-                            deactiveSize: 30,
-                            activeSize: 35,
-                            curve: Curves.easeInExpo,
-                            onTap: () {
-                              print("ON TAPPED");
-                            },
-                          ),
+                        children: [          
+                            LikeButton(
+                              icon: Icons.bookmark_outlined,
+                              deactiveColor: Colors.white,
+                              activeColor: Colors.black,
+                              deactiveSize: 30,
+                              activeSize: 35,
+                              curve: Curves.easeInExpo,
+                              onTap: () async {
+                              isBookmarked =true;
+                              if(isBookmarked == true){
+                                      firestoreInstance
+                                      .collection("bookmarks")
+                                      .add({
+                                    "username": myAuth.getCurrentUser(),
+                                    "bookmarked":  thirdPersonProfileState.thirdUserId.value,
+                                    
+                                  }).then((_) { print("Bookmarked"); 
+                                  }); 
+                                  
+                              }
+                               else if(isBookmarked ==  false){
+                                 myFirestore.deleteBookmark(myAuth.getCurrentUser(), thirdPersonProfileState.thirdUserId.value);
+           
+                                  print("Unbookmarked"); 
+
+                               }                     
+                 
+                            },                   
+
+                            ),
                         ],
                       ),
                       Column(
-                        children: [
+                        children: 
+                        [
                           FavoriteButton(
                             isFavorite: false,
                             iconDisabledColor: Colors.white,
-                            valueChanged: (_isFavorite) {
-                              thirdPersonProfileState.setmyIndex("username");
-                              print('Is Favorite : $_isFavorite');
+                            valueChanged: (_isFavorite) async {
+                              if(_isFavorite ==  true){
+                                      firestoreInstance
+                                      .collection("Liked")
+                                      .doc()
+                                      .set({
+                                    "username": myAuth.getCurrentUser(),
+                                    "liked":  thirdPersonProfileState.thirdUserId.value,
+                                    
+                                  }).then((_) { print("Liked"); 
+                                  print('Is Favourite $_isFavorite'); 
+                                  }); 
+                              }
+                               else if(_isFavorite ==  false){
+                                 myFirestore.deleteLike(myAuth.getCurrentUser(), thirdPersonProfileState.thirdUserId.value);
+           
+                                  print("UnLiked"); 
+                                  print('Is Favourite $_isFavorite'); 
+
+                               }                     
+                 
                             },
-                          ),
+                            
+                          ),  
                         ],
                       ),
                     ],
                   ),
-                  // icon: Icon(isPressed ? Icons.bookmark : Icons.bookmark_outline),
-                  //               iconSize: 35,
-                  //               color: Colors.white,
-                  //                    onPressed: ()
-                  //                    {
-                  //                   setState(()
-                  //                   {
-                  //                     isPressed= true;
-                  //                     });
-                  //                     }),
                   SizedBox(
                     height: 15.0,
                   ),
@@ -178,6 +209,7 @@ class ThirdPersonAppBar extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 22.0,
                         color: Colors.white,
+                        
                       ),
                     ),
                   ),
@@ -343,3 +375,20 @@ class ThirdPersonBody extends StatelessWidget {
     );
   }
 }
+   
+                              //  if(isBookmarked==false){
+                              //         firestoreInstance
+                              //         .collection("bookmarks")
+                              //         .add({
+                              //       "username": myAuth.getCurrentUser(),
+                              //       "bookmarked":  thirdPersonProfileState.thirdUserId.value,
+                              //     }) .then((_) {  
+                              //       print("BOOKMARK"); 
+                              //       isBookmarked = true;
+                              //     }),
+                              //  }
+                              //   else if(isBookmarked == true){
+                              //       myFirestore.deleteBookmark(myAuth.getCurrentUser(), thirdPersonProfileState.thirdUserId.value);
+                              //       print("UNBOOKMARK"); 
+                              //       isBookmarked = false;
+                              //     }
