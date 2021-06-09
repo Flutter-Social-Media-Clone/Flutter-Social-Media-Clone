@@ -505,6 +505,7 @@ class MyFirestore extends GetxController {
         .orderBy("timestamp", descending: true)
         .get()
         .then((QuerySnapshot querySnapshot) {
+      print("anan");
       Map<String, dynamic> posts = {};
       print("\n\n\n\n\n\n---->>");
       print("---->>" + querySnapshot.docs.toString());
