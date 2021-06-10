@@ -12,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_button/flutter_button.dart';
 import 'package:cs310insta/core/state/thirdpersonprofile_state.dart';
 import 'package:flutter_button/custom/like_button.dart';
+import 'package:cs310insta/core/state/fireStore_database.dart';
 // class ThirdPersonProfileScreen extends ViewModelWidget<ThirdPersonViewModel> {
 //   @override
 //   Widget build(BuildContext context, ThirdPersonViewModel model) {
@@ -26,10 +27,10 @@ import 'package:flutter_button/custom/like_button.dart';
 //       viewModelBuilder: () => SearchViewModel(),
 
 class ThirdPersonProfileScreen extends StatelessWidget {
-  final ThirdPersonProfileState thirdpersonProfileState = Get.put(ThirdPersonProfileState());
-   final MyAuth myAuth = Get.put(MyAuth());
-   
- 
+  final ThirdPersonProfileState thirdpersonProfileState =
+      Get.put(ThirdPersonProfileState());
+  final MyAuth myAuth = Get.put(MyAuth());
+
   @override
   Widget build(BuildContext context) {
     //myAnalytics.mySetCurrentScreen("third person screen");
@@ -131,71 +132,86 @@ class ThirdPersonAppBar extends StatelessWidget {
                       SizedBox(
                         width: 50,
                       ),
-                         
                       Column(
-                        children: [          
-                            LikeButton(
-                              icon: Icons.bookmark_outlined,
-                              deactiveColor: Colors.white,
-                              activeColor: Colors.black,
-                              deactiveSize: 30,
-                              activeSize: 35,
-                              curve: Curves.easeInExpo,
-                              onTap: () async {
-                              isBookmarked =true;
-                              if(isBookmarked == true){
-                                      firestoreInstance
-                                      .collection("bookmarks")
-                                      .add({
-                                    "username": myAuth.getCurrentUser(),
-                                    "bookmarked":  thirdPersonProfileState.thirdUserId.value,
-                                    
-                                  }).then((_) { print("Bookmarked"); 
-                                  }); 
-                                  
+                        children: [
+                          LikeButton(
+                            icon: Icons.bookmark_outlined,
+                            deactiveColor: Colors.white,
+                            activeColor: Colors.black,
+                            deactiveSize: 30,
+                            activeSize: 35,
+                            curve: Curves.easeInExpo,
+                            onTap: () async {
+                              isBookmarked = true;
+                              if (isBookmarked == true) {
+                                firestoreInstance.collection("bookmarks").add({
+                                  "username": myAuth.getCurrentUser(),
+                                  "bookmarked":
+                                      thirdPersonProfileState.thirdUserId.value,
+                                }).then((_) {
+                                  print("Bookmarked");
+                                });
+                                var username_thirdperson = await myFirestore
+                                    .getUserName(thirdPersonProfileState
+                                        .thirdUserId.value);
+                                var username_current = await myFirestore
+                                    .getUserName(myAuth.getCurrentUser());
+                                await myFirestore.addNotification(
+                                    thirdPersonProfileState.thirdUserId.value,
+                                    "${username_current} bookmarked you!");
+                                await myFirestore.addNotification(
+                                    myAuth.getCurrentUser(),
+                                    "You bookmarked ${username_thirdperson}!");
+                              } else if (isBookmarked == false) {
+                                myFirestore.deleteBookmark(
+                                    myAuth.getCurrentUser(),
+                                    thirdPersonProfileState.thirdUserId.value);
+
+                                print("Unbookmarked");
                               }
-                               else if(isBookmarked ==  false){
-                                 myFirestore.deleteBookmark(myAuth.getCurrentUser(), thirdPersonProfileState.thirdUserId.value);
-           
-                                  print("Unbookmarked"); 
-
-                               }                     
-                 
-                            },                   
-
-                            ),
+                            },
+                          ),
                         ],
                       ),
                       Column(
-                        children: 
-                        [
+                        children: [
                           FavoriteButton(
                             isFavorite: false,
                             iconDisabledColor: Colors.white,
                             valueChanged: (_isFavorite) async {
-                              if(_isFavorite ==  true){
-                                      firestoreInstance
-                                      .collection("Liked")
-                                      .doc()
-                                      .set({
-                                    "username": myAuth.getCurrentUser(),
-                                    "liked":  thirdPersonProfileState.thirdUserId.value,
-                                    
-                                  }).then((_) { print("Liked"); 
-                                  print('Is Favourite $_isFavorite'); 
-                                  }); 
-                              }
-                               else if(_isFavorite ==  false){
-                                 myFirestore.deleteLike(myAuth.getCurrentUser(), thirdPersonProfileState.thirdUserId.value);
-           
-                                  print("UnLiked"); 
-                                  print('Is Favourite $_isFavorite'); 
+                              if (_isFavorite == true) {
+                                firestoreInstance
+                                    .collection("Liked")
+                                    .doc()
+                                    .set({
+                                  "username": myAuth.getCurrentUser(),
+                                  "liked":
+                                      thirdPersonProfileState.thirdUserId.value,
+                                }).then((_) {
+                                  print("Liked");
+                                  print('Is Favourite $_isFavorite');
+                                });
+                                var username_thirdperson = await myFirestore
+                                    .getUserName(thirdPersonProfileState
+                                        .thirdUserId.value);
+                                var username_current = await myFirestore
+                                    .getUserName(myAuth.getCurrentUser());
+                                await myFirestore.addNotification(
+                                    thirdPersonProfileState.thirdUserId.value,
+                                    "${username_current} like you!");
+                                await myFirestore.addNotification(
+                                    myAuth.getCurrentUser(),
+                                    "You like ${username_thirdperson}!");
+                                //await addNotification(thirdPersonProfileState.thirdUserId.value, "You added ${thirdPersonProfileState.thirdUserId.value} as friend.");
+                              } else if (_isFavorite == false) {
+                                myFirestore.deleteLike(myAuth.getCurrentUser(),
+                                    thirdPersonProfileState.thirdUserId.value);
 
-                               }                     
-                 
+                                print("UnLiked");
+                                print('Is Favourite $_isFavorite');
+                              }
                             },
-                            
-                          ),  
+                          ),
                         ],
                       ),
                     ],
@@ -209,7 +225,6 @@ class ThirdPersonAppBar extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 22.0,
                         color: Colors.white,
-                        
                       ),
                     ),
                   ),
@@ -375,20 +390,20 @@ class ThirdPersonBody extends StatelessWidget {
     );
   }
 }
-   
-                              //  if(isBookmarked==false){
-                              //         firestoreInstance
-                              //         .collection("bookmarks")
-                              //         .add({
-                              //       "username": myAuth.getCurrentUser(),
-                              //       "bookmarked":  thirdPersonProfileState.thirdUserId.value,
-                              //     }) .then((_) {  
-                              //       print("BOOKMARK"); 
-                              //       isBookmarked = true;
-                              //     }),
-                              //  }
-                              //   else if(isBookmarked == true){
-                              //       myFirestore.deleteBookmark(myAuth.getCurrentUser(), thirdPersonProfileState.thirdUserId.value);
-                              //       print("UNBOOKMARK"); 
-                              //       isBookmarked = false;
-                              //     }
+
+//  if(isBookmarked==false){
+//         firestoreInstance
+//         .collection("bookmarks")
+//         .add({
+//       "username": myAuth.getCurrentUser(),
+//       "bookmarked":  thirdPersonProfileState.thirdUserId.value,
+//     }) .then((_) {
+//       print("BOOKMARK");
+//       isBookmarked = true;
+//     }),
+//  }
+//   else if(isBookmarked == true){
+//       myFirestore.deleteBookmark(myAuth.getCurrentUser(), thirdPersonProfileState.thirdUserId.value);
+//       print("UNBOOKMARK");
+//       isBookmarked = false;
+//     }

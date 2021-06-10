@@ -54,14 +54,6 @@ class MyFirestore extends GetxController {
       print("bookmarked!");
     });
   }
-    void getLiked(String username, String liked, String uid) {
-    firestoreInstance.collection("Liked").doc(uid).set({
-      "username": username, //current user
-      "liked": liked, //liked person
-    }).then((_) {
-      print("Liked!");
-    });
-  }
 
   void deleteLike(String username, String liked) async {
     await firestoreInstance
@@ -87,7 +79,7 @@ class MyFirestore extends GetxController {
     await firestoreInstance
         .collection("bookmarks")
         .where("username", isEqualTo: username)
-        .where("bookmarked", isEqualTo: bookmarked) 
+        .where("bookmarked", isEqualTo: bookmarked)
         .get()
         .then((value) {
       value.docs.forEach((element) {
@@ -235,7 +227,6 @@ class MyFirestore extends GetxController {
       print("success");
     });
   }
-
 
   Future sendMessage(
       String toUid,
@@ -437,8 +428,9 @@ class MyFirestore extends GetxController {
   }
 
   Future addNotification(String uid, String text) async {
+    print("${uid}ye gönderildi");
     await firestoreInstance.collection("notifications").add({
-      "imgUrl": "dummy",
+      "imgUrl": "dummy2",
       "userId": uid,
       "timestamp": DateTime.now(),
       "notificationText": text
@@ -612,6 +604,17 @@ class MyFirestore extends GetxController {
     var a = await getUserName(to);
     addNotification(to, "${from} added you as friend.");
     addNotification(from, "You added ${a} as friend.");
+  }
+
+  void getLiked(String username, String liked, String uid) async {
+    firestoreInstance.collection("Liked").doc(uid).set({
+      "username": username, //current user
+      "liked": liked, //liked person
+    }).then((_) {
+      print("Liked!");
+    });
+    addNotification(username, "likeee attım ben");
+    addNotification(liked, "likeee attım ben");
   }
 
   void deleteFriendship(String from, String to) async {
