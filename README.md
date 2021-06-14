@@ -1,17 +1,14 @@
-# cs310insta
+# Flutter Social Media Clone
+## Sabanci University CS310 Mobile App Development Course Project
+### Group Members
+  - Gökberk Yar
+  - Kaya Kapağan
+  - Demir Demirel
+  - Mahmut Aydız
+  - Gülce Lale
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# cs310insta_repo
+## Figma Design
+### public link for figma:
+  - https://www.figma.com/file/11QS6ITlivYLVnAeEtc5xf/Mock-up-0.1?node-id=0%3A1
+### Screenshot of the designs
+![alt text](https://github.com/Flutter-Social-Media-Clone/Flutter-Social-Media-Clone/blob/main/images/figma_flutter_design.png)
