@@ -7,7 +7,7 @@
   - Mahmut Aydız
   - Gülce Lale
 
-## Technology Stack
+## Tech Stack
 
 <code><img height="50" src="https://github.com/Flutter-Social-Media-Clone/Flutter-Social-Media-Clone/blob/main/icons/flutter_icon.png"></code>
 <code><img height="50" src="https://github.com/Flutter-Social-Media-Clone/Flutter-Social-Media-Clone/blob/main/icons/firebase_icon.jpg"></code>
