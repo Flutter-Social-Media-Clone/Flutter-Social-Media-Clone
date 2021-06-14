@@ -9,6 +9,10 @@
 
 ## Tech Stack
 
+**App:** Flutter, Dart
+
+**Backend:** Firebase
+
 <code><img height="50" src="https://github.com/Flutter-Social-Media-Clone/Flutter-Social-Media-Clone/blob/main/icons/flutter_icon.png"></code>
 <code><img height="50" src="https://github.com/Flutter-Social-Media-Clone/Flutter-Social-Media-Clone/blob/main/icons/firebase_icon.jpg"></code>
 <code><img height="50" src="https://github.com/Flutter-Social-Media-Clone/Flutter-Social-Media-Clone/blob/main/icons/dart_icon.jpeg"></code>
