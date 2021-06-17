@@ -29,8 +29,11 @@
 <code><img height="50" src="https://raw.githubusercontent.com/Flutter-Social-Media-Clone/Flutter-Social-Media-Clone/main/icons/getx-logo.jpeg"></code>
 
 ## Figma Design
+
 ### public link for figma
   - [Link](https://www.figma.com/file/11QS6ITlivYLVnAeEtc5xf/Mock-up-0.1?node-id=0%3A1)
+
+
 ### Screenshot of the designs
 ![alt text](https://raw.githubusercontent.com/Flutter-Social-Media-Clone/Flutter-Social-Media-Clone/main/images/figma_flutter_design.png)
 
